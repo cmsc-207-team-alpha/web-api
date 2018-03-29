@@ -20,3 +20,10 @@ Notes:
 ->id of the user to be deleted will be required in the json file to be forwarded.
 ->Account/ row will be removed from the database
 
+
+Authenticate Passenger Login
+URL: [webaddress]/api/passenger/delete.php
+REQUEST METHOD: POST
+Notes: 
+->email or mobile number and the assigned password should be included in the json file to be forwarded.
+
