@@ -26,11 +26,10 @@ if (is_null($input)) {
 } else {
     try {
         // Create Db object
-        $db = new Db('SELECT * FROM `trip` WHERE id = :id AND vehicleid = :vehicleid LIMIT 1');
+        $db = new Db('SELECT * FROM `trip` WHERE id = :id LIMIT 1');
 
         // Bind parameters
         $db->bindParam(':id', property_exists($input, 'id') ? $input->id : 0);
-        $db->bindParam(':vehicleid', property_exists($input, 'vehicleid') ? $input->vehicleid : 0);
 
         // Execute
         if ($db->execute() === 0) {
@@ -51,7 +50,7 @@ if (is_null($input)) {
             $db->commit();
 
             // Reply with successful response
-            Http::ReturnSuccess(array('message' => 'Trip started.', 'id' => $input->id));
+            Http::ReturnSuccess(array('message' => 'Trip accepted.', 'id' => $input->id));
         }
     } catch (PDOException $pe) {
         Db::ReturnDbError($pe);

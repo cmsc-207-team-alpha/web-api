@@ -1,43 +1,60 @@
 <?php
 namespace TeamAlpha\Web;
 
-// HTTP headers for response
-header('Access-Control-Allow-Orgin: *');
-header('Access-Control-Allow-Methods: POST');
-header('Content-Type: application/json; charset=UTF-8');
+// Require classes
+require $_SERVER['DOCUMENT_ROOT'] . '/api/utils/db.php';
+require $_SERVER['DOCUMENT_ROOT'] . '/api/utils/http.php';
 
-require $_SERVER['DOCUMENT_ROOT'] . '/api/models/trip.php';
+// Declare use on objects to be used
+use Exception;
+use PDOException;
+
+// Set default response headers
+Http::SetDefaultHeaders('POST');
 
 // Check if request method is correct
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-    // Reply with error response
-    header('HTTP/1.1 405 Method Not Allowed');
-    echo json_encode(array('message' => 'Request method is not allowed.'));
+    Http::ReturnError(405, array('message' => 'Request method is not allowed.'));
     return;
 }
 
 // Extract request body
-$data = json_decode(file_get_contents("php://input"));
+$input = json_decode(file_get_contents("php://input"));
 
-if (is_null($data)) {
-    // Request body is null
-    // Reply with error response
-    header('HTTP/1.1 400 Bad Request');
-    echo json_encode(array('message' => 'Trip details are empty.'));
+if (is_null($input)) {
+    Http::ReturnError(400, array('message' => 'Trip details are empty.'));
 } else {
-    // Request body is not null
+    try {
+        // Create Db object
+        $db = new Db('SELECT * FROM `trip` WHERE id = :id LIMIT 1');
 
-    // TO DO: Actual check if trip exists
-    if ($data->tripId === 404) {
-        // Sample not found
-        // Reply with error response
-        header('HTTP/1.1 404 Not Found');
-        echo json_encode(array('message' => 'trip not found.'));
-    } else {
-        // TO DO: Actual allocation, set stage to "Allocated"
+        // Bind parameters
+        $db->bindParam(':id', property_exists($input, 'id') ? $input->id : 0);
 
-        // Reply with successful response
-        header('HTTP/1.1 201 Created');
-        echo json_encode(array('message' => 'Trip allocated.', 'tripId' => $data->tripId, 'vehicleId' => $data->vehicleId, 'passengerId' => $data->passengerId));
+        // Execute
+        if ($db->execute() === 0) {
+            Http::ReturnError(404, array('message' => 'Trip not found.'));
+        } else {
+            // Create Db object
+            $db = new Db('UPDATE `trip` SET vehicleid = :vehicleid, stage = :stage, datemodified = :datemodified WHERE id = :id');
+
+            // Bind parameters
+            $db->bindParam(':vehicleid', property_exists($input, 'vehicleid') ? $input->vehicleid : 0);
+            $db->bindParam(':stage', 'Allocated');
+            $db->bindParam(':datemodified', date('Y-m-d H:i:s'));
+
+            // Execute
+            $db->execute();
+
+            // Commit transaction
+            $db->commit();
+
+            // Reply with successful response
+            Http::ReturnSuccess(array('message' => 'Trip allocated.', 'id' => $input->id));
+        }
+    } catch (PDOException $pe) {
+        Db::ReturnDbError($pe);
+    } catch (Exception $e) {
+        Http::ReturnError(500, array('message' => 'Server error: ' . $e->getMessage() . '.'));
     }
 }

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 172.17.0.1:32769
--- Generation Time: Mar 26, 2018 at 01:12 AM
+-- Generation Time: Mar 29, 2018 at 11:59 AM
 -- Server version: 5.7.21
 -- PHP Version: 7.1.9
 
@@ -160,7 +160,7 @@ CREATE TABLE IF NOT EXISTS `payment` (
 
 CREATE TABLE IF NOT EXISTS `trip` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `vehicleid` int(11) NOT NULL,
+  `vehicleid` int(11) DEFAULT NULL,
   `passengerid` int(11) NOT NULL,
   `source` varchar(250) NOT NULL,
   `sourcelat` decimal(11,8) NOT NULL,
