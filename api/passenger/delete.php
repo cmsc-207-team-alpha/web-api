@@ -1,35 +1,43 @@
 <?php
-namespace TeamAlpha\Web;
-// HTTP headers for response
-header('Access-Control-Allow-Orgin: *');
-header('Access-Control-Allow-Methods: POST');
-header('Content-Type: application/json; charset=UTF-8');
-require $_SERVER['DOCUMENT_ROOT'] . '/api/models/passenger.php';
-// Check if request method is correct
-if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-    // Reply with error response
-    header('HTTP/1.1 405 Method Not Allowed');
-    echo json_encode(array('message' => 'Request method is not allowed.'));
-    return;
+$dbconfig = parse_ini_file("../config/config.ini");
+$host=$dbconfig['db_server'];
+$db=$dbconfig['db_name'];
+$user=$dbconfig['db_user'];
+$pass=$dbconfig['db_password'];
+$conn=mysqli_connect("$host","$user","$pass","$db");
+
+
+
+
+$url = 'php://input'; // path to your JSON file
+$data = file_get_contents($url); // put the contents of the file into a variable
+$vals = json_decode($data); // decode the JSON feed
+
+if(is_null($vals))
+{
+	header('HTTP/1.1 400 Bad Request');
+	echo json_encode(array('message' => 'No contents to process'));
+	
 }
-// Extract request body
-$data = json_decode(file_get_contents("php://input"));
-if (is_null($data)) {
-    // Request body is null
-    // Reply with error response
-    header('HTTP/1.1 400 Bad Request');
-    echo json_encode(array('message' => 'Passengerr details are empty.'));
-} else {
-    // TO DO: Actual check if passenger exists
-    if ($data->id === 404) {
-        // Sample not found
-        // Reply with error response
-        header('HTTP/1.1 404 Not Found');
-        echo json_encode(array('message' => 'Passenger not found.'));
-    } else {
-        // TO DO: Actual delete
-        // Reply with successful response
-        header('HTTP/1.1 200 OK');
-        echo json_encode(array('message' => 'Passenger record deleted.', 'passengerId' => $data->id));
-    }
+else{
+	
+$id=$vals->id;
+//delete query
+$deletequery=mysqli_query($conn, "DELETE FROM passenger WHERE id = $id LIMIT 1");
+
+	if(!$deletequery)
+	{
+		header('HTTP/1.1 400 Bad Request');
+    echo json_encode(array('message' => 'Query Error'));
+		
+	}
+	else
+	{
+	header('HTTP/1.1 201 Created');
+    echo json_encode(array('message' => 'Successfully deleted the account', 'passengerId' => $passenger->id));
+	}
 }
+}
+}
+
+?>
