@@ -1,15 +1,13 @@
 # Passenger API
-# Trip API
-
-Trip API contains operations for allocating trips and updating trips' status.
+Passenger API contains operations for passenger registration and data retrievals which is related to the passenger.
 
 
-<details><summary>Requesting a trip</summary>
+<details><summary>Registration</summary>
 
-## Requesting a trip:
+## Registration of Passenger:
 
 ### ENDPOINT
-`[website base address]/api/trip/request.php`
+`[website base address]/api/passenger/register.php`
 
 ### REQUEST DETAILS
 
@@ -19,15 +17,13 @@ Trip API contains operations for allocating trips and updating trips' status.
 #### Request Body:
 |Member|Data Type|Comment|
 |--|--|--|
-|vehicletype|string|Vehicle type for the trip. Values could be "Sedan", "Compact", "Van", "SUV", or "Limousine"|
-|passengerid|numeric||
-|source|string|Current location - name \ address|
-|sourcelat|decimal|Current location - latitude|
-|sourcelong|decimal|Current location - longitude|
-|destination|string|Destination location - name \ address|
-|destinationlat|decimal|Destination location - latitude|
-|destinationlong|decimal|Destination location - longitude|
-|radius|numeric|Optional. Sets the radius where available vehicles should be searched - default is 20 (20 km radius)|
+|firstname|string||
+|lastname|string||
+|email|string||
+|password|string||
+|address|string||
+|mobile|string||
+|panicmobile|string||
 
 ### RESPONSE DETAILS
 
@@ -43,24 +39,23 @@ Trip API contains operations for allocating trips and updating trips' status.
 |Member|Data Type|Comment|
 |--|--|--|
 |message|string||
-|id|numeric|The trip id. Present only if operation is successful|
+|id|numeric|Registration Succesful|
 
 ### SAMPLES
 
 #### Sample Request:
 ~~~~
-POST [website base address]/api/trip/request.php HTTP/1.1
+POST [website base address]/api/passenger/register.php HTTP/1.1
 Content-Type: application/json
 
 {
-    "vehicletype": "Sedan",
-    "passengerid": 1,
-    "source": "Don Pablo Bldg, 114 Amorsolo Street, Legazpi Village, Makati, Kalakhang Maynila, Philippines",
-    "sourcelat": 14.556764,
-    "sourcelong": 121.014685,
-    "destination": "San Agustin Church, General Luna St, Manila, Metro Manila, Philippines",
-    "destinationlat": 14.58899,
-    "destinationlong": 120.975238
+    "firstname": "Karlo EMil",
+    "lastname": "Flores",
+    "email": "karloemilflores@gmail.com",
+    "password": "123456",
+    "address": "Don Pablo Bldg, 114 Amorsolo Street, Legazpi Village, Makati, Kalakhang Maynila, Philippines",
+    "mobile": "0912345677",
+    "panicmobile": "0912345677"
 }
 ~~~~
 
@@ -71,11 +66,11 @@ Access-Control-Allow-Orgin: *
 Connection: close
 Content-Type: application/json; charset=UTF-8
 Date: Fri, 30 Mar 2018 09:00:57 +0000
-Location: /api/trip/get.php?id=1
+Location: /api/passenger/get.php?id=1
 Status: 201
 
 {
-    "message": "Trip requested and a vehicle was assigned to it.",
+    "message": "Passenger Successfully Registered.",
     "id": 1
 }
 ~~~~
@@ -84,172 +79,12 @@ Status: 201
 </details>
 
 
-<details><summary>Getting a trip (Detailed Response)</summary>
+<details><summary>Update Passenger</summary>
 
-## Getting a trip (Detailed Response):
-
-### ENDPOINT
-`[website base address]/api/trip/get.php`
-
-### REQUEST DETAILS
-
-#### Request Method:
-`GET`
-
-#### Request Parameter:
-|Name|Description|
-|--|--|
-|id|Id of the trip|
-
-### RESPONSE DETAILS
-
-#### Response Status Codes:
-|Status|Description|
-|--|--|
-|200|Success|
-|400|Bad Request|
-|404|Not Found|
-|405|Method Not Allowed|
-|500|Internal Server Error|
-
-#### Response Body:
-|Member|Data Type|Comment|
-|--|--|--|
-|id |numeric||
-|vehicleid|numeric||
-|passengerid|string||
-|source|string|Source location|
-|sourcelat|decimal|Source location - latitude|
-|sourcelong|decimal|Source location - longitude|
-|destination|string|Destination location|
-|destinationlat|decimal|Destination location - latitude|
-|destinationlong|decimal|Destination location - longitude|
-|stage|string|Trip's stage|
-|datestart|datetime||
-|dateend|datetime||
-|datecreated|datetime||
-|datemodified|datetime||
-
-### SAMPLES
-
-#### Sample Request:
-~~~~
-GET [website base address]/api/trip/get.php?id=1 HTTP/1.1 
-~~~~
-
-#### Sample Response:
-~~~~
-Access-Control-Allow-Methods: GET
-Access-Control-Allow-Orgin: *
-Connection: close
-Content-Type: application/json; charset=UTF-8
-Date: Fri, 30 Mar 2018 09:04:57 +0000
-Status: 200
-
-{
-    "id": 1,
-    "vehicleid": 1,
-    "passengerid": 1,
-    "source": "Don Pablo Bldg, 114 Amorsolo Street, Legazpi Village, Makati, Kalakhang Maynila, Philippines",
-    "sourcelat": 14.556764,
-    "sourcelong": 121.014685,
-    "destination": "San Agustin Church, General Luna St, Manila, Metro Manila, Philippines",
-    "destinationlat": 14.58899,
-    "destinationlong": 120.975238,
-    "stage": "Accepted",
-    "datestart": null,
-    "dateend": null,
-    "datecreated": "2018-03-30 07:38:22",
-    "datemodified": "2018-03-30 09:09:36"
-}
-~~~~
-
-
-</details>
-
-
-<details><summary>Getting trips by stage (and vehicle id)</summary>
-
-## Getting trips by stage (and vehicle id):
+## Updating a Passenger:
 
 ### ENDPOINT
-`[website base address]/api/trip/get.php`
-
-### REQUEST DETAILS
-
-#### Request Method:
-`GET`
-
-#### Request Parameter:
-|Name|Description|
-|--|--|
-|stage|Stage of the trip (Could be "Requested", "Assigned", "Accepted", "Rejected", "Ongoing", "Completed", "Cancelled", or "%")|
-|vehicleid|Optional|
-
-### RESPONSE DETAILS
-
-#### Response Status Codes:
-|Status|Description|
-|--|--|
-|200|Success|
-|400|Bad Request|
-|405|Method Not Allowed|
-|500|Internal Server Error|
-
-#### Response Body:
-**Array of:**
-
-|Member|Data Type|Comment|
-|--|--|--|
-|id |numeric||
-|vehicleid|numeric||
-|passengerid|string||
-|sourcelat|decimal|Source location - latitude|
-|sourcelong|decimal|Source location - longitude|
-|destinationlat|decimal|Destination location - latitude|
-|destinationlong|decimal|Destination location - longitude|
-|stage|string|Trip's stage|
-
-### SAMPLES
-
-#### Sample Request:
-~~~~
-GET [website base address]/api/trip/get.php?stage=Assigned&vehicleid=1 HTTP/1.1 
-~~~~
-
-#### Sample Response:
-~~~~
-Access-Control-Allow-Methods: GET
-Access-Control-Allow-Orgin: *
-Connection: close
-Content-Type: application/json; charset=UTF-8
-Date: Fri, 30 Mar 2018 09:14:11 +0000
-Status: 200
-
-[
-    {
-        "id": 1,
-        "vehicleid": 1,
-        "passengerid": 1,
-        "sourcelat": 14.556764,
-        "sourcelong": 121.014685,
-        "destinationlat": 14.58899,
-        "destinationlong": 120.975238,
-        "stage": "Assigned"
-    }
-]
-~~~~
-
-
-</details>
-
-
-<details><summary>Manually assigning a trip</summary>
-
-## Manually assigning a trip:
-
-### ENDPOINT
-`[website base address]/api/trip/assign.php`
+`[website base address]/api/passenger/update.php`
 
 ### REQUEST DETAILS
 
@@ -259,15 +94,20 @@ Status: 200
 #### Request Body:
 |Member|Data Type|Comment|
 |--|--|--|
-|id|numeric|Trip id|
-|vehicleid|numeric||
+|firstname|string||
+|lastname|string||
+|email|string||
+|password|string||
+|address|string||
+|mobile|string||
+|panicmobile|string||
 
 ### RESPONSE DETAILS
 
 #### Response Status Codes:
 |Status|Description|
 |--|--|
-|200|Success|
+|201|Created|
 |400|Bad Request|
 |405|Method Not Allowed|
 |500|Internal Server Error|
@@ -276,18 +116,23 @@ Status: 200
 |Member|Data Type|Comment|
 |--|--|--|
 |message|string||
-|id|numeric|The trip id. Present only if operation is successful|
+|id|numeric|Registration Succesful|
 
 ### SAMPLES
 
 #### Sample Request:
 ~~~~
-POST [website base address]/api/trip/assign.php HTTP/1.1
+POST [website base address]/api/passenger/update.php HTTP/1.1
 Content-Type: application/json
 
 {
-    "id": 1,
-    "vehicleid": 1
+    "firstname": "Karlo EMil",
+    "lastname": "Flores",
+    "email": "karloemilflores@gmail.com",
+    "password": "123456",
+    "address": "Don Pablo Bldg, 114 Amorsolo Street, Legazpi Village, Makati, Kalakhang Maynila, Philippines",
+    "mobile": "0912345677",
+    "panicmobile": "0912345677"
 }
 ~~~~
 
@@ -297,11 +142,12 @@ Access-Control-Allow-Methods: POST
 Access-Control-Allow-Orgin: *
 Connection: close
 Content-Type: application/json; charset=UTF-8
-Date: Fri, 30 Mar 2018 09:33:42 +0000
-Status: 200
+Date: Fri, 30 Mar 2018 09:00:57 +0000
+Location: /api/passenger/get.php?id=1
+Status: 201
 
 {
-    "message": "Trip assigned.",
+    "message": "Passenger Successfully Updated.",
     "id": 1
 }
 ~~~~
@@ -310,12 +156,12 @@ Status: 200
 </details>
 
 
-<details><summary>Accepting a trip</summary>
+<details><summary>Delete Passenger</summary>
 
-## Accepting a trip:
+## Deletes a Passenger:
 
 ### ENDPOINT
-`[website base address]/api/trip/accept.php`
+`[website base address]/api/passenger/delete.php
 
 ### REQUEST DETAILS
 
@@ -325,14 +171,14 @@ Status: 200
 #### Request Body:
 |Member|Data Type|Comment|
 |--|--|--|
-|id|numeric|Trip id|
+|id|int||
 
 ### RESPONSE DETAILS
 
 #### Response Status Codes:
 |Status|Description|
 |--|--|
-|200|Success|
+|201|Created|
 |400|Bad Request|
 |405|Method Not Allowed|
 |500|Internal Server Error|
@@ -341,17 +187,18 @@ Status: 200
 |Member|Data Type|Comment|
 |--|--|--|
 |message|string||
-|id|numeric|The trip id. Present only if operation is successful|
+|id|numeric|Passenger's Account Removed|
 
 ### SAMPLES
 
 #### Sample Request:
 ~~~~
-POST [website base address]/api/trip/accept.php HTTP/1.1
+POST [website base address]/api/passenger/delete.php HTTP/1.1
 Content-Type: application/json
 
 {
     "id": 1
+   
 }
 ~~~~
 
@@ -361,11 +208,12 @@ Access-Control-Allow-Methods: POST
 Access-Control-Allow-Orgin: *
 Connection: close
 Content-Type: application/json; charset=UTF-8
-Date: Fri, 30 Mar 2018 09:09:36 +0000
-Status: 200
+Date: Fri, 30 Mar 2018 09:00:57 +0000
+Location: /api/passenger/get.php?id=1
+Status: 201
 
 {
-    "message": "Trip accepted.",
+    "message": "Passenger Account Deleted",
     "id": 1
 }
 ~~~~
@@ -374,285 +222,5 @@ Status: 200
 </details>
 
 
-<details><summary>Rejecting a trip</summary>
 
-## Rejecting a trip:
-
-### ENDPOINT
-`[website base address]/api/trip/reject.php`
-
-### REQUEST DETAILS
-
-#### Request Method:
-`POST`
-
-#### Request Body:
-|Member|Data Type|Comment|
-|--|--|--|
-|id|numeric|Trip id|
-
-### RESPONSE DETAILS
-
-#### Response Status Codes:
-|Status|Description|
-|--|--|
-|200|Success|
-|400|Bad Request|
-|405|Method Not Allowed|
-|500|Internal Server Error|
-
-#### Response Body:
-|Member|Data Type|Comment|
-|--|--|--|
-|message|string||
-|id|numeric|The trip id. Present only if operation is successful|
-
-### SAMPLES
-
-#### Sample Request:
-~~~~
-POST [website base address]/api/trip/reject.php HTTP/1.1
-Content-Type: application/json
-
-{
-    "id": 1
-}
-~~~~
-
-#### Sample Response:
-~~~~
-Access-Control-Allow-Methods: POST
-Access-Control-Allow-Orgin: *
-Connection: close
-Content-Type: application/json; charset=UTF-8
-Date: Fri, 30 Mar 2018 10:12:29 +0000
-Status: 200
-
-{
-    "message": "Trip rejected.",
-    "id": 1
-}
-~~~~
-
-
-</details>
-
-
-<details><summary>Starting a trip</summary>
-
-## Starting a trip:
-
-### ENDPOINT
-`[website base address]/api/trip/start.php`
-
-### REQUEST DETAILS
-
-#### Request Method:
-`POST`
-
-#### Request Body:
-|Member|Data Type|Comment|
-|--|--|--|
-|id|numeric|Trip id|
-
-### RESPONSE DETAILS
-
-#### Response Status Codes:
-|Status|Description|
-|--|--|
-|200|Success|
-|400|Bad Request|
-|405|Method Not Allowed|
-|500|Internal Server Error|
-
-#### Response Body:
-|Member|Data Type|Comment|
-|--|--|--|
-|message|string||
-|id|numeric|The trip id. Present only if operation is successful|
-
-### SAMPLES
-
-#### Sample Request:
-~~~~
-POST [website base address]/api/trip/start.php HTTP/1.1
-Content-Type: application/json
-
-{
-    "id": 1
-}
-~~~~
-
-#### Sample Response:
-~~~~
-Access-Control-Allow-Methods: POST
-Access-Control-Allow-Orgin: *
-Connection: close
-Content-Type: application/json; charset=UTF-8
-Date: Fri, 30 Mar 2018 10:15:05 +0000
-Status: 200
-
-{
-    "message": "Trip started.",
-    "id": 1
-}
-~~~~
-
-
-</details>
-
-
-<details><summary>Ending a trip</summary>
-
-## Ending a trip:
-
-### ENDPOINT
-`[website base address]/api/trip/end.php`
-
-### REQUEST DETAILS
-
-#### Request Method:
-`POST`
-
-#### Request Body:
-|Member|Data Type|Comment|
-|--|--|--|
-|id|numeric|Trip id|
-
-### RESPONSE DETAILS
-
-#### Response Status Codes:
-|Status|Description|
-|--|--|
-|200|Success|
-|400|Bad Request|
-|405|Method Not Allowed|
-|500|Internal Server Error|
-
-#### Response Body:
-|Member|Data Type|Comment|
-|--|--|--|
-|message|string||
-|id|numeric|The trip id. Present only if operation is successful|
-
-### SAMPLES
-
-#### Sample Request:
-~~~~
-POST [website base address]/api/trip/end.php HTTP/1.1
-Content-Type: application/json
-
-{
-    "id": 1
-}
-~~~~
-
-#### Sample Response:
-~~~~
-Access-Control-Allow-Methods: POST
-Access-Control-Allow-Orgin: *
-Connection: close
-Content-Type: application/json; charset=UTF-8
-Date: Fri, 30 Mar 2018 10:16:00 +0000
-Status: 200
-
-{
-    "message": "Trip ended.",
-    "id": 1
-}
-~~~~
-
-
-</details>
-
-
-<details><summary>Cancelling a trip</summary>
-
-## Ending a trip:
-
-### ENDPOINT
-`[website base address]/api/trip/cancel.php`
-
-### REQUEST DETAILS
-
-#### Request Method:
-`POST`
-
-#### Request Body:
-|Member|Data Type|Comment|
-|--|--|--|
-|id|numeric|Trip id|
-
-### RESPONSE DETAILS
-
-#### Response Status Codes:
-|Status|Description|
-|--|--|
-|200|Success|
-|400|Bad Request|
-|405|Method Not Allowed|
-|500|Internal Server Error|
-
-#### Response Body:
-|Member|Data Type|Comment|
-|--|--|--|
-|message|string||
-|id|numeric|The trip id. Present only if operation is successful|
-
-### SAMPLES
-
-#### Sample Request:
-~~~~
-POST [website base address]/api/trip/cancel.php HTTP/1.1
-Content-Type: application/json
-
-{
-    "id": 1
-}
-~~~~
-
-#### Sample Response:
-~~~~
-Access-Control-Allow-Methods: POST
-Access-Control-Allow-Orgin: *
-Connection: close
-Content-Type: application/json; charset=UTF-8
-Date: Fri, 30 Mar 2018 10:18:10 +0000
-Status: 200
-
-{
-    "message": "Trip cancelled.",
-    "id": 1
-}
-~~~~
-
-
-</details>
-
-Registration for New Passengers:
-URL: [webaddress]/api/passenger/create.php
-REQUEST METHOD: POST
-Notes: Email/mobilenumber/panicnumber cannot be reused thus will return an error message.
-
-Update Existing Passenger
-URL: [webaddress]/api/passenger/update.php
-REQUEST METHOD: POST
-Notes:
-->id of the user will be required in the json file to be forwarded.
-->Currently all fields can be updated. except the datecreated and other status based fields.   
-
-
-Delete Existing Passenger
-URL: [webaddress]/api/passenger/delete.php
-REQUEST METHOD: POST
-Notes: 
-->id of the user to be deleted will be required in the json file to be forwarded.
-->Account/ row will be removed from the database
-
-
-Authenticate Passenger Login
-URL: [webaddress]/api/passenger/delete.php
-REQUEST METHOD: POST
-Notes: 
-->email or mobile number and the assigned password should be included in the json file to be forwarded.
 
