@@ -52,12 +52,12 @@ POST [website base address]/api/trip/request.php HTTP/1.1
 Content-Type: application/json
 
 {
-	"vehicletype": "Sedan",
-	"passengerid": 1,
-	"source": "Don Pablo Bldg, 114 Amorsolo Street, Legazpi Village, Makati, Kalakhang Maynila, Philippines",
-	"sourcelat": 14.556764,
-	"sourcelong": 121.014685,
-	"destination": "San Agustin Church, General Luna St, Manila, Metro Manila, Philippines",
+    "vehicletype": "Sedan",
+    "passengerid": 1,
+    "source": "Don Pablo Bldg, 114 Amorsolo Street, Legazpi Village, Makati, Kalakhang Maynila, Philippines",
+    "sourcelat": 14.556764,
+    "sourcelong": 121.014685,
+    "destination": "San Agustin Church, General Luna St, Manila, Metro Manila, Philippines",
     "destinationlat": 14.58899,
     "destinationlong": 120.975238
 }
@@ -74,7 +74,7 @@ Location: /api/trip/get.php?id=1
 Status: 201
 
 {
-    "message": "Trip requested.",
+    "message": "Trip requested and a vehicle was assigned to it.",
     "id": 1
 }
 ~~~~
@@ -538,7 +538,7 @@ Status: 200
 
 #### Sample Request:
 ~~~~
-POST [website base address]/api/trip/start.php HTTP/1.1
+POST [website base address]/api/trip/end.php HTTP/1.1
 Content-Type: application/json
 
 {

@@ -47,8 +47,9 @@ if (is_null($input)) {
         $vehicleid = null;
         // Execute
         if ($db->execute() === 0) {
-            $messageSuffix = ' But no available vehicle was found within ' . $radius . ' km radius. Your trip will stay as requested until an administrator assigns a vehicle to it, or until you cancel it.';
+            $messageSuffix = ', but no available vehicle was found within ' . $radius . ' km radius. Your trip will stay as requested until an administrator manually assigns a vehicle to it, or until you cancel it.';
         } else {
+            $messageSuffix = ' and a vehicle was assigned to it.';
             $record = $db->fetchAll()[0];
             $vehicleid = (int) $record['id'];
         }
@@ -77,7 +78,7 @@ if (is_null($input)) {
         $db->commit();
 
         // Reply with successful response
-        Http::ReturnCreated('/api/trip/get.php?id=' . $id, array('message' => 'Trip requested.' . $messageSuffix, 'id' => (int) $id));
+        Http::ReturnCreated('/api/trip/get.php?id=' . $id, array('message' => 'Trip requested' . $messageSuffix, 'id' => (int) $id));
     } catch (PDOException $pe) {
         Db::ReturnDbError($pe);
     } catch (Exception $e) {
