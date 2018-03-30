@@ -44,7 +44,7 @@ else{
 //Insert Query
 $qrys=mysqli_query($conn, "INSERT INTO tbl_rider VALUES('','$firstname','$lastname',
 '$email','$password','$address','$mobile','$panicmobile',
-'0','0','0','tokens',
+'1','1','1','tokens',
 ,'picture2','$datecreated','')");
 
 	if($qrys)
