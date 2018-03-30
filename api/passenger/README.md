@@ -353,3 +353,58 @@ Status: 201
 
 
 </details>
+
+
+<details><summary>Get Profile</summary>
+
+## Get Profile:
+
+### ENDPOINT
+`[website base address]/api/passenger/get.php?id=1
+
+### REQUEST DETAILS
+
+#### Request Method:
+`GET`
+
+### RESPONSE DETAILS
+
+#### Response Status Codes:
+|Status|Description|
+|--|--|
+|201|Created|
+|400|Bad Request|
+|405|Method Not Allowed|
+|500|Internal Server Error|
+
+#### Response Body:
+|Member|Data Type|Comment|
+|--|--|--|
+|message|string||
+|id|numeric|Sent the temporary Password|
+
+### SAMPLES
+
+#### Sample Response:
+~~~~
+Access-Control-Allow-Methods: POST
+Access-Control-Allow-Orgin: *
+Connection: close
+Content-Type: application/json; charset=UTF-8
+Date: Fri, 30 Mar 2018 09:00:57 +0000
+Location: /api/passenger/get.php?id=1
+Status: 201
+
+{
+    "firstname": "Karlo Emil",
+    "lastname": "Flores",
+    "email": "karloemilflores@gmail.com",
+    "address": "North",
+     "mobile": "012323232",
+        "panicmobile": "012323232",
+           "password": "123456",
+}
+~~~~
+
+
+</details>
