@@ -4,14 +4,14 @@ namespace TeamAlpha\Web;
 class Trip
 {
     public $id;
-    public $vehicleId;
-    public $passengerId;
+    public $vehicleid;
+    public $passengerid;
     public $source;
-    public $sourceLat;
-    public $sourceLong;
+    public $sourcelat;
+    public $sourcelong;
     public $destination;
-    public $destinationLat;
-    public $destinationLong;
+    public $destinationlat;
+    public $destinationlong;
     public $stage;
     public $datestart;
     public $dateend;
@@ -22,14 +22,14 @@ class Trip
     {
         if ($data !== null) {
             $this->id = (int) $data['id'] ?? 0;
-            $this->vehicleId = (int) $data['vehicleId'] ?? 0;
-            $this->passengerId = (int) $data['passengerId'] ?? 0;
+            $this->vehicleid = $data['vehicleid'] === null ? null : (int) $data['vehicleid'];
+            $this->passengerid = (int) $data['passengerid'] ?? 0;
             $this->source = $data['source'] ?? null;
-            $this->sourceLat = (double) $data['sourceLat'] ?? 0;
-            $this->sourceLong = (double) $data['sourceLong'] ?? 0;
+            $this->sourcelat = (double) $data['sourcelat'] ?? 0;
+            $this->sourcelong = (double) $data['sourcelong'] ?? 0;
             $this->destination = $data['destination'] ?? null;
-            $this->destinationLat = (double) $data['destinationLat'] ?? 0;
-            $this->destinationLong = (double) $data['destinationLong'] ?? 0;
+            $this->destinationlat = (double) $data['destinationlat'] ?? 0;
+            $this->destinationlong = (double) $data['destinationlong'] ?? 0;
             $this->stage = $data['stage'] ?? null;
             $this->datestart = $data['datestart'] ?? null;
             $this->dateend = $data['dateend'] ?? null;

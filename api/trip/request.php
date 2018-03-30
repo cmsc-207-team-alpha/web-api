@@ -31,7 +31,7 @@ if (is_null($input)) {
                             * cos( radians(locationlong) - radians(:sourcelong) ) + sin( radians(:sourcelat) )
                             * sin(radians(locationlat)) ) ) AS distance
                         FROM `vehicle`
-                        WHERE active = 1 AND available = 1
+                        WHERE active = 1 AND available = 1 AND type = :vehicletype
                         HAVING distance < :radius
                         ORDER BY distance
                         LIMIT 1;');
@@ -41,12 +41,13 @@ if (is_null($input)) {
         $db->bindParam(':sourcelong', property_exists($input, 'sourcelong') ? $input->sourcelong : 0);
         $radius = property_exists($input, 'radius') ? $input->radius : 20;
         $db->bindParam(':radius', $radius);
+        $db->bindParam(':vehicletype', property_exists($input, 'vehicletype') ?? null);
 
         $messageSuffix = '';
         $vehicleid = null;
         // Execute
         if ($db->execute() === 0) {
-            $messageSuffix = ' But no available vehicle was found within ' . $radius . ' km radius. Your trip will stay as requested until an administrator assigns a vehicle to it, or until you cancel.';
+            $messageSuffix = ' But no available vehicle was found within ' . $radius . ' km radius. Your trip will stay as requested until an administrator assigns a vehicle to it, or until you cancel it.';
         } else {
             $record = $db->fetchAll()[0];
             $vehicleid = (int) $record['id'];
@@ -64,8 +65,7 @@ if (is_null($input)) {
         $db->bindParam(':destination', property_exists($input, 'destination') ? $input->destination : null);
         $db->bindParam(':destinationlat', property_exists($input, 'destinationlat') ? $input->destinationlat : null);
         $db->bindParam(':destinationlong', property_exists($input, 'destinationlong') ? $input->destinationlong : null);
-        $db->bindParam(':stage', 'Requested');
-        $db->bindParam(':photo', property_exists($input, 'photo') ? $input->photo : null);
+        $db->bindParam(':stage', $vehicleid === null ? 'Requested' : 'Assigned');
         $db->bindParam(':datecreated', date('Y-m-d H:i:s'));
         $db->bindParam(':datemodified', date('Y-m-d H:i:s'));
 
@@ -77,7 +77,7 @@ if (is_null($input)) {
         $db->commit();
 
         // Reply with successful response
-        Http::ReturnSuccess(array('message' => 'Trip requested.' . $messageSuffix, 'id' => (int) $id));
+        Http::ReturnCreated('/api/trip/get.php?id=' . $id, array('message' => 'Trip requested.' . $messageSuffix, 'id' => (int) $id));
     } catch (PDOException $pe) {
         Db::ReturnDbError($pe);
     } catch (Exception $e) {

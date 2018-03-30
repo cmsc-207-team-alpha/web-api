@@ -374,33 +374,37 @@
 			"description": null,
 			"item": [
 				{
-					"name": "Get All Trips",
+					"name": "Request Trip",
 					"request": {
-						"method": "GET",
-						"header": [],
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
 						"body": {
 							"mode": "raw",
-							"raw": ""
+							"raw": "{\n\t\"vehicletype\": \"Sedan\",\n\t\"passengerid\": 1,\n\t\"source\": \"Don Pablo Bldg, 114 Amorsolo Street, Legazpi Village, Makati, Kalakhang Maynila, Philippines\",\n\t\"sourcelat\": 14.556764,\n\t\"sourcelong\": 121.014685,\n\t\"destination\": \"San Agustin Church, General Luna St, Manila, Metro Manila, Philippines\",\n    \"destinationlat\": 14.58899,\n    \"destinationlong\": 120.975238\n}"
 						},
 						"url": {
-							"raw": "https://cmsc-207-team-alpha.000webhostapp.com/api/trip/get.php",
-							"protocol": "https",
+							"raw": "http://localhost:8000/api/trip/request.php",
+							"protocol": "http",
 							"host": [
-								"cmsc-207-team-alpha",
-								"000webhostapp",
-								"com"
+								"localhost"
 							],
+							"port": "8000",
 							"path": [
 								"api",
 								"trip",
-								"get.php"
+								"request.php"
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "Get Trip by Id",
+					"name": "Get Trip (Detailed)",
 					"request": {
 						"method": "GET",
 						"header": [],
@@ -409,13 +413,12 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "https://cmsc-207-team-alpha.000webhostapp.com/api/trip/get.php?id=100",
-							"protocol": "https",
+							"raw": "http://localhost:8000/api/trip/get.php?id=1",
+							"protocol": "http",
 							"host": [
-								"cmsc-207-team-alpha",
-								"000webhostapp",
-								"com"
+								"localhost"
 							],
+							"port": "8000",
 							"path": [
 								"api",
 								"trip",
@@ -424,7 +427,7 @@
 							"query": [
 								{
 									"key": "id",
-									"value": "100"
+									"value": "1"
 								}
 							]
 						}
@@ -432,7 +435,7 @@
 					"response": []
 				},
 				{
-					"name": "Get Trip by Stage - All",
+					"name": "Get Trips by Stage And \\ Or Vehicle Id",
 					"request": {
 						"method": "GET",
 						"header": [],
@@ -441,13 +444,12 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "https://cmsc-207-team-alpha.000webhostapp.com/api/trip/get.php?stage=All",
-							"protocol": "https",
+							"raw": "http://localhost:8000/api/trip/get.php?stage=Assigned&vehicleid=1",
+							"protocol": "http",
 							"host": [
-								"cmsc-207-team-alpha",
-								"000webhostapp",
-								"com"
+								"localhost"
 							],
+							"port": "8000",
 							"path": [
 								"api",
 								"trip",
@@ -456,39 +458,11 @@
 							"query": [
 								{
 									"key": "stage",
-									"value": "All"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Get Trip by Stage - Requested",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
-						"url": {
-							"raw": "https://cmsc-207-team-alpha.000webhostapp.com/api/trip/get.php?stage=Requested",
-							"protocol": "https",
-							"host": [
-								"cmsc-207-team-alpha",
-								"000webhostapp",
-								"com"
-							],
-							"path": [
-								"api",
-								"trip",
-								"get.php"
-							],
-							"query": [
+									"value": "Assigned"
+								},
 								{
-									"key": "stage",
-									"value": "Requested"
+									"key": "vehicleid",
+									"value": "1"
 								}
 							]
 						}
@@ -496,167 +470,7 @@
 					"response": []
 				},
 				{
-					"name": "Get Trip by Stage - Allocated",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
-						"url": {
-							"raw": "https://cmsc-207-team-alpha.000webhostapp.com/api/trip/get.php?stage=Allocated",
-							"protocol": "https",
-							"host": [
-								"cmsc-207-team-alpha",
-								"000webhostapp",
-								"com"
-							],
-							"path": [
-								"api",
-								"trip",
-								"get.php"
-							],
-							"query": [
-								{
-									"key": "stage",
-									"value": "Allocated"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Get Trip by Stage - Ongoing",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
-						"url": {
-							"raw": "https://cmsc-207-team-alpha.000webhostapp.com/api/trip/get.php?stage=Ongoing",
-							"protocol": "https",
-							"host": [
-								"cmsc-207-team-alpha",
-								"000webhostapp",
-								"com"
-							],
-							"path": [
-								"api",
-								"trip",
-								"get.php"
-							],
-							"query": [
-								{
-									"key": "stage",
-									"value": "Ongoing"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Get Trip by Stage - Completed",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
-						"url": {
-							"raw": "https://cmsc-207-team-alpha.000webhostapp.com/api/trip/get.php?stage=Completed",
-							"protocol": "https",
-							"host": [
-								"cmsc-207-team-alpha",
-								"000webhostapp",
-								"com"
-							],
-							"path": [
-								"api",
-								"trip",
-								"get.php"
-							],
-							"query": [
-								{
-									"key": "stage",
-									"value": "Completed"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Get Trip by Stage - Cancelled",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
-						"url": {
-							"raw": "https://cmsc-207-team-alpha.000webhostapp.com/api/trip/get.php?stage=Cancelled",
-							"protocol": "https",
-							"host": [
-								"cmsc-207-team-alpha",
-								"000webhostapp",
-								"com"
-							],
-							"path": [
-								"api",
-								"trip",
-								"get.php"
-							],
-							"query": [
-								{
-									"key": "stage",
-									"value": "Cancelled"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Get Trip (Error) - Not Found",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
-						"url": {
-							"raw": "https://cmsc-207-team-alpha.000webhostapp.com/api/trip/get.php?id=404",
-							"protocol": "https",
-							"host": [
-								"cmsc-207-team-alpha",
-								"000webhostapp",
-								"com"
-							],
-							"path": [
-								"api",
-								"trip",
-								"get.php"
-							],
-							"query": [
-								{
-									"key": "id",
-									"value": "404"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Allocate Trip",
+					"name": "Assign Trip",
 					"request": {
 						"method": "POST",
 						"header": [
@@ -667,27 +481,26 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"tripId\": 100,\n    \"vehicleId\": 1,\n    \"passengerId\": 1\n}"
+							"raw": "{\n    \"id\": 1,\n    \"vehicleid\": 1\n}"
 						},
 						"url": {
-							"raw": "https://cmsc-207-team-alpha.000webhostapp.com/api/trip/allocate.php",
-							"protocol": "https",
+							"raw": "http://localhost:8000/api/trip/assign.php",
+							"protocol": "http",
 							"host": [
-								"cmsc-207-team-alpha",
-								"000webhostapp",
-								"com"
+								"localhost"
 							],
+							"port": "8000",
 							"path": [
 								"api",
 								"trip",
-								"allocate.php"
+								"assign.php"
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "Allocate Trip (Error)  - Not Found",
+					"name": "Accept Trip",
 					"request": {
 						"method": "POST",
 						"header": [
@@ -698,27 +511,26 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"tripId\": 404,\n    \"vehicleId\": 1,\n    \"passengerId\": 1\n}"
+							"raw": "{\n\t\"id\": 1\n}"
 						},
 						"url": {
-							"raw": "https://cmsc-207-team-alpha.000webhostapp.com/api/trip/allocate.php",
-							"protocol": "https",
+							"raw": "http://localhost:8000/api/trip/accept.php",
+							"protocol": "http",
 							"host": [
-								"cmsc-207-team-alpha",
-								"000webhostapp",
-								"com"
+								"localhost"
 							],
+							"port": "8000",
 							"path": [
 								"api",
 								"trip",
-								"allocate.php"
+								"accept.php"
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "Allocate Trip (Error) - Empty Details",
+					"name": "Reject Trip",
 					"request": {
 						"method": "POST",
 						"header": [
@@ -729,20 +541,19 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": ""
+							"raw": "{\n\t\"id\": 1\n}"
 						},
 						"url": {
-							"raw": "https://cmsc-207-team-alpha.000webhostapp.com/api/trip/allocate.php",
-							"protocol": "https",
+							"raw": "http://localhost:8000/api/trip/reject.php",
+							"protocol": "http",
 							"host": [
-								"cmsc-207-team-alpha",
-								"000webhostapp",
-								"com"
+								"localhost"
 							],
+							"port": "8000",
 							"path": [
 								"api",
 								"trip",
-								"allocate.php"
+								"reject.php"
 							]
 						}
 					},
@@ -760,78 +571,15 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"tripId\": 100\n}"
+							"raw": "{\n    \"id\": 1\n}"
 						},
 						"url": {
-							"raw": "https://cmsc-207-team-alpha.000webhostapp.com/api/trip/start.php",
-							"protocol": "https",
+							"raw": "http://localhost:8000/api/trip/start.php",
+							"protocol": "http",
 							"host": [
-								"cmsc-207-team-alpha",
-								"000webhostapp",
-								"com"
+								"localhost"
 							],
-							"path": [
-								"api",
-								"trip",
-								"start.php"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Start Trip (Error) - Not Found",
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"tripId\": 404\n}"
-						},
-						"url": {
-							"raw": "https://cmsc-207-team-alpha.000webhostapp.com/api/trip/start.php",
-							"protocol": "https",
-							"host": [
-								"cmsc-207-team-alpha",
-								"000webhostapp",
-								"com"
-							],
-							"path": [
-								"api",
-								"trip",
-								"start.php"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Start Trip (Error) - Empty Details",
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
-						"url": {
-							"raw": "https://cmsc-207-team-alpha.000webhostapp.com/api/trip/start.php",
-							"protocol": "https",
-							"host": [
-								"cmsc-207-team-alpha",
-								"000webhostapp",
-								"com"
-							],
+							"port": "8000",
 							"path": [
 								"api",
 								"trip",
@@ -853,16 +601,15 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"tripId\": 100\n}"
+							"raw": "{\n    \"id\": 1\n}"
 						},
 						"url": {
-							"raw": "https://cmsc-207-team-alpha.000webhostapp.com/api/trip/end.php",
-							"protocol": "https",
+							"raw": "http://localhost:8000/api/trip/end.php",
+							"protocol": "http",
 							"host": [
-								"cmsc-207-team-alpha",
-								"000webhostapp",
-								"com"
+								"localhost"
 							],
+							"port": "8000",
 							"path": [
 								"api",
 								"trip",
@@ -873,7 +620,7 @@
 					"response": []
 				},
 				{
-					"name": "End Trip (Error) - Not Found",
+					"name": "Cancel Trip",
 					"request": {
 						"method": "POST",
 						"header": [
@@ -884,140 +631,15 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"tripId\": 404\n}"
+							"raw": "{\n    \"id\": 1\n}"
 						},
 						"url": {
-							"raw": "https://cmsc-207-team-alpha.000webhostapp.com/api/trip/end.php",
-							"protocol": "https",
+							"raw": "http://localhost:8000/api/trip/cancel.php",
+							"protocol": "http",
 							"host": [
-								"cmsc-207-team-alpha",
-								"000webhostapp",
-								"com"
+								"localhost"
 							],
-							"path": [
-								"api",
-								"trip",
-								"end.php"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "End Trip (Error) - Empty Details",
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
-						"url": {
-							"raw": "https://cmsc-207-team-alpha.000webhostapp.com/api/trip/end.php",
-							"protocol": "https",
-							"host": [
-								"cmsc-207-team-alpha",
-								"000webhostapp",
-								"com"
-							],
-							"path": [
-								"api",
-								"trip",
-								"end.php"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Cencel Trip",
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"tripId\": 100\n}"
-						},
-						"url": {
-							"raw": "https://cmsc-207-team-alpha.000webhostapp.com/api/trip/cancel.php",
-							"protocol": "https",
-							"host": [
-								"cmsc-207-team-alpha",
-								"000webhostapp",
-								"com"
-							],
-							"path": [
-								"api",
-								"trip",
-								"cancel.php"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Cancel Trip (Error) - Not Found",
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"tripId\": 404\n}"
-						},
-						"url": {
-							"raw": "https://cmsc-207-team-alpha.000webhostapp.com/api/trip/cancel.php",
-							"protocol": "https",
-							"host": [
-								"cmsc-207-team-alpha",
-								"000webhostapp",
-								"com"
-							],
-							"path": [
-								"api",
-								"trip",
-								"cancel.php"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Cancel Trip (Error) - Empty Details",
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
-						"url": {
-							"raw": "https://cmsc-207-team-alpha.000webhostapp.com/api/trip/cancel.php",
-							"protocol": "https",
-							"host": [
-								"cmsc-207-team-alpha",
-								"000webhostapp",
-								"com"
-							],
+							"port": "8000",
 							"path": [
 								"api",
 								"trip",

@@ -50,7 +50,7 @@ if (is_null($input)) {
             $db->commit();
 
             // Reply with successful response
-            Http::ReturnSuccess(array('message' => 'Trip accepted.', 'id' => $input->id));
+            Http::ReturnSuccess(array('message' => 'Trip rejected.', 'id' => $input->id));
         }
     } catch (PDOException $pe) {
         Db::ReturnDbError($pe);

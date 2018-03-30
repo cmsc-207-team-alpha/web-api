@@ -39,8 +39,9 @@ if (is_null($input)) {
             $db = new Db('UPDATE `trip` SET vehicleid = :vehicleid, stage = :stage, datemodified = :datemodified WHERE id = :id');
 
             // Bind parameters
+            $db->bindParam(':id', property_exists($input, 'id') ? $input->id : 0);
             $db->bindParam(':vehicleid', property_exists($input, 'vehicleid') ? $input->vehicleid : 0);
-            $db->bindParam(':stage', 'Allocated');
+            $db->bindParam(':stage', 'Assigned');
             $db->bindParam(':datemodified', date('Y-m-d H:i:s'));
 
             // Execute
@@ -50,7 +51,7 @@ if (is_null($input)) {
             $db->commit();
 
             // Reply with successful response
-            Http::ReturnSuccess(array('message' => 'Trip allocated.', 'id' => $input->id));
+            Http::ReturnSuccess(array('message' => 'Trip assigned.', 'id' => $input->id));
         }
     } catch (PDOException $pe) {
         Db::ReturnDbError($pe);
