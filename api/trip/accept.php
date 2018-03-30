@@ -40,7 +40,7 @@ if (is_null($input)) {
 
             // Bind parameters
             $db->bindParam(':id', property_exists($input, 'id') ? $input->id : 0);
-            $db->bindParam(':stage', 'Completed');
+            $db->bindParam(':stage', 'Accepted');
             $db->bindParam(':datemodified', date('Y-m-d H:i:s'));
 
             // Execute
@@ -50,7 +50,7 @@ if (is_null($input)) {
             $db->commit();
 
             // Reply with successful response
-            Http::ReturnSuccess(array('message' => 'Trip ended.', 'id' => $input->id));
+            Http::ReturnSuccess(array('message' => 'Trip accepted.', 'id' => $input->id));
         }
     } catch (PDOException $pe) {
         Db::ReturnDbError($pe);

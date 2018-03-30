@@ -36,11 +36,11 @@ if (is_null($input)) {
             Http::ReturnError(404, array('message' => 'Trip not found.'));
         } else {
             // Create Db object
-            $db = new Db('UPDATE `trip` SET stage = :stage, datemodified = :datemodified WHERE id = :id');
+            $db = new Db('UPDATE `trip` SET vehicleid = null, stage = :stage, datemodified = :datemodified WHERE id = :id');
 
             // Bind parameters
             $db->bindParam(':id', property_exists($input, 'id') ? $input->id : 0);
-            $db->bindParam(':stage', 'Completed');
+            $db->bindParam(':stage', 'Rejected');
             $db->bindParam(':datemodified', date('Y-m-d H:i:s'));
 
             // Execute
@@ -50,7 +50,7 @@ if (is_null($input)) {
             $db->commit();
 
             // Reply with successful response
-            Http::ReturnSuccess(array('message' => 'Trip ended.', 'id' => $input->id));
+            Http::ReturnSuccess(array('message' => 'Trip rejected.', 'id' => $input->id));
         }
     } catch (PDOException $pe) {
         Db::ReturnDbError($pe);
