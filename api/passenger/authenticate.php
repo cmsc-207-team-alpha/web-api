@@ -1,4 +1,5 @@
 <?php
+error_reporting( E_ERROR | E_PARSE | E_CORE_ERROR | E_CORE_WARNING | E_COMPILE_ERROR | E_COMPILE_WARNING );
 $dbconfig = parse_ini_file($_SERVER['DOCUMENT_ROOT'] . '/config/config.ini');
 $host=$dbconfig['db_server'];
 $db=$dbconfig['db_name'];
