@@ -1,10 +1,10 @@
 <?php
-$dbconfig = parse_ini_file("../config/config.ini");
+$dbconfig = parse_ini_file($_SERVER['DOCUMENT_ROOT'] . '/config/config.ini');
 $host=$dbconfig['db_server'];
 $db=$dbconfig['db_name'];
 $user=$dbconfig['db_user'];
 $pass=$dbconfig['db_password'];
-$conn=mysqli_connect("$host","$user","$pass","$db");
+$conn=mysqli_connect("$host","$user","","$db");
 
 
 

@@ -1,5 +1,6 @@
 <?php
-$dbconfig = parse_ini_file("../config/config.ini");
+error_reporting( E_ERROR | E_PARSE | E_CORE_ERROR | E_CORE_WARNING | E_COMPILE_ERROR | E_COMPILE_WARNING );
+$dbconfig = parse_ini_file($_SERVER['DOCUMENT_ROOT'] . '/config/config.ini');
 $host=$dbconfig['db_server'];
 $db=$dbconfig['db_name'];
 $user=$dbconfig['db_user'];
@@ -7,11 +8,24 @@ $pass=$dbconfig['db_password'];
 $conn=mysqli_connect("$host","$user","$pass","$db");
 
 
+
 if(!isset($_GET['id']))
 {
-	header('HTTP/1.1 400 Bad Request');
-	echo json_encode(array('message' => 'No Value selected'));
-	
+	$get=mysqli_query($conn,"SELECT * FROM passenger");
+	while($sp=mysqli_fetch_array($get))
+	{
+		
+		$passenger->firstname = "$sp[firstname]";
+		$passenger->lastname = "$sp[lastname]";
+		$passenger->mobile = "$sp[mobile]";
+		$passenger->panicmobile = "$sp[panicmobile]";
+		$passenger->address = "$sp[address]";
+		$passenger->email = "$sp[email]";
+		$passenger->password = "$sp[password]";
+		
+		echo json_encode($passenger);
+	}
+	header('HTTP/1.1 201 Request Success');
 }
 else{
 	
@@ -22,6 +36,7 @@ $get=mysqli_query($conn,"SELECT * FROM passenger WHERE id = $id LIMIT 1");
 if(mysqli_num_rows($get)>0)
 {
 		$rv=mysqli_fetch_array($get);
+		$passenger="";
 		$passenger->firstname = "$rv[firstname]";
 		$passenger->lastname = "$rv[lastname]";
 		$passenger->mobile = "$rv[mobile]";
@@ -32,7 +47,7 @@ if(mysqli_num_rows($get)>0)
 		
 		
 		header('HTTP/1.1 201 Request Success');
-		echo json_encode($myObj);
+		echo json_encode($passenger);
 }
 else
 {
@@ -43,6 +58,4 @@ else
 
 	
 }
-
-
 ?>

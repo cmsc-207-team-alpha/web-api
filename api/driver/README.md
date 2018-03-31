@@ -875,3 +875,71 @@ Status: 200
 
 
 </details>
+
+
+<details><summary>Forgot password</summary>
+
+## Forgot password:
+
+### ENDPOINT
+`[website base address]/api/driver/forgotpass.php`
+
+### REQUEST DETAILS
+
+#### Request Method:
+`POST`
+
+#### Request Body:
+|Member|Data Type|Comment|
+|--|--|--|
+|email|string|Mutually exclusive with mobile|
+|mobile|string|Mutually exclusive with email|
+
+Note: Either email or mobile should be present in the request.
+
+### RESPONSE DETAILS
+
+#### Response Status Codes:
+|Status|Description|
+|--|--|
+|200|Success|
+|400|Bad Request|
+|404|Not Found|
+|405|Method Not Allowed|
+|500|Internal Server Error|
+
+#### Response Body:
+|Member|Data Type|Comment|
+|--|--|--|
+|message|string||
+|id|numeric|Driver's id. Present only if operation is successful|
+
+### SAMPLES
+
+#### Sample Request:
+~~~~
+POST [website base address]/api/driver/forgotpass.php HTTP/1.1
+Content-Type: application/json
+
+{
+	"email": "john@delacruz.com"
+}
+~~~~
+
+#### Sample Response:
+~~~~
+Access-Control-Allow-Methods: POST
+Access-Control-Allow-Orgin: *
+Connection: close
+Content-Type: application/json; charset=UTF-8
+Date: Sat, 31 Mar 2018 10:52:04 +0000
+Status: 200
+
+{
+    "message": "Driver password updated. New password was sent via email.",
+    "id": 1
+}
+~~~~
+
+
+</details>

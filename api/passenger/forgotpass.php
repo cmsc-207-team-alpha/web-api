@@ -1,5 +1,7 @@
 <?php
-$dbconfig = parse_ini_file("../config/config.ini");
+error_reporting( E_ERROR | E_PARSE | E_CORE_ERROR | E_CORE_WARNING | E_COMPILE_ERROR | E_COMPILE_WARNING );
+require $_SERVER['DOCUMENT_ROOT'] . '/api/utils/email.php';
+$dbconfig = parse_ini_file($_SERVER['DOCUMENT_ROOT'] . '/config/config.ini');
 $host=$dbconfig['db_server'];
 $db=$dbconfig['db_name'];
 $user=$dbconfig['db_user'];
@@ -21,17 +23,22 @@ else{
 $email=$vals->email;
 
 //check value
-$checkexisting=mysqli_query($conn, "SELECT email FROM passenger WHERE email LIKE '$email' LIMIT 1");
+$checkexisting=mysqli_query($conn, "SELECT email,firstname,lastname FROM passenger WHERE email LIKE '$email' LIMIT 1");
 if(mysqli_num_rows($checkexisting)>0)
 {
 	$rv=mysqli_fetch_array($checkexisting);
 	$rand = substr(md5(microtime()),rand(0,26),6);
-	
+	$name="$rv[lastname], $rv[firstname]";
 	$updatepass=mysqli_query($conn,"UPDATE passenger SET password='$rand' WHERE id = $rv[id] LIMIT 1");
 	$body ="Use this temporary password to update your password: $rand";
-	$email = $email;
+	$remail = $email;
 	$subject="Forgot password Temporary Password";
-	include("..\vendor\phpmailer\phpmailer\src\PHPMailer.php");
+	 // Send email
+            $htmlbody = 'Hi ' . $email . ',<br/><br/>Here is your forgot Password Token<br/>' . $rand . '<br/><br/>Please do Use this temporary password to log in your account!<br/><br/><br/><small>This message was sent by Team Alpha\'s Passenger Forgot Pass.</small>';
+            $altbody = 'Hi ' .  $email . ', Here is your forgot Password Token: ' . $rand . ' Please do Use this temporary password to log in your account!This message was sent by Team Alpha Passenger Forgot Pass.';
+            $email = new Email();
+            $email->send($remail, $name, 'Temporary Password sent', $htmlbody, $altbody);
+
 	 header('HTTP/1.1 201 Created');
     echo json_encode(array('message' => 'Sent a temporary Password to be used'));
 }
