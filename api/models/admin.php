@@ -1,15 +1,17 @@
 <?php
 namespace TeamAlpha\Web;
 
-class Admin
+class admin
 {
     public $id;
     public $firstname;
     public $lastname;
     public $email;
+    public $mobile;
     public $active;
-    public $verified;
-    public $blocked;
+    public $photo;
+    public $datecreated;
+    public $datemodified;
 
     public function __construct(array $data)
     {
@@ -18,9 +20,11 @@ class Admin
             $this->firstname = $data['firstname'] ?? null;
             $this->lastname = $data['lastname'] ?? null;
             $this->email = $data['email'] ?? null;
+            $this->mobile = $data['mobile'] ?? null;
             $this->active = (int) $data['active'] ?? 0;
-            $this->verified = (int) $data['verified'] ?? 0;
-            $this->blocked = (int) $data['blocked'] ?? 0;
+            $this->photo = $data['photo'] ?? null;
+            $this->datecreated = $data['datecreated'] ?? null;
+            $this->datemodified = $data['datemodified'] ?? null;
         }
     }
 
