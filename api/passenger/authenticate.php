@@ -22,7 +22,7 @@ $email=$vals->email;
 $password=$vals->password;
 $mobile=$vals->mobile;
 //check value
-$checkexisting=mysqli_query($conn, "SELECT email,mobile,password FROM tbl_rider WHERE (email LIKE '$email' 
+$checkexisting=mysqli_query($conn, "SELECT email,mobile,password FROM passenger WHERE (email LIKE '$email' 
 || mobile LIKE '$mobile') && password LIKE '$password'");
 if(mysqli_num_rows($checkexisting)>0)
 {
