@@ -1,4 +1,5 @@
 <?php
+error_reporting( E_ERROR | E_PARSE | E_CORE_ERROR | E_CORE_WARNING | E_COMPILE_ERROR | E_COMPILE_WARNING );
 $dbconfig = parse_ini_file($_SERVER['DOCUMENT_ROOT'] . '/config/config.ini');
 $host=$dbconfig['db_server'];
 $db=$dbconfig['db_name'];
@@ -18,7 +19,7 @@ if(is_null($vals))
 	
 }
 else{
-$id=$vals->id
+$id=$vals->id;
 $firstname=$vals->firstname;
 $lastname=$vals->lastname;
 $email=$vals->email;
@@ -43,9 +44,9 @@ if(count(json_decode($data,1))==0) {
 }
 else{
 //Insert Query
-$qrys=mysqli_query($conn, "UPDATE passenger SET firstname = $firstname, lastname = $lastname,
-email = $email,password = $password,address = $address,mobile = $mobile,
-panicmobile = $pmobile,datemodified = $datemodified WHERE id = $id");
+$qrys=mysqli_query($conn, "UPDATE passenger SET firstname = '$firstname', lastname = '$lastname',
+email = '$email',password = '$password',address = '$address',mobile = '$mobile',
+panicmobile = '$pmobile',datemodified = '$datemodified' WHERE id = $id")or die(mysqli_error());
 
 	if(!$qrys)
 	{
@@ -61,5 +62,4 @@ panicmobile = $pmobile,datemodified = $datemodified WHERE id = $id");
 }
 }
 }
-
 ?>
