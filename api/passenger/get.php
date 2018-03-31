@@ -1,5 +1,5 @@
 <?php
-$dbconfig = parse_ini_file("../config/config.ini");
+$dbconfig = parse_ini_file($_SERVER['DOCUMENT_ROOT'] . '/config/config.ini');
 $host=$dbconfig['db_server'];
 $db=$dbconfig['db_name'];
 $user=$dbconfig['db_user'];
