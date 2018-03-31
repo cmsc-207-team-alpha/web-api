@@ -26,18 +26,20 @@ if (is_null($input)) {
 } else {
     try {
         // Create Db object
-        $db = new Db('INSERT INTO `admin` (firstname, lastname, email, password, active, verified, blocked, token)
-                                VALUES (:firstname, :lastname, :email, :password, :active, :verified, :blocked, :token)');
+        $db = new Db('INSERT INTO `admin` (firstname, lastname, email, password, mobile, active, token, photo, datecreated, datemodified)
+                                VALUES (:firstname, :lastname, :email, :password, :mobile, :active, :token, :photo, :datecreated, :datemodified)');
 
         // Bind parameters
         $db->bindParam(':firstname', property_exists($input, 'firstname') ? $input->firstname : null);
         $db->bindParam(':lastname', property_exists($input, 'lastname') ? $input->lastname : null);
         $db->bindParam(':email', property_exists($input, 'email') ? $input->email : null);
         $db->bindParam(':password', property_exists($input, 'password') ? password_hash($input->password, PASSWORD_DEFAULT) : null);
+        $db->bindParam(':mobile', property_exists($input, 'mobile') ? $input->mobile : null);
         $db->bindParam(':active', 0);
-        $db->bindParam(':verified', 0);
-        $db->bindParam(':blocked', 0);
         $db->bindParam(':token', null);
+        $db->bindParam(':photo', property_exists($input, 'photo') ? $input->photo : null);
+        $db->bindParam(':datecreated', date('Y-m-d H:i:s'));
+        $db->bindParam(':datemodified', date('Y-m-d H:i:s'));
 
         // Execute and get id
         $db->execute();
