@@ -3,7 +3,9 @@ namespace TeamAlpha\Web;
 
 // Require classes
 require $_SERVER['DOCUMENT_ROOT'] . '/api/utils/db.php';
+require $_SERVER['DOCUMENT_ROOT'] . '/api/utils/email.php';
 require $_SERVER['DOCUMENT_ROOT'] . '/api/utils/http.php';
+require $_SERVER['DOCUMENT_ROOT'] . '/api/models/driver.php';
 
 // Declare use on objects to be used
 use Exception;
@@ -35,6 +37,13 @@ if (is_null($input)) {
         if ($db->execute() === 0) {
             Http::ReturnError(404, array('message' => 'Driver not found.'));
         } else {
+            $changeshtml = '';
+            $changesalt = '';
+
+            // Driver was found
+            $record = $db->fetchAll()[0];
+            $driver = new Driver($record);
+
             if (property_exists($input, 'active')) {
                 // Create Db object
                 $db = new Db('UPDATE `driver` SET active = :active, datemodified = :datemodified WHERE id = :id');
@@ -49,6 +58,10 @@ if (is_null($input)) {
 
                 // Commit transaction
                 $db->commit();
+
+                // Update message
+                $changeshtml = $changeshtml . '* Your account was ' . ($input->active === 1 ? 'activated' : 'deactivated') . '.<br/>';
+                $changesalt = $changesalt . '* Your account was ' . ($input->active === 1 ? 'activated' : 'deactivated') . '.';
             }
             if (property_exists($input, 'verified')) {
                 // Create Db object
@@ -64,6 +77,10 @@ if (is_null($input)) {
 
                 // Commit transaction
                 $db->commit();
+
+                // Update message
+                $changeshtml = $changeshtml . '* Your account got ' . ($input->verified === 1 ? 'verifed' : 'unverified') . '.<br/>';
+                $changesalt = $changesalt . '* Your account got ' . ($input->verified === 1 ? 'verified' : 'unverified') . '.';
             }
             if (property_exists($input, 'blocked')) {
                 // Create Db object
@@ -79,7 +96,17 @@ if (is_null($input)) {
 
                 // Commit transaction
                 $db->commit();
+
+                // Update message
+                $changeshtml = $changeshtml . '* Your account was ' . ($input->blocked === 1 ? 'blocked' : 'unblocked') . '.<br/>';
+                $changesalt = $changesalt . '* Your account was ' . ($input->blocked === 1 ? 'blocked' : 'unblocked') . '.';
             }
+
+            // Send email
+            $htmlbody = 'Hi ' . $driver->firstname . ',<br/><br/>There were changes made on your account\'s status. To summarize:<br/>' . $changeshtml . '<br/><br/>Please contact Team Alpha for inquiries regarding these actions.<br/><br/>Have a nice day!<br/><br/><br/><small>This message was sent by Team Alpha\'s Driver Status Management Module.</small>';
+            $altbody = 'Hi ' . $driver->firstname . ', There were changes made on your account\'s status. To summarize: ' . $changesalt . ' Please contact Team Alpha for inquiries regarding these actions. Have a nice day! This message was sent by Team Alpha\'s Driver Status Management Module.';
+            $email = new Email();
+            $email->send($driver->email, $driver->firstname, 'There were changes made to your account', $htmlbody, $altbody);
 
             // Reply with successful response
             Http::ReturnSuccess(array('message' => 'Driver status updated.', 'id' => $input->id));
