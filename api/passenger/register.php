@@ -1,10 +1,12 @@
 <?php
+error_reporting( E_ERROR | E_PARSE | E_CORE_ERROR | E_CORE_WARNING | E_COMPILE_ERROR | E_COMPILE_WARNING );
 $dbconfig = parse_ini_file($_SERVER['DOCUMENT_ROOT'] . '/config/config.ini');
 $host=$dbconfig['db_server'];
 $db=$dbconfig['db_name'];
 $user=$dbconfig['db_user'];
 $pass=$dbconfig['db_password'];
 $conn=mysqli_connect("$host","$user","","$db");
+
 
 
 $url = 'php://input'; // path to your JSON file
@@ -44,10 +46,10 @@ else{
 //Insert Query
 $qrys=mysqli_query($conn, "INSERT INTO passenger VALUES('','$firstname','$lastname',
 '$email','$password','$address','$mobile','$panicmobile',
-'1','1','1','tokens',
-,'picture2','$datecreated','')");
+'1','1','0','tokens'
+,'','$datecreated','')")or die("sql error");
 
-	if($qrys)
+	if(!$qrys)
 	{
 		header('HTTP/1.1 400 Bad Request');
     echo json_encode(array('message' => 'Query Error'));
@@ -61,5 +63,4 @@ $qrys=mysqli_query($conn, "INSERT INTO passenger VALUES('','$firstname','$lastna
 }
 }
 }
-
 ?>
