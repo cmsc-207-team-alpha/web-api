@@ -27,7 +27,7 @@ $mobile=$vals->mobile;
 $pmobile=$vals->panicmobile;
 $datecreated=date("Y-m-d H:i:s");
 
-$checkexisting=mysqli_query($conn, "SELECT email,mobile,panicmobile FROM tbl_rider WHERE email LIKE '$email'
+$checkexisting=mysqli_query($conn, "SELECT email,mobile,panicmobile FROM passenger WHERE email LIKE '$email'
 || email LIKE '$mobile' || panicmobile LIKE '$pmobile'");
 if(mysqli_num_rows($checkexisting)>0)
 {
@@ -42,7 +42,7 @@ if(count(json_decode($data,1))==0) {
 }
 else{
 //Insert Query
-$qrys=mysqli_query($conn, "INSERT INTO tbl_rider VALUES('','$firstname','$lastname',
+$qrys=mysqli_query($conn, "INSERT INTO passenger VALUES('','$firstname','$lastname',
 '$email','$password','$address','$mobile','$panicmobile',
 '1','1','1','tokens',
 ,'picture2','$datecreated','')");
