@@ -360,7 +360,9 @@ Status: 201
 ## Get Profile:
 
 ### ENDPOINT
-`[website base address]/api/passenger/get.php?id=1
+`[website base address]/api/passenger/get.php?id=1 or 
+[website base address]/api/passenger/get.php -> this will fetch all the passenger data in the database
+
 
 ### REQUEST DETAILS
 
