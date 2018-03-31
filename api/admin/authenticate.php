@@ -46,10 +46,6 @@ if (is_null($input)) {
             $record = $db->fetchAll()[0];
             if ((int) $record['active'] === 0) {
                 Http::ReturnError(401, array('message' => 'Account is inactive.'));
-            } else if ((int) $record['verified'] === 0) {
-                Http::ReturnError(401, array('message' => 'Account is not verified.'));
-            } else if ((int) $record['blocked'] === 1) {
-                Http::ReturnError(401, array('message' => 'Account is blocked.'));
             } else {
                 if(password_verify($input->password, $record['password'])) {
                     Http::ReturnSuccess(array('message' => 'Authentication success.', 'id' => $record['id']));
