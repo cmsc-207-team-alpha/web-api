@@ -22,6 +22,7 @@ $get=mysqli_query($conn,"SELECT * FROM passenger WHERE id = $id LIMIT 1");
 if(mysqli_num_rows($get)>0)
 {
 		$rv=mysqli_fetch_array($get);
+		$passenger=null;
 		$passenger->firstname = "$rv[firstname]";
 		$passenger->lastname = "$rv[lastname]";
 		$passenger->mobile = "$rv[mobile]";
