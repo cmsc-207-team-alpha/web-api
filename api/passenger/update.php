@@ -28,7 +28,7 @@ $mobile=$vals->mobile;
 $pmobile=$vals->panicmobile;
 $datemodified=date("Y-m-d H:i:s");
 
-$checkexisting=mysqli_query($conn, "SELECT email,mobile,panicmobile FROM tbl_rider WHERE email LIKE '$email'
+$checkexisting=mysqli_query($conn, "SELECT email,mobile,panicmobile FROM passenger WHERE email LIKE '$email'
 || email LIKE '$mobile' || panicmobile LIKE '$pmobile'");
 if(mysqli_num_rows($checkexisting)>0)
 {
@@ -47,7 +47,7 @@ $qrys=mysqli_query($conn, "UPDATE passenger SET firstname = $firstname, lastname
 email = $email,password = $password,address = $address,mobile = $mobile,
 panicmobile = $pmobile,datemodified = $datemodified WHERE id = $id");
 
-	if($qrys)
+	if(!$qrys)
 	{
 		header('HTTP/1.1 400 Bad Request');
     echo json_encode(array('message' => 'Query Error'));
