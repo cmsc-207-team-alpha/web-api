@@ -1,0 +1,76 @@
+<?php
+namespace TeamAlpha\Web;
+
+// Require classes
+require $_SERVER['DOCUMENT_ROOT'] . '/api/utils/db.php';
+require $_SERVER['DOCUMENT_ROOT'] . '/api/utils/http.php';
+// require $_SERVER['DOCUMENT_ROOT'] . '/api/models/driver.php';
+require $_SERVER['DOCUMENT_ROOT'] . '/api/models/farelist.php';
+
+// Declare use on objects to be used
+use Exception;
+use PDOException;
+
+// HTTP headers for response
+Http::SetDefaultHeaders('GET');
+
+// Check if request method is correct
+if ($_SERVER['REQUEST_METHOD'] !== 'GET') {
+    Http::ReturnError(405, array('message' => 'Request method is not allowed.'));
+    return;
+}
+
+$id = 0;
+
+// Extract request query string
+if (array_key_exists('id', $_GET)) {
+    $id = intval($_GET['id']);
+}
+
+try {
+    if ($id === 0) {
+        // Id was not given
+        // Return all drivers
+
+        // Create Db object
+        $db = new Db('SELECT * FROM `fare`');
+
+        $response = array();
+
+        // Execute
+        if ($db->execute() > 0) {
+            // Drivers were found
+            $records = $db->fetchAll();
+            foreach ($records as &$record) {
+                $fare = new FareList($record);
+                array_push($response, $fare);
+            }
+        }
+
+        // Reply with successful response
+        Http::ReturnSuccess($response);
+    } 
+    // else {
+    //     // Create Db object
+    //     $db = new Db('SELECT * FROM `driver` WHERE id = :id LIMIT 1');
+
+    //     // Bind parameters
+    //     $db->bindParam(':id', $id);
+
+    //     // Execute
+    //     if ($db->execute() === 0) {
+    //         Http::ReturnError(404, array('message' => 'Driver not found.'));
+    //     } else {
+    //         // Driver was found
+    //         $record = $db->fetchAll()[0];
+    //         $driver = new Driver($record);
+
+    //         // Reply with successful response
+    //         Http::ReturnSuccess($driver);
+    //     }
+    // } 
+} catch (PDOException $pe) {
+    Db::ReturnDbError($pe);
+} catch (Exception $e) {
+    Http::ReturnError(500, array('message' => 'Server error: ' . $e->getMessage() . '.'));
+}   
