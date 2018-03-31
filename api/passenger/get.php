@@ -32,7 +32,7 @@ if(mysqli_num_rows($get)>0)
 		
 		
 		header('HTTP/1.1 201 Request Success');
-		echo json_encode($myObj);
+		echo json_encode($passenger);
 }
 else
 {
