@@ -892,6 +892,66 @@
 					"response": []
 				}
 			]
+		},
+		{
+			"name": "Report",
+			"description": "",
+			"item": [
+				{
+					"name": "Get Trips Stats",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "http://localhost:8000/api/report/tripstats.php",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"report",
+								"tripstats.php"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Trips Stats By Date Range",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "http://localhost:8000/api/report/tripstats.php?datestart=2018-03-01&dateend=2018-03-31",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"report",
+								"tripstats.php"
+							],
+							"query": [
+								{
+									"key": "datestart",
+									"value": "2018-03-01"
+								},
+								{
+									"key": "dateend",
+									"value": "2018-03-31"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
 		}
 	]
 }

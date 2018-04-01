@@ -25,4 +25,4 @@ The Trip API contains operations for allocating trips and updating trips' status
 The Payment API contains operations for authenticating and managing admin portal user account.
 
 ## [Report API](api/report/README.md)
-The Report API contains operations for returning data to be used for reporting.
+The Report API contains operations for returning statistics which could be used in reporting or in dashboards.
