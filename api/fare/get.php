@@ -4,7 +4,6 @@ namespace TeamAlpha\Web;
 // Require classes
 require $_SERVER['DOCUMENT_ROOT'] . '/api/utils/db.php';
 require $_SERVER['DOCUMENT_ROOT'] . '/api/utils/http.php';
-// require $_SERVER['DOCUMENT_ROOT'] . '/api/models/driver.php';
 require $_SERVER['DOCUMENT_ROOT'] . '/api/models/farelist.php';
 
 // Declare use on objects to be used
@@ -29,8 +28,7 @@ if (array_key_exists('id', $_GET)) {
 
 try {
     if ($id === 0) {
-        // Id was not given
-        // Return all drivers
+        // Return all fares
 
         // Create Db object
         $db = new Db('SELECT * FROM `fare`');
@@ -39,7 +37,7 @@ try {
 
         // Execute
         if ($db->execute() > 0) {
-            // Drivers were found
+            // Faares were found
             $records = $db->fetchAll();
             foreach ($records as &$record) {
                 $fare = new FareList($record);
@@ -50,25 +48,25 @@ try {
         // Reply with successful response
         Http::ReturnSuccess($response);
     } 
-    // else {
-    //     // Create Db object
-    //     $db = new Db('SELECT * FROM `driver` WHERE id = :id LIMIT 1');
+    else {
+        // Create Db object
+        $db = new Db('SELECT * FROM `fare` WHERE id = :id LIMIT 1');
 
-    //     // Bind parameters
-    //     $db->bindParam(':id', $id);
+        // Bind parameters
+        $db->bindParam(':id', $id);
 
-    //     // Execute
-    //     if ($db->execute() === 0) {
-    //         Http::ReturnError(404, array('message' => 'Driver not found.'));
-    //     } else {
-    //         // Driver was found
-    //         $record = $db->fetchAll()[0];
-    //         $driver = new Driver($record);
+        // Execute
+        if ($db->execute() === 0) {
+            Http::ReturnError(404, array('message' => 'Fare not found.'));
+        } else {
+            // Driver was found
+            $record = $db->fetchAll()[0];
+            $fare = new FareList($record);
 
-    //         // Reply with successful response
-    //         Http::ReturnSuccess($driver);
-    //     }
-    // } 
+            // Reply with successful response
+            Http::ReturnSuccess($fare);
+        }
+    } 
 } catch (PDOException $pe) {
     Db::ReturnDbError($pe);
 } catch (Exception $e) {

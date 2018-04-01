@@ -26,13 +26,14 @@ if (is_null($input)) {
 } else {
     try {
         // Create Db object
-        $db = new Db('INSERT INTO `fare` (vehicle_type, base_fare, per_km)
-                                VALUES (:vehicle_type, :base_fare, :per_km)');
+        $db = new Db('INSERT INTO `fare` (vehicle_type, base_fare, per_km, per_minute)
+                                VALUES (:vehicle_type, :base_fare, :per_km, :per_minute)');
 
         // Bind parameters
         $db->bindParam(':vehicle_type', property_exists($input, 'vehicle_type') ? $input->vehicle_type : null);
         $db->bindParam(':base_fare', property_exists($input, 'base_fare') ? $input->base_fare : null);
         $db->bindParam(':per_km', property_exists($input, 'per_km') ? $input->per_km : null);
+        $db->bindParam(':per_minute', property_exists($input, 'per_minute') ? $input->per_minute : null);
 
         // Execute and get id
         $db->execute();

@@ -35,14 +35,21 @@ if (is_null($input)) {
         if ($db->execute() === 0) {
             Http::ReturnError(404, array('message' => 'Fare matrix not found.'));
         } else {
+            $record = $db->fetchAll()[0];
+            $vehicletype = $record['vehicle_type'];
+            $basefare = $record['base_fare'];
+            $perkm = $record['per_km'];
+            $perminute = $record['per_minute'];
+
             // Create Db object
-            $db = new Db('UPDATE `Fare` SET vehicle_type = :vehicle_type, base_fare = :base_fare, per_km = :per_km WHERE id = :id');
+            $db = new Db('UPDATE `Fare` SET vehicle_type = :vehicle_type, base_fare = :base_fare, per_km = :per_km, per_minute = :per_minute WHERE id = :id');
 
             // Bind parameters
             $db->bindParam(':id', property_exists($input, 'id') ? $input->id : 0);
-            $db->bindParam(':vehicle_type', property_exists($input, 'vehicle_type') ? $input->vehicle_type : null);
-            $db->bindParam(':base_fare', property_exists($input, 'base_fare') ? $input->base_fare : null);
-            $db->bindParam(':per_km', property_exists($input, 'per_km') ? $input->per_km : null);
+            $db->bindParam(':vehicle_type', property_exists($input, 'vehicle_type') ? $input->vehicle_type : $vehicletype);
+            $db->bindParam(':base_fare', property_exists($input, 'base_fare') ? $input->base_fare : $basefare);
+            $db->bindParam(':per_km', property_exists($input, 'per_km') ? $input->per_km : $perkm);
+            $db->bindParam(':per_minute', property_exists($input, 'per_minute') ? $input->per_minute : $perminute);
 
             // Execute
             $db->execute();
