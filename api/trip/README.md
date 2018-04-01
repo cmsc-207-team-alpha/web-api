@@ -167,9 +167,9 @@ Status: 200
 </details>
 
 
-<details><summary>Getting trips by stage (and vehicle id)</summary>
+<details><summary>Getting trips by stage (and vehicle id and \ or date range)</summary>
 
-## Getting trips by stage (and vehicle id):
+## Getting trips by stage (and vehicle id and \ or date range):
 
 ### ENDPOINT
 `[website base address]/api/trip/get.php`
@@ -184,6 +184,8 @@ Status: 200
 |--|--|
 |stage|Stage of the trip (Could be "Requested", "Assigned", "Accepted", "Rejected", "Ongoing", "Completed", "Cancelled", or "%")|
 |vehicleid|Optional|
+|datestart|Optional. Date coverage start|
+|dateend|Optional. Date coverage end|
 
 ### RESPONSE DETAILS
 
