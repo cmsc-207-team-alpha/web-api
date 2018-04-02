@@ -60,7 +60,7 @@ if (is_null($input)) {
             // $distance = $radius * $c; //distance in KM
             // $amount = $basefare + ($distance * $perkm);
 
-            Http::ReturnSuccess(array('Vehicle Type' => $vehicletype, 'Base Fare' => $basefare, 'Per KM' => $perkm, 'Distance' => round($distance,2), 'Total Amount' => round($amount,2)));
+            Http::ReturnSuccess(array('Vehicle Type' => $vehicletype, 'Base Fare' => $basefare, 'Per KM' => $perkm, 'Per Minute' => $perminute, 'Distance' => round($distance,2), 'Total Amount' => round($amount,2)));
 
         }
     } catch (PDOException $pe) {

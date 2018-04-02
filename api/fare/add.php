@@ -43,7 +43,7 @@ if (is_null($input)) {
         $db->commit();
 
         // Reply with successful response
-        Http::ReturnCreated('/api/fare/get.php?id=' . $id, array('message' => 'Fare Matrix Added.', 'id' => (int) $id));
+        Http::ReturnCreated('/api/fare/get.php?id=' . $id, array('message' => 'Fare matrix added.', 'id' => (int) $id));
     } catch (PDOException $pe) {
         Db::ReturnDbError($pe);
     } catch (Exception $e) {
