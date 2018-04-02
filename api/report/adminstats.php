@@ -20,7 +20,6 @@ if ($_SERVER['REQUEST_METHOD'] !== 'GET') {
 }
 
 try {
-
     // Create Db object
     $db = new Db('SELECT
             (SELECT COUNT(id) FROM `admin`) totaladmin');
