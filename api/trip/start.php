@@ -36,11 +36,12 @@ if (is_null($input)) {
             Http::ReturnError(404, array('message' => 'Trip not found.'));
         } else {
             // Create Db object
-            $db = new Db('UPDATE `trip` SET stage = :stage, datemodified = :datemodified WHERE id = :id');
+            $db = new Db('UPDATE `trip` SET stage = :stage, datestart = :datestart, datemodified = :datemodified WHERE id = :id');
 
             // Bind parameters
             $db->bindParam(':id', property_exists($input, 'id') ? $input->id : 0);
             $db->bindParam(':stage', 'Ongoing');
+            $db->bindParam(':datestart', date('Y-m-d H:i:s'));
             $db->bindParam(':datemodified', date('Y-m-d H:i:s'));
 
             // Execute

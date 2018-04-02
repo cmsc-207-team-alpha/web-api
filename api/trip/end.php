@@ -43,11 +43,12 @@ if (is_null($input)) {
 
             // Update trip status
             // Create Db object
-            $db = new Db('UPDATE `trip` SET stage = :stage, datemodified = :datemodified WHERE id = :id');
+            $db = new Db('UPDATE `trip` SET stage = :stage, dateend = :dateend, datemodified = :datemodified WHERE id = :id');
 
             // Bind parameters
             $db->bindParam(':id', property_exists($input, 'id') ? $input->id : 0);
             $db->bindParam(':stage', 'Completed');
+            $db->bindParam(':dateend', date('Y-m-d H:i:s'));
             $db->bindParam(':datemodified', date('Y-m-d H:i:s'));
 
             // Execute
