@@ -20,12 +20,10 @@ if ($_SERVER['REQUEST_METHOD'] !== 'GET') {
 }
 
 try {
-    $active = array_key_exists('active', $_GET) ? $_GET['active'] . '1';
 
     // Create Db object
     $db = new Db('SELECT
-            (SELECT COUNT(id) FROM `admin`) totaladmin,
-            (SELECT COUNT(id) FROM `admin` WHERE stage = \'Active\' AND active) totalactive');
+            (SELECT COUNT(id) FROM `admin`) totaladmin);
 
 
     // Execute query
