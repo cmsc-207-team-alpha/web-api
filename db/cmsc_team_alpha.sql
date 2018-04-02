@@ -174,6 +174,8 @@ CREATE TABLE IF NOT EXISTS `trip` (
   `stage` varchar(15) NOT NULL,
   `datestart` datetime DEFAULT NULL,
   `dateend` datetime DEFAULT NULL,
+  `amount` decimal(6,2) DEFAULT NULL,
+  `rating` tinyint(4) DEFAULT NULL,
   `datecreated` datetime NOT NULL,
   `datemodified` datetime NOT NULL,
   PRIMARY KEY (`id`),
