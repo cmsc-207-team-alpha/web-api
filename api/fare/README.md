@@ -1,9 +1,9 @@
 # Fare API
 The Fare API contains operations for managing the fare matrix. Using this API, fare could be set based on vehicle type, distance travel per minute and per kilometer. The API also have an operation for calculating fare based on given parameter.
 
-<details><summary>Registering a new driver</summary>
+<details><summary>Registering new fare matrix</summary>
 
-## Registering a new driver:
+## Registering new fare matrix:
 
 ### ENDPOINT
 `[website base address]/api/fare/add.php`
