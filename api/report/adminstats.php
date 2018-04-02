@@ -33,7 +33,7 @@ try {
     $adminstats = new AdminStats($record);
 
     // Reply with successful response
-    Http::ReturnSuccess($tripstats);
+    Http::ReturnSuccess($adminstats);
 } catch (PDOException $pe) {
     Db::ReturnDbError($pe);
 } catch (Exception $e) {
