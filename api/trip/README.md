@@ -26,6 +26,7 @@ Trip API contains operations for allocating trips and updating trips' status.
 |destination|string|Destination location - name \ address|
 |destinationlat|decimal|Destination location - latitude|
 |destinationlong|decimal|Destination location - longitude|
+|amount|decimal|Pre-computed trip amount|
 |radius|numeric|Optional. Sets the radius where available vehicles should be searched - default is 20 (20 km radius)|
 
 ### RESPONSE DETAILS
@@ -59,7 +60,8 @@ Content-Type: application/json
     "sourcelong": 121.014685,
     "destination": "San Agustin Church, General Luna St, Manila, Metro Manila, Philippines",
     "destinationlat": 14.58899,
-    "destinationlong": 120.975238
+    "destinationlong": 120.975238,
+    "amount": 129.13,
 }
 ~~~~
 
@@ -126,6 +128,8 @@ Status: 201
 |stage|string|Trip's stage|
 |datestart|datetime||
 |dateend|datetime||
+|amount|decimal||
+|rating|numeric||
 |datecreated|datetime||
 |datemodified|datetime||
 
@@ -158,6 +162,8 @@ Status: 200
     "stage": "Accepted",
     "datestart": null,
     "dateend": null,
+    "amount": 129.13,
+    "rating": null,
     "datecreated": "2018-03-30 07:38:22",
     "datemodified": "2018-03-30 09:09:36"
 }
@@ -629,3 +635,70 @@ Status: 200
 
 
 </details>
+
+
+<details><summary>Rating a trip</summary>
+
+## Rating a trip:
+
+### ENDPOINT
+`[website base address]/api/trip/rate.php`
+
+### REQUEST DETAILS
+
+#### Request Method:
+`POST`
+
+#### Request Body:
+|Member|Data Type|Comment|
+|--|--|--|
+|id|numeric|Trip id|
+|rating|numeric|Optional (value of 3 will be used if not set). Value is from 1 to 5|
+
+### RESPONSE DETAILS
+
+#### Response Status Codes:
+|Status|Description|
+|--|--|
+|200|Success|
+|400|Bad Request|
+|405|Method Not Allowed|
+|500|Internal Server Error|
+
+#### Response Body:
+|Member|Data Type|Comment|
+|--|--|--|
+|message|string||
+|id|numeric|The trip id. Present only if operation is successful|
+
+### SAMPLES
+
+#### Sample Request:
+~~~~
+POST [website base address]/api/trip/rate.php HTTP/1.1
+Content-Type: application/json
+
+{
+	"id": 1,
+	"rating": 4
+}
+~~~~
+
+#### Sample Response:
+~~~~
+Access-Control-Allow-Methods: POST
+Access-Control-Allow-Orgin: *
+Connection: close
+Content-Type: application/json; charset=UTF-8
+Date: Mon, 02 Apr 2018 14:09:49 +0000
+Status: 200
+
+{
+    "message": "Trip rated.",
+    "id": 1
+}
+~~~~
+
+
+</details>
+
