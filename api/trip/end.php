@@ -53,6 +53,9 @@ if (is_null($input)) {
             // Execute
             $db->execute();
 
+            // Commit transaction
+            $db->commit();
+
             // Update vehicle status
             // Create Db object
             $db = new Db('UPDATE `vehicle` SET available = :available, datemodified = :datemodified WHERE id = :vehicleid');
