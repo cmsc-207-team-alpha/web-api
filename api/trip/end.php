@@ -41,12 +41,25 @@ if (is_null($input)) {
             $record = $db->fetchAll()[0];
             $trip = new Trip($record);
 
+            // Update trip status
             // Create Db object
             $db = new Db('UPDATE `trip` SET stage = :stage, datemodified = :datemodified WHERE id = :id');
 
             // Bind parameters
             $db->bindParam(':id', property_exists($input, 'id') ? $input->id : 0);
             $db->bindParam(':stage', 'Completed');
+            $db->bindParam(':datemodified', date('Y-m-d H:i:s'));
+
+            // Execute
+            $db->execute();
+
+            // Update vehicle status
+            // Create Db object
+            $db = new Db('UPDATE `vehicle` SET available = :available, datemodified = :datemodified WHERE id = :vehicleid');
+
+            // Bind parameters
+            $db->bindParam(':vehicleid', $trip->vehicleid);
+            $db->bindParam(':available', 1);
             $db->bindParam(':datemodified', date('Y-m-d H:i:s'));
 
             // Execute
