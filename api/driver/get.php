@@ -33,7 +33,9 @@ try {
         // Return all drivers
 
         // Create Db object
-        $db = new Db('SELECT * FROM `driver`');
+        $db = new Db('SELECT d.*,
+                        (SELECT AVG(IFNULL(t.rating, 3)) FROM `trip` t WHERE t.vehicleid IN (SELECT v.id from `vehicle` v WHERE v.driverid = d.id)) rating
+                        FROM `driver` d');
 
         $response = array();
 
@@ -51,7 +53,9 @@ try {
         Http::ReturnSuccess($response);
     } else {
         // Create Db object
-        $db = new Db('SELECT * FROM `driver` WHERE id = :id LIMIT 1');
+        $db = new Db('SELECT d.*,
+                        (SELECT AVG(IFNULL(t.rating, 3)) FROM `trip` t WHERE t.vehicleid IN (SELECT v.id from `vehicle` v WHERE v.driverid = d.id)) rating
+                        FROM `driver` d WHERE id = :id LIMIT 1');
 
         // Bind parameters
         $db->bindParam(':id', $id);

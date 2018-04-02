@@ -4,7 +4,6 @@ namespace TeamAlpha\Web;
 // Require classes
 require $_SERVER['DOCUMENT_ROOT'] . '/api/utils/db.php';
 require $_SERVER['DOCUMENT_ROOT'] . '/api/utils/http.php';
-require $_SERVER['DOCUMENT_ROOT'] . '/api/models/trip.php';
 
 // Declare use on objects to be used
 use Exception;
@@ -36,28 +35,24 @@ if (is_null($input)) {
         if ($db->execute() === 0) {
             Http::ReturnError(404, array('message' => 'Trip not found.'));
         } else {
-            $record = $db->fetchAll()[0];
-            $trip = new Trip($record);
-
-            // Update trip
             // Create Db object
-            $db = new Db('UPDATE `trip` SET stage = :stage, datemodified = :datemodified WHERE id = :id');
+            $db = new Db('UPDATE `trip` SET rating = :rating, datemodified = :datemodified WHERE id = :id');
+
+            // Set rating
+            $rating = 3;
+            if (property_exists($input, 'rating')) {
+                if ($input->rating > 5) {
+                    $rating = 5;
+                } else if ($input->rating < 1) {
+                    $rating = 1;
+                } else {
+                    $rating = $input->rating;
+                }
+            }
 
             // Bind parameters
             $db->bindParam(':id', property_exists($input, 'id') ? $input->id : 0);
-            $db->bindParam(':stage', 'Accepted');
-            $db->bindParam(':datemodified', date('Y-m-d H:i:s'));
-
-            // Execute
-            $db->execute();
-
-            // Update vehicle status
-            // Create Db object
-            $db = new Db('UPDATE `vehicle` SET available = :available, datemodified = :datemodified WHERE id = :vehicleid');
-
-            // Bind parameters
-            $db->bindParam(':vehicleid', $trip->vehicleid);
-            $db->bindParam(':available', 0);
+            $db->bindParam(':rating', $rating);
             $db->bindParam(':datemodified', date('Y-m-d H:i:s'));
 
             // Execute
@@ -67,7 +62,7 @@ if (is_null($input)) {
             $db->commit();
 
             // Reply with successful response
-            Http::ReturnSuccess(array('message' => 'Trip accepted.', 'id' => $input->id));
+            Http::ReturnSuccess(array('message' => 'Trip rated.', 'id' => $input->id));
         }
     } catch (PDOException $pe) {
         Db::ReturnDbError($pe);

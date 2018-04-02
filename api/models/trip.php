@@ -15,6 +15,8 @@ class Trip
     public $stage;
     public $datestart;
     public $dateend;
+    public $amount;
+    public $rating;
     public $datecreated;
     public $datemodified;
 
@@ -33,6 +35,8 @@ class Trip
             $this->stage = $data['stage'] ?? null;
             $this->datestart = $data['datestart'] ?? null;
             $this->dateend = $data['dateend'] ?? null;
+            $this->amount = $data['amount'] === null ? null : (double) $data['amount'];
+            $this->rating = $data['rating'] === null ? null : (int) $data['rating'];
             $this->datecreated = $data['datecreated'] ?? null;
             $this->datemodified = $data['datemodified'] ?? null;
         }

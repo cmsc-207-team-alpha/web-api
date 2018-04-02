@@ -13,6 +13,7 @@ class Driver
     public $verified;
     public $blocked;
     public $photo;
+    public $rating;
     public $datecreated;
     public $datemodified;
 
@@ -29,6 +30,7 @@ class Driver
             $this->verified = (int) $data['verified'] ?? 0;
             $this->blocked = (int) $data['blocked'] ?? 0;
             $this->photo = $data['photo'] ?? null;
+            $this->rating = $data['rating'] === null ? null : (double) $data['rating'];
             $this->datecreated = $data['datecreated'] ?? null;
             $this->datemodified = $data['datemodified'] ?? null;
         }

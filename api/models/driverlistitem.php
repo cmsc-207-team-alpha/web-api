@@ -11,6 +11,7 @@ class DriverListItem
     public $active;
     public $verified;
     public $blocked;
+    public $rating;
 
     public function __construct(array $data)
     {
@@ -23,6 +24,7 @@ class DriverListItem
             $this->active = (int) $data['active'] ?? 0;
             $this->verified = (int) $data['verified'] ?? 0;
             $this->blocked = (int) $data['blocked'] ?? 0;
+            $this->rating = $data['rating'] === null ? null : (double) $data['rating'];
         }
     }
 }
