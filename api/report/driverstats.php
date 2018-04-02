@@ -4,7 +4,7 @@ namespace TeamAlpha\Web;
 // Require classes
 require $_SERVER['DOCUMENT_ROOT'] . '/api/utils/db.php';
 require $_SERVER['DOCUMENT_ROOT'] . '/api/utils/http.php';
-require $_SERVER['DOCUMENT_ROOT'] . '/api/models/adminstats.php';
+require $_SERVER['DOCUMENT_ROOT'] . '/api/models/driverstats.php';
 
 // Declare use on objects to be used
 use Exception;
@@ -25,8 +25,9 @@ try {
 
     // Create Db object
     $db = new Db('SELECT
-            (SELECT COUNT(id) FROM `admin` WHERE datecreated BETWEEN :datestart AND :dateend) totaladmin,
-            (SELECT COUNT(id) FROM `admin` WHERE active == 1 AND datecreated BETWEEN :datestart AND :dateend) totalactive');
+            (SELECT COUNT(id) FROM `driver` WHERE datecreated BETWEEN :datestart AND :dateend) totaldriver,
+            (SELECT COUNT(id) FROM `driver` WHERE active === 1 AND datecreated BETWEEN :datestart AND :dateend) totalactive,
+            (SELECT COUNT(id) FROM `driver` WHERE blocked === 1 AND datecreated BETWEEN :datestart AND :dateend) totalblocked');
 
     // Bind parameters
     $db->bindParam(':datestart', $datestart);
@@ -37,10 +38,10 @@ try {
 
     // Extract result
     $record = $db->fetchAll()[0];
-    $adminstats = new AdminStats($record);
+    $driverstats = new DriverStats($record);
 
     // Reply with successful response
-    Http::ReturnSuccess($adminstats);
+    Http::ReturnSuccess($driverstats);
 } catch (PDOException $pe) {
     Db::ReturnDbError($pe);
 } catch (Exception $e) {
