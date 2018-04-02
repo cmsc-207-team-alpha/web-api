@@ -10,7 +10,6 @@ class AdminStats
     {
         if ($data !== null) {
             $this->totaladmin = (int) $data['totaladmin'] ?? 0;
-            $this->totalactive = (int) $data['totalactive'] ?? 0;
         }
     }
 }
