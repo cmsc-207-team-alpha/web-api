@@ -415,7 +415,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"vehicletype\": \"Sedan\",\n\t\"passengerid\": 1,\n\t\"source\": \"Don Pablo Bldg, 114 Amorsolo Street, Legazpi Village, Makati, Kalakhang Maynila, Philippines\",\n\t\"sourcelat\": 14.556764,\n\t\"sourcelong\": 121.014685,\n\t\"destination\": \"San Agustin Church, General Luna St, Manila, Metro Manila, Philippines\",\n    \"destinationlat\": 14.58899,\n    \"destinationlong\": 120.975238\n}"
+							"raw": "{\n\t\"vehicletype\": \"Sedan\",\n\t\"passengerid\": 1,\n\t\"source\": \"Don Pablo Bldg, 114 Amorsolo Street, Legazpi Village, Makati, Kalakhang Maynila, Philippines\",\n\t\"sourcelat\": 14.556764,\n\t\"sourcelong\": 121.014685,\n\t\"destination\": \"San Agustin Church, General Luna St, Manila, Metro Manila, Philippines\",\n    \"destinationlat\": 14.58899,\n    \"destinationlong\": 120.975238,\n    \"amount\": 129.13\n}"
 						},
 						"url": {
 							"raw": "http://localhost:8000/api/trip/request.php",
@@ -674,6 +674,36 @@
 								"api",
 								"trip",
 								"cancel.php"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Rate Trip",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"id\": 1,\n\t\"rating\": 4\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/trip/rate.php",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"trip",
+								"rate.php"
 							]
 						}
 					},
