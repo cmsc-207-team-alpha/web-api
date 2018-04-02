@@ -4,6 +4,7 @@ namespace TeamAlpha\Web;
 // Require classes
 require $_SERVER['DOCUMENT_ROOT'] . '/api/utils/db.php';
 require $_SERVER['DOCUMENT_ROOT'] . '/api/utils/http.php';
+require $_SERVER['DOCUMENT_ROOT'] . '/api/models/trip.php';
 
 // Declare use on objects to be used
 use Exception;
