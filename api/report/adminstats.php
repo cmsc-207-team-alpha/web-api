@@ -25,8 +25,8 @@ try {
 
     // Create Db object
     $db = new Db('SELECT
-            (SELECT COUNT(id) FROM `admin` WHERE datecreated BETWEEN :datestart AND :dateend) total,
-            (SELECT COUNT(id) FROM `admin` WHERE stage = \'Active\' AND datecreated BETWEEN :datestart AND :dateend) totalcancelled');
+            (SELECT COUNT(id) FROM `admin` WHERE datecreated BETWEEN :datestart AND :dateend) totaladmin,
+            (SELECT COUNT(id) FROM `admin` WHERE stage = \'Active\' AND datecreated BETWEEN :datestart AND :dateend) totalactive');
 
     // Bind parameters
     $db->bindParam(':datestart', $datestart);
