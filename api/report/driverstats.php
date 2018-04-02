@@ -26,8 +26,8 @@ try {
     // Create Db object
     $db = new Db('SELECT
             (SELECT COUNT(id) FROM `driver` WHERE datecreated BETWEEN :datestart AND :dateend) totaldriver,
-            (SELECT COUNT(id) FROM `driver` WHERE active === 1 AND datecreated BETWEEN :datestart AND :dateend) totalactive,
-            (SELECT COUNT(id) FROM `driver` WHERE blocked === 1 AND datecreated BETWEEN :datestart AND :dateend) totalblocked');
+            (SELECT COUNT(id) FROM `driver` WHERE active == 1 AND datecreated BETWEEN :datestart AND :dateend) totalactive,
+            (SELECT COUNT(id) FROM `driver` WHERE blocked == 1 AND datecreated BETWEEN :datestart AND :dateend) totalblocked');
 
     // Bind parameters
     $db->bindParam(':datestart', $datestart);
