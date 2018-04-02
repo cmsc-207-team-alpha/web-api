@@ -54,8 +54,8 @@ if (is_null($input)) {
             $vehicleid = (int) $record['id'];
         }
         // Create Db object
-        $db = new Db('INSERT INTO `trip` (vehicleid, passengerid, source, sourcelat, sourcelong, destination, destinationlat, destinationlong, stage, datecreated, datemodified)
-        VALUES (:vehicleid, :passengerid, :source, :sourcelat, :sourcelong, :destination, :destinationlat, :destinationlong, :stage, :datecreated, :datemodified)');
+        $db = new Db('INSERT INTO `trip` (vehicleid, passengerid, source, sourcelat, sourcelong, destination, destinationlat, destinationlong, stage, amount, datecreated, datemodified)
+        VALUES (:vehicleid, :passengerid, :source, :sourcelat, :sourcelong, :destination, :destinationlat, :destinationlong, :stage, :amount, :datecreated, :datemodified)');
 
         // Bind parameters
         $db->bindParam(':vehicleid', $vehicleid);
@@ -67,6 +67,7 @@ if (is_null($input)) {
         $db->bindParam(':destinationlat', property_exists($input, 'destinationlat') ? $input->destinationlat : null);
         $db->bindParam(':destinationlong', property_exists($input, 'destinationlong') ? $input->destinationlong : null);
         $db->bindParam(':stage', $vehicleid === null ? 'Requested' : 'Assigned');
+        $db->bindParam(':amount', property_exists($input, 'amount') ? $input->amount : null);
         $db->bindParam(':datecreated', date('Y-m-d H:i:s'));
         $db->bindParam(':datemodified', date('Y-m-d H:i:s'));
 
