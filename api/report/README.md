@@ -119,7 +119,7 @@ Status: 200
 {
     "totaldriver": 36,
     "totalactive": 36,
-	"totalblocked": 0
+    "totalblocked": 0
 }
 ~~~~
 
