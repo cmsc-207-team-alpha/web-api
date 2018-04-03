@@ -5,7 +5,7 @@ $host=$dbconfig['db_server'];
 $db=$dbconfig['db_name'];
 $user=$dbconfig['db_user'];
 $pass=$dbconfig['db_password'];
-$conn=mysqli_connect("$host","$user","","$db");
+$conn=mysqli_connect("$host","$user","$pass","$db");
 
 
 $url = 'php://input'; // path to your JSON file
