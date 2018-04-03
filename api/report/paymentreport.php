@@ -51,22 +51,6 @@ $query="SELECT * FROM payment WHERE
 
 	
 	
-/*
-CREATE TABLE IF NOT EXISTS `payment` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `date` date NOT NULL,
-  `tripid` int(11) NOT NULL,
-  `amount` decimal(6,2) DEFAULT NULL,
-  `mode` varchar(50) NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `tripid` (`tripid`),
-  KEY `mode` (`mode`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
-*/
-	
-	
-	
 
 
 	
