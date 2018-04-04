@@ -39,7 +39,7 @@ if(mysqli_num_rows($checkexisting)>0)
             $email = new Email();
             $email->send($remail, $name, 'Temporary Password sent', $htmlbody, $altbody);
 
-	 header('HTTP/1.1 201 Created');
+	 header('HTTP/1.1 200 OK');
     echo json_encode(array('message' => 'Sent a temporary Password to be used'));
 }
 else{
