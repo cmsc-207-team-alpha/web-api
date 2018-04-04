@@ -27,8 +27,10 @@ $checkexisting=mysqli_query($conn, "SELECT email,mobile,password FROM passenger 
 || mobile LIKE '$mobile') && password LIKE '$password'");
 if(mysqli_num_rows($checkexisting)>0)
 {
-	 header('HTTP/1.1 201 Created');
-    echo json_encode(array('message' => 'Successfully Logged In the account'));
+	$rv=mysqli_fetch_array($checkexisting);
+	$id=$rv['id'];
+	 header('HTTP/1.1 200 Authenticated');
+    echo json_encode(array('message' => 'Successfully Authenticated the account ','id' => '$id'));
 }
 else{
     header('HTTP/1.1 400 Bad Request');
