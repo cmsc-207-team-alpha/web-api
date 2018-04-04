@@ -46,7 +46,7 @@ if(mysqli_num_rows($get)>0)
 		$passenger->password = "$rv[password]";
 		
 		
-		header('HTTP/1.1 201 Request Success');
+		header('HTTP/1.1 200 OK');
 		echo json_encode($passenger);
 }
 else
