@@ -33,7 +33,7 @@ $deletequery=mysqli_query($conn, "DELETE FROM passenger WHERE id = $id LIMIT 1")
 	}
 	else
 	{
-	header('HTTP/1.1 201 Created');
+	header('HTTP/1.1 200 OK');
     echo json_encode(array('message' => 'Successfully deleted the account', 'passengerId' => $passenger->id));
 	}
 }
