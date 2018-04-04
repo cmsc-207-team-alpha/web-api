@@ -226,7 +226,7 @@ Status: 201
 ## Authenticate upon login:
 
 ### ENDPOINT
-`[website base address]/api/passenger/delete.php
+`[website base address]/api/passenger/authenticate.php
 
 ### REQUEST DETAILS
 
@@ -278,10 +278,10 @@ Connection: close
 Content-Type: application/json; charset=UTF-8
 Date: Fri, 30 Mar 2018 09:00:57 +0000
 Location: /api/passenger/get.php?id=1
-Status: 201
+Status: 200
 
 {
-    "message": "Login Successfull",
+    "message": "Account Deleted",
     "id": 1
 }
 ~~~~
