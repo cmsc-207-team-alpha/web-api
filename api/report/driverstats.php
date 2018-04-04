@@ -20,14 +20,11 @@ if ($_SERVER['REQUEST_METHOD'] !== 'GET') {
 }
 
 try {
-    $datestart = array_key_exists('datestart', $_GET) ? $_GET['datestart'] . ' 00:00:00' : '1000-01-01 00:00:00';
-    $dateend = array_key_exists('dateend', $_GET) ? $_GET['dateend'] . ' 23:59:59' : '9999-12-31 23:59:59';
-
     // Create Db object
     $db = new Db('SELECT
-            (SELECT COUNT(id) FROM `driver` WHERE datecreated BETWEEN :datestart AND :dateend) totaldriver,
-            (SELECT COUNT(id) FROM `driver` WHERE \'active\' AND datecreated BETWEEN :datestart AND :dateend) totalactive,
-            (SELECT COUNT(id) FROM `driver` WHERE \'blocked\' AND datecreated BETWEEN :datestart AND :dateend) totalblocked');
+            (SELECT COUNT(id) FROM `driver`) totaldriver,
+            (SELECT COUNT(id) FROM `driver` WHERE active = 1) totalactive,
+            (SELECT COUNT(id) FROM `driver` WHERE blocked = 1) totalblocked');
 
     // Bind parameters
     $db->bindParam(':datestart', $datestart);
