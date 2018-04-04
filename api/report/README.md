@@ -197,4 +197,186 @@ Status: 200
 </details>
 
 
+<details><summary>Getting vehicle statistics</summary>
+
+## Getting vehicle statistics:
+
+### ENDPOINT
+`[website base address]/api/report/vehiclestats.php`
+
+### REQUEST DETAILS
+
+#### Request Method:
+`GET`
+
+### RESPONSE DETAILS
+
+#### Response Status Codes:
+|Status|Description|
+|--|--|
+|200|Success|
+|405|Method Not Allowed|
+|500|Internal Server Error|
+
+#### Response Body:
+
+|Member|Data Type|Comment|
+|--|--|--|
+|total|numeric|Total vehicles|
+|totalonduty|numeric|Total vehicles which are on duty at the moment|
+|totalavailable|numeric|Total available vehicles at the moment|
+|totalontrip|numeric|Total vehicles which are on trip at the moment|
+
+### SAMPLES
+
+#### Sample Request:
+~~~~
+GET [website base address]/api/report/vehiclestats.php HTTP/1.1 
+~~~~
+
+#### Sample Response:
+~~~~
+Access-Control-Allow-Methods: GET
+Access-Control-Allow-Orgin: *
+Connection: close
+Content-Type: application/json; charset=UTF-8
+Date: Wed, 04 Apr 2018 12:12:19 +0000
+Status: 200
+
+{
+    "total": 15,
+    "totalonduty": 10,
+    "totalavailable": 4,
+    "totalontrip": 6
+}
+~~~~
+
+
+</details>
+
+
+<details><summary>Getting fare statistics</summary>
+
+## Getting fare statistics:
+
+### ENDPOINT
+`[website base address]/api/report/farestats.php`
+
+### REQUEST DETAILS
+
+#### Request Method:
+`GET`
+
+### RESPONSE DETAILS
+
+#### Response Status Codes:
+|Status|Description|
+|--|--|
+|200|Success|
+|405|Method Not Allowed|
+|500|Internal Server Error|
+
+#### Response Body:
+
+|Member|Data Type|Comment|
+|--|--|--|
+|total|numeric|Total fare matrices configured|
+|avgbasefare|numeric|Average base fare|
+|lowestbasefare|numeric|Lowest configured base fare|
+|hightestbasefare|numeric|Highest configured base fare|
+|avgfareperkm|numeric|Average fare per km confiured|
+|lowestfareperkm|numeric|Lowest fare per km confiured|
+|hightestfareperkm|numeric|Highest fare per km confiured|
+|avgfareperminute|numeric|Average fare per minute confiured|
+|lowestfareperminute|numeric|Lowest fare per minute confiured|
+|hightestfareperminute|numeric|Highest fare per minute confiured|
+
+### SAMPLES
+
+#### Sample Request:
+~~~~
+GET [website base address]/api/report/farestats.php HTTP/1.1 
+~~~~
+
+#### Sample Response:
+~~~~
+Access-Control-Allow-Methods: GET
+Access-Control-Allow-Orgin: *
+Connection: close
+Content-Type: application/json; charset=UTF-8
+Date: Wed, 04 Apr 2018 12:15:51 +0000
+Status: 200
+
+{
+    "totalmatrices": 5,
+    "avgbasefare": 242,
+    "lowestbasefare": 130,
+    "hightestbasefare": 350,
+    "avgfareperkm": 13,
+    "lowestfareperkm": 9,
+    "hightestfareperkm": 20,
+    "avgfareperminute": 6,
+    "lowestfareperminute": 5,
+    "hightestfareperminute": 10
+}
+~~~~
+
+
+</details>
+
+
+<details><summary>Getting passenger statistics</summary>
+
+## Getting passenger statistics:
+
+### ENDPOINT
+`[website base address]/api/report/passengerstats.php`
+
+### REQUEST DETAILS
+
+#### Request Method:
+`GET`
+
+### RESPONSE DETAILS
+
+#### Response Status Codes:
+|Status|Description|
+|--|--|
+|200|Success|
+|405|Method Not Allowed|
+|500|Internal Server Error|
+
+#### Response Body:
+
+|Member|Data Type|Comment|
+|--|--|--|
+|total|numeric|Total passenger|
+|totalactive|numeric|Total active passengers|
+|totalblocked|numeric|Total blocked passengers|
+
+### SAMPLES
+
+#### Sample Request:
+~~~~
+GET [website base address]/api/report/passengerstats.php HTTP/1.1 
+~~~~
+
+#### Sample Response:
+~~~~
+Access-Control-Allow-Methods: GET
+Access-Control-Allow-Orgin: *
+Connection: close
+Content-Type: application/json; charset=UTF-8
+Date: Wed, 04 Apr 2018 12:42:17 +0000
+Status: 200
+
+{
+    "total": 25,
+    "totalactive": 24,
+    "totalblocked": 0
+}
+~~~~
+
+
+</details>
 
