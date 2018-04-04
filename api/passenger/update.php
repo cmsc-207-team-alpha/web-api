@@ -56,7 +56,7 @@ panicmobile = '$pmobile',datemodified = '$datemodified' WHERE id = $id")or die(m
 	}
 	else
 	{
-	header('HTTP/1.1 201 Created');
+	header('HTTP/1.1 200 OK');
     echo json_encode(array('message' => 'Successfully updated the record', 'passengerId' => $id));
 	}
 }
