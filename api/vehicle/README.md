@@ -102,7 +102,6 @@ Status: 201
 |Status|Description|
 |--|--|
 |200|Success|
-|400|Bad Request|
 |404|Not Found|
 |405|Method Not Allowed|
 |500|Internal Server Error|
@@ -178,6 +177,86 @@ Status: 200
 #### Request Parameter:
 |Name|Description|
 |--|--|
+
+
+### RESPONSE DETAILS
+
+#### Response Status Codes:
+|Status|Description|
+|--|--|
+|200|Success|
+|405|Method Not Allowed|
+|500|Internal Server Error|
+
+#### Response Body:
+**Array of:**
+
+|Member|Data Type|Comment|
+|--|--|--|
+|id |numeric||
+|driverid|numeric||
+|plateno|string||
+|type|string||
+|make|string||
+|model|string||
+|color|string||
+|active|numeric|1 or 0. Indicates if the vehicle is currently driven by a driver on duty|
+|available|numeric|1 or 0. Indicates if the vehicle is available for a trip request|
+|locationlat|decimal|Current location - latitude|
+|locationlong|decimal|Current location - longitude|
+
+### SAMPLES
+
+#### Sample Request:
+~~~~
+GET [website base address]/api/vehicle/get.php HTTP/1.1 
+~~~~
+
+#### Sample Response:
+~~~~
+Access-Control-Allow-Methods: GET
+Access-Control-Allow-Orgin: *
+Connection: close
+Content-Type: application/json; charset=UTF-8
+Date: Wed, 28 Mar 2018 12:29:23 +0000
+Status: 200
+
+[
+    {
+        "id": 1,
+        "driverid": 1,
+        "plateno": "ABC123",
+        "type": "Sedan",
+        "make": "Toyota",
+        "model": "Vios",
+        "color": "Space Grey",
+        "active": 1,
+        "available": 1,
+        "locationlat": 14.58899,
+        "locationlong": 120.975238
+    }
+]
+~~~~
+
+
+</details>
+
+
+<details><summary>Getting a driver's vehicles</summary>
+
+## Getting a driver's vehicles:
+
+### ENDPOINT
+`[website base address]/api/vehicle/get.php`
+
+### REQUEST DETAILS
+
+#### Request Method:
+`GET`
+
+#### Request Parameter:
+|Name|Description|
+|--|--|
 |driverid|Id of the driver|
 
 
@@ -187,7 +266,6 @@ Status: 200
 |Status|Description|
 |--|--|
 |200|Success|
-|400|Bad Request|
 |405|Method Not Allowed|
 |500|Internal Server Error|
 
@@ -222,6 +300,89 @@ Access-Control-Allow-Orgin: *
 Connection: close
 Content-Type: application/json; charset=UTF-8
 Date: Wed, 28 Mar 2018 12:29:23 +0000
+Status: 200
+
+[
+    {
+        "id": 1,
+        "driverid": 1,
+        "plateno": "ABC123",
+        "type": "Sedan",
+        "make": "Toyota",
+        "model": "Vios",
+        "color": "Space Grey",
+        "active": 1,
+        "available": 1,
+        "locationlat": 14.58899,
+        "locationlong": 120.975238
+    }
+]
+~~~~
+
+
+</details>
+
+
+<details><summary>Getting vehicles within a point \ location and radius</summary>
+
+## Getting vehicles within a point \ location and radius:
+
+### ENDPOINT
+`[website base address]/api/vehicle/get.php`
+
+### REQUEST DETAILS
+
+#### Request Method:
+`GET`
+
+#### Request Parameter:
+|Name|Description|
+|--|--|
+|sourcelat|Location point latitude|
+|sourcelong|Location point longitude|
+|radius|Location range in km|
+
+
+### RESPONSE DETAILS
+
+#### Response Status Codes:
+|Status|Description|
+|--|--|
+|200|Success|
+|405|Method Not Allowed|
+|500|Internal Server Error|
+
+#### Response Body:
+**Array of:**
+
+|Member|Data Type|Comment|
+|--|--|--|
+|id |numeric||
+|driverid|numeric||
+|plateno|string||
+|type|string||
+|make|string||
+|model|string||
+|color|string||
+|active|numeric|1 or 0. Indicates if the vehicle is currently driven by a driver on duty|
+|available|numeric|1 or 0. Indicates if the vehicle is available for a trip request|
+|locationlat|decimal|Current location - latitude|
+|locationlong|decimal|Current location - longitude|
+
+### SAMPLES
+
+#### Sample Request:
+~~~~
+GET [website base address]/api/vehicle/get.php?sourcelat=14.598155&sourcelong=120.978736&radius=10 HTTP/1.1 
+~~~~
+
+#### Sample Response:
+~~~~
+Access-Control-Allow-Methods: GET
+Access-Control-Allow-Orgin: *
+Connection: close
+Content-Type: application/json; charset=UTF-8
+Date: Wed, 04 Apr 2018 14:21:13 +0000
 Status: 200
 
 [

@@ -746,6 +746,34 @@
 					"response": []
 				},
 				{
+					"name": "Get Vehicle (Detailed)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "http://localhost:8000/api/vehicle/get.php?id=1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"vehicle",
+								"get.php"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "Get Vehicles By Driver ID",
 					"request": {
 						"method": "GET",
@@ -774,13 +802,13 @@
 					"response": []
 				},
 				{
-					"name": "Get Vehicle (Detailed)",
+					"name": "Get Vehicles By Location and Radius",
 					"request": {
 						"method": "GET",
 						"header": [],
 						"body": {},
 						"url": {
-							"raw": "http://localhost:8000/api/vehicle/get.php?id=1",
+							"raw": "http://localhost:8000/api/vehicle/get.php?sourcelat=14.598155&sourcelong=120.978736&radius=10",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -793,8 +821,16 @@
 							],
 							"query": [
 								{
-									"key": "id",
-									"value": "1"
+									"key": "sourcelat",
+									"value": "14.598155"
+								},
+								{
+									"key": "sourcelong",
+									"value": "120.978736"
+								},
+								{
+									"key": "radius",
+									"value": "10"
 								}
 							]
 						}
