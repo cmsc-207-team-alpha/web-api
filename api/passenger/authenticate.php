@@ -29,7 +29,7 @@ if(mysqli_num_rows($checkexisting)>0)
 {
 	$rv=mysqli_fetch_array($checkexisting);
 	$id=$rv['id'];
-	 header('HTTP/1.1 200 Authenticated');
+	 header('HTTP/1.1 200 OK');
     echo json_encode(array('message' => 'Successfully Authenticated the account ','id' => '$id'));
 }
 else{
