@@ -980,6 +980,72 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "Get Vehicle Stats",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "http://localhost:8000/api/report/vehiclestats.php",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"report",
+								"vehiclestats.php"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Fare Stats",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "http://localhost:8000/api/report/farestats.php",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"report",
+								"farestats.php"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Passenger Stats",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "http://localhost:8000/api/report/passengerstats.php",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"report",
+								"passengerstats.php"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		}
