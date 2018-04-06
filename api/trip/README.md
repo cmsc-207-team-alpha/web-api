@@ -7,6 +7,9 @@ Trip API contains operations for allocating trips and updating trips' status.
 
 ## Requesting a trip:
 
+### EXPECTED CLIENT
+`Mobile App`
+
 ### ENDPOINT
 `[website base address]/api/trip/request.php`
 
@@ -88,6 +91,10 @@ Status: 201
 <details><summary>Getting a trip (Detailed Response)</summary>
 
 ## Getting a trip (Detailed Response):
+
+### EXPECTED CLIENT
+`Web Portal`
+`Mobile App`
 
 ### ENDPOINT
 `[website base address]/api/trip/get.php`
@@ -177,6 +184,9 @@ Status: 200
 
 ## Getting trips by stage (and vehicle id and \ or date range):
 
+### EXPECTED CLIENT
+`Web Portal`
+
 ### ENDPOINT
 `[website base address]/api/trip/get.php`
 
@@ -255,6 +265,9 @@ Status: 200
 
 ## Manually assigning a trip:
 
+### EXPECTED CLIENT
+`Mobile App`
+
 ### ENDPOINT
 `[website base address]/api/trip/assign.php`
 
@@ -321,6 +334,9 @@ Status: 200
 
 ## Accepting a trip:
 
+### EXPECTED CLIENT
+`Mobile App`
+
 ### ENDPOINT
 `[website base address]/api/trip/accept.php`
 
@@ -384,6 +400,9 @@ Status: 200
 <details><summary>Rejecting a trip</summary>
 
 ## Rejecting a trip:
+
+### EXPECTED CLIENT
+`Mobile App`
 
 ### ENDPOINT
 `[website base address]/api/trip/reject.php`
@@ -449,6 +468,9 @@ Status: 200
 
 ## Starting a trip:
 
+### EXPECTED CLIENT
+`Mobile App`
+
 ### ENDPOINT
 `[website base address]/api/trip/start.php`
 
@@ -513,6 +535,9 @@ Status: 200
 
 ## Ending a trip:
 
+### EXPECTED CLIENT
+`Mobile App`
+
 ### ENDPOINT
 `[website base address]/api/trip/end.php`
 
@@ -575,7 +600,10 @@ Status: 200
 
 <details><summary>Cancelling a trip</summary>
 
-## Ending a trip:
+## Cancelling a trip:
+
+### EXPECTED CLIENT
+`Mobile App`
 
 ### ENDPOINT
 `[website base address]/api/trip/cancel.php`
@@ -640,6 +668,9 @@ Status: 200
 <details><summary>Rating a trip</summary>
 
 ## Rating a trip:
+
+### EXPECTED CLIENT
+`Mobile App`
 
 ### ENDPOINT
 `[website base address]/api/trip/rate.php`

@@ -850,6 +850,9 @@ Status: 200
 
 ## Authenticating a driver's credentials:
 
+### EXPECTED CLIENT
+`Mobile App`
+
 ### ENDPOINT
 `[website base address]/api/driver/authenticate.php`
 

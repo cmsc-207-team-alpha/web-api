@@ -6,6 +6,9 @@ Vehicle API contains operations for managing the vehicle assigned to a driver.
 
 ## Adding a vehicle to a driver:
 
+### EXPECTED CLIENT
+`Web Portal`
+
 ### ENDPOINT
 `[website base address]/api/vehicle/add.php`
 
@@ -82,6 +85,10 @@ Status: 201
 <details><summary>Getting a vehicle (Detailed Response)</summary>
 
 ## Getting a vehicle (Detailed Response):
+
+### EXPECTED CLIENT
+`Web Portal`
+`Mobile App`
 
 ### ENDPOINT
 `[website base address]/api/vehicle/get.php`
@@ -166,6 +173,9 @@ Status: 200
 
 ## Getting vehicle list:
 
+### EXPECTED CLIENT
+`Web Portal`
+
 ### ENDPOINT
 `[website base address]/api/vehicle/get.php`
 
@@ -245,6 +255,10 @@ Status: 200
 <details><summary>Getting a driver's vehicles</summary>
 
 ## Getting a driver's vehicles:
+
+### EXPECTED CLIENT
+`Web Portal`
+`Mobile App`
 
 ### ENDPOINT
 `[website base address]/api/vehicle/get.php`
@@ -326,6 +340,9 @@ Status: 200
 <details><summary>Getting vehicles within a point \ location and radius</summary>
 
 ## Getting vehicles within a point \ location and radius:
+
+### EXPECTED CLIENT
+`Web Portal`
 
 ### ENDPOINT
 `[website base address]/api/vehicle/get.php`
@@ -410,6 +427,9 @@ Status: 200
 
 ## Updating a vehicle:
 
+### EXPECTED CLIENT
+`Web Portal`
+
 ### ENDPOINT
 `[website base address]/api/vehicle/update.php`
 
@@ -489,6 +509,9 @@ Status: 200
 
 ## Updating vehicle's status:
 
+### EXPECTED CLIENT
+`Mobile App`
+
 ### ENDPOINT
 `[website base address]/api/vehicle/updatestatus.php`
 
@@ -559,6 +582,9 @@ Status: 200
 
 ## Setting vehicle's location:
 
+### EXPECTED CLIENT
+`Mobile App`
+
 ### ENDPOINT
 `[website base address]/api/vehicle/setlocation.php`
 
@@ -627,6 +653,9 @@ Status: 200
 <details><summary>Deleting a vehicle</summary>
 
 ## Deleting a vehicle:
+
+### EXPECTED CLIENT
+`Web Portal`
 
 ### ENDPOINT
 `[website base address]/api/vehicle/delete.php`
