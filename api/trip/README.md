@@ -266,7 +266,7 @@ Status: 200
 ## Manually assigning a trip:
 
 ### EXPECTED CLIENT
-`Mobile App`
+`Web Portal`
 
 ### ENDPOINT
 `[website base address]/api/trip/assign.php`
