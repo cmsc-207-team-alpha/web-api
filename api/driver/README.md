@@ -6,6 +6,9 @@ Driver API contains operations for manipulating driver information including reg
 
 ## Registering a new driver:
 
+### EXPECTED CLIENT
+`Web Portal`
+
 ### ENDPOINT
 `[website base address]/api/driver/register.php`
 
@@ -82,6 +85,10 @@ Status: 201
 <details><summary>Getting a driver (Detailed Response)</summary>
 
 ## Getting a driver (Detailed Response):
+
+### EXPECTED CLIENT
+`Web Portal`
+`Mobile App`
 
 ### ENDPOINT
 `[website base address]/api/driver/get.php`
@@ -163,6 +170,9 @@ Status: 200
 <details><summary>Getting drivers list</summary>
 
 ## Getting drivers list:
+
+### EXPECTED CLIENT
+`Web Portal`
 
 ### ENDPOINT
 `[website base address]/api/driver/get.php`
@@ -246,6 +256,10 @@ Status: 200
 
 ## Updating a driver:
 
+### EXPECTED CLIENT
+`Web Portal`
+`Mobile App`
+
 ### ENDPOINT
 `[website base address]/api/driver/update.php`
 
@@ -323,6 +337,9 @@ Status: 200
 
 <details><summary>Updating driver's status</summary>
 
+### EXPECTED CLIENT
+`Web Portal`
+
 ## Updating driver's status:
 
 ### ENDPOINT
@@ -394,6 +411,9 @@ Status: 200
 
 <details><summary>Deleting a driver</summary>
 
+### EXPECTED CLIENT
+`Web Portal`
+
 ## Deleting a driver:
 
 ### ENDPOINT
@@ -461,6 +481,9 @@ Status: 200
 <details><summary>Adding a new document</summary>
 
 ## Adding a new document:
+
+### EXPECTED CLIENT
+`Web Portal`
 
 ### ENDPOINT
 `[website base address]/api/driver/adddocument.php`
@@ -533,6 +556,9 @@ Status: 201
 
 ## Getting a document (Detailed Response):
 
+### EXPECTED CLIENT
+`Web Portal`
+
 ### ENDPOINT
 `[website base address]/api/driver/getdocument.php`
 
@@ -602,6 +628,9 @@ Status: 200
 <details><summary>Getting documents list</summary>
 
 ## Getting documents list:
+
+### EXPECTED CLIENT
+`Web Portal`
 
 ### ENDPOINT
 `[website base address]/api/driver/getdocument.php`
@@ -677,6 +706,9 @@ Status: 200
 
 ## Updating a document:
 
+### EXPECTED CLIENT
+`Web Portal`
+
 ### ENDPOINT
 `[website base address]/api/driver/updatedocument.php`
 
@@ -749,6 +781,9 @@ Status: 200
 <details><summary>Deleting a document</summary>
 
 ## Deleting a document:
+
+### EXPECTED CLIENT
+`Web Portal`
 
 ### ENDPOINT
 `[website base address]/api/driver/deletedocument.php`
@@ -885,6 +920,9 @@ Status: 200
 <details><summary>Forgot password</summary>
 
 ## Forgot password:
+
+### EXPECTED CLIENT
+`Mobile App`
 
 ### ENDPOINT
 `[website base address]/api/driver/forgotpass.php`
