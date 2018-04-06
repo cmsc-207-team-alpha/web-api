@@ -2,10 +2,12 @@
 Report API contains operations for returning statistics which could be used in reporting or in dashboards.
 
 
-
 <details><summary>Getting administrator statistics</summary>
 
 ## Getting administrator statistics:
+
+### EXPECTED CLIENT
+`Web Portal`
 
 ### ENDPOINT
 `[website base address]/api/report/adminstats.php`
@@ -67,6 +69,9 @@ Status: 200
 <details><summary>Getting driver statistics</summary>
 
 ## Getting driver statistics:
+
+### EXPECTED CLIENT
+`Web Portal`
 
 ### ENDPOINT
 `[website base address]/api/report/driverstats.php`
@@ -130,6 +135,9 @@ Status: 200
 <details><summary>Getting trips statistics</summary>
 
 ## Getting trips statistics:
+
+### EXPECTED CLIENT
+`Web Portal`
 
 ### ENDPOINT
 `[website base address]/api/report/tripstats.php`
@@ -201,6 +209,9 @@ Status: 200
 
 ## Getting vehicle statistics:
 
+### EXPECTED CLIENT
+`Web Portal`
+
 ### ENDPOINT
 `[website base address]/api/report/vehiclestats.php`
 
@@ -258,6 +269,9 @@ Status: 200
 <details><summary>Getting fare statistics</summary>
 
 ## Getting fare statistics:
+
+### EXPECTED CLIENT
+`Web Portal`
 
 ### ENDPOINT
 `[website base address]/api/report/farestats.php`
@@ -328,6 +342,9 @@ Status: 200
 <details><summary>Getting passenger statistics</summary>
 
 ## Getting passenger statistics:
+
+### EXPECTED CLIENT
+`Web Portal`
 
 ### ENDPOINT
 `[website base address]/api/report/passengerstats.php`

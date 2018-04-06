@@ -6,6 +6,9 @@ Passenger API contains operations for passenger registration and data retrievals
 
 ## Registration of Passenger:
 
+### EXPECTED CLIENT
+`Mobile App`
+
 ### ENDPOINT
 `[website base address]/api/passenger/register.php`
 
@@ -82,6 +85,10 @@ Status: 201
 <details><summary>Update Passenger</summary>
 
 ## Updating a Passenger:
+
+### EXPECTED CLIENT
+`Web Portal`
+`Mobile App`
 
 ### ENDPOINT
 `[website base address]/api/passenger/update.php`
@@ -160,6 +167,9 @@ Status: 201
 
 ## Deletes a Passenger:
 
+### EXPECTED CLIENT
+`Web Portal`
+
 ### ENDPOINT
 `[website base address]/api/passenger/delete.php
 
@@ -224,6 +234,9 @@ Status: 201
 <details><summary>Authenticate Passenger</summary>
 
 ## Authenticate upon login:
+
+### EXPECTED CLIENT
+`Mobile App`
 
 ### ENDPOINT
 `[website base address]/api/passenger/authenticate.php
@@ -294,6 +307,9 @@ Status: 200
 
 ## Forgot Password:
 
+### EXPECTED CLIENT
+`Mobile App`
+
 ### ENDPOINT
 `[website base address]/api/passenger/forgotpass.php
 
@@ -359,9 +375,13 @@ Status: 201
 
 ## Get Profile:
 
+### EXPECTED CLIENT
+`Web Portal`
+`Mobile App`
+
 ### ENDPOINT
-`[website base address]/api/passenger/get.php?id=1 or 
-[website base address]/api/passenger/get.php -> this will fetch all the passenger data in the database
+`[website base address]/api/passenger/get.php?id=1` or 
+`[website base address]/api/passenger/get.php` -> this will fetch all the passenger data in the database
 
 
 ### REQUEST DETAILS

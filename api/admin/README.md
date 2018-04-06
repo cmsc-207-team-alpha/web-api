@@ -2,7 +2,12 @@
 Admin API contains operations for manipulating administrator information including registering a new one, getting an administrator, and updating them.
 
 
+<details><summary>Registering a new administrator</summary>
+
 ## Registering a new administrator:
+
+### EXPECTED CLIENT
+`Web Portal`
 
 ### ENDPOINT
 `[website base address]/api/admin/register.php`
@@ -71,8 +76,15 @@ Status: 201
 }
 ~~~~
 
+</details>
+
+
+<details><summary>Getting an Administrator (Detailed Response)</summary>
 
 ## Getting an Administrator (Detailed Response):
+
+### EXPECTED CLIENT
+`Web Portal`
 
 ### ENDPOINT
 `[website base address]/api/admin/get.php`
@@ -139,8 +151,15 @@ Status: 200
 }
 ~~~~
 
+</details>
+
+
+<details><summary>Getting Administrator list</summary>
 
 ## Getting Administrator list:
+
+### EXPECTED CLIENT
+`Web Portal`
 
 ### ENDPOINT
 `[website base address]/api/admin/get.php`
@@ -208,8 +227,15 @@ Status: 200
 ]
 ~~~~
 
+</details>
+
+
+<details><summary>Updating an Administrator</summary>
 
 ## Updating an Administrator:
+
+### EXPECTED CLIENT
+`Web Portal`
 
 ### ENDPOINT
 `[website base address]/api/admin/update.php`
@@ -280,8 +306,15 @@ Status: 200
 }
 ~~~~
 
+</details>
+
+
+<details><summary>Authenticating an Administrator's credentials</summary>
 
 ## Authenticating an Administrator's credentials:
+
+### EXPECTED CLIENT
+`Web Portal`
 
 ### ENDPOINT
 `[website base address]/api/admin/authenticate.php`
@@ -345,3 +378,5 @@ Status: 200
     "id": "1"
 }
 ~~~~
+
+</details>

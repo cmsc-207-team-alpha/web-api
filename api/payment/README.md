@@ -2,9 +2,12 @@
 Payment API contains operations for accepting payments for trips made.
 
 
-<details><summary>AcceptPayment</summary>
+<details><summary>Accepting Payment</summary>
 
-## Registration of Passenger:
+## Accepting Payment:
+
+### EXPECTED CLIENT
+`Mobile App`
 
 ### ENDPOINT
 `[website base address]/api/payment/payment.php`
@@ -72,9 +75,12 @@ Status: 201
 
 </details>
 
-<details><summary>Retrieve Payment</summary>
+<details><summary>Retrieve Payments</summary>
 
-## Registration of Passenger:
+## Retrieve Payments:
+
+### EXPECTED CLIENT
+`Web Portal`
 
 ### ENDPOINT
 `[website base address]/api/payment/filterpayment.php`

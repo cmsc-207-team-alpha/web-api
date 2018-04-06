@@ -5,6 +5,9 @@ The Fare API contains operations for managing the fare matrix. Using this API, f
 
 ## Registering new fare matrix:
 
+### EXPECTED CLIENT
+`Web Portal`
+
 ### ENDPOINT
 `[website base address]/api/fare/add.php`
 
@@ -76,6 +79,9 @@ Status: 201
 
 ## Getting the fare matrix (Detailed Response):
 
+### EXPECTED CLIENT
+`Web Portal`
+
 ### ENDPOINT
 `[website base address]/api/fare/get.php`
 
@@ -138,6 +144,9 @@ Status: 200
 <details><summary>Getting fare matrix list</summary>
 
 ## Getting fare matrix list:
+
+### EXPECTED CLIENT
+`Web Portal`
 
 ### ENDPOINT
 `[website base address]/api/fare/get.php`
@@ -207,6 +216,9 @@ Status: 200
 <details><summary>Updating the fare matrix</summary>
 
 ## Updating the fare matrix:
+
+### EXPECTED CLIENT
+`Web Portal`
 
 ### ENDPOINT
 `[website base address]/api/fare/update.php`
@@ -280,6 +292,9 @@ Status: 200
 
 ## Deleting the fare matrix:
 
+### EXPECTED CLIENT
+`Web Portal`
+
 ### ENDPOINT
 `[website base address]/api/fare/delete.php`
 
@@ -344,6 +359,9 @@ Status: 200
 <details><summary>Calculating fare</summary>
 
 ## Calculating fare:
+
+### EXPECTED CLIENT
+`Mobile App`
 
 ### ENDPOINT
 `[website base address]/api/fare/compute.php`
