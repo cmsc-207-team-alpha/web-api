@@ -21,10 +21,11 @@ if(is_null($vals))
 else{
 $email=$vals->email;
 $password=$vals->password;
+$hashed=password_hash($password, PASSWORD_DEFAULT)
 $mobile=$vals->mobile;
 //check value
 $checkexisting=mysqli_query($conn, "SELECT email,mobile,password FROM passenger WHERE (email LIKE '$email' 
-|| mobile LIKE '$mobile') && password LIKE '$password'");
+|| mobile LIKE '$mobile') && password LIKE '$hashed'");
 if(mysqli_num_rows($checkexisting)>0)
 {
 	$rv=mysqli_fetch_array($checkexisting);
