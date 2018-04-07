@@ -28,8 +28,9 @@ if(mysqli_num_rows($checkexisting)>0)
 {
 	$rv=mysqli_fetch_array($checkexisting);
 	$rand = substr(md5(microtime()),rand(0,26),6);
+	$hashed =password_hash($rand, PASSWORD_DEFAULT);
 	$name="$rv[lastname], $rv[firstname]";
-	$updatepass=mysqli_query($conn,"UPDATE passenger SET password='$rand' WHERE id = $rv[id] LIMIT 1");
+	$updatepass=mysqli_query($conn,"UPDATE passenger SET password='$hashed' WHERE id = $rv[id] LIMIT 1");
 	$body ="Use this temporary password to update your password: $rand";
 	$remail = $email;
 	$subject="Forgot password Temporary Password";
