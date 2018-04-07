@@ -170,7 +170,7 @@ Status: 201
 #### Request Body:
 |Member|Data Type|Comment|
 |--|--|--|
-|Passenger ID|Format: "yyyy-mm-dd"|
+|Passenger ID|numeric||
 |from|date|Format: "yyyy-mm-dd"|
 |to|date|Format: "yyyy-mm-dd"|
 
