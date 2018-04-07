@@ -23,8 +23,9 @@ if(is_null($vals))
 else{
 $from=$vals->from;
 $to=$vals->to;
-$query="SELECT * FROM payment WHERE
-	date BETWEEN '$from' and '$to'";
+$passenger=$vals->passenger;
+$query="SELECT * FROM payment WHERE tripid IN (SELECT id FROM trip WHERE passengerid = '$passenger')
+	AND date BETWEEN '$from' and '$to'";
 }
 
 	
