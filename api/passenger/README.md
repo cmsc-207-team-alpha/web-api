@@ -371,7 +371,7 @@ Status: 201
 </details>
 
 
-<details><summaryActivate Account</summary>
+<details><summary>Activate Account</summary>
 
 ## Activate Account:
 
