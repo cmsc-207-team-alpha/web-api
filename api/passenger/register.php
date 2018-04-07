@@ -48,6 +48,7 @@ if(count(json_decode($data,1))==0) {
 }
 else{
 $remail = $email;
+	$name="$lastname, $firstname";
 	$subject="Account Activation";
 	 // Send email
             $htmlbody = 'Hi ' . $email . ',<br/><br/>Here is your Account Activation Token<br/>' . $token . '<br/><br/>Please do Use this token to activate your account.<br/><br/><br/><small>This message was sent by Team Alpha\'s Passenger Forgot Pass.</small>';
