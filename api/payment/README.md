@@ -119,7 +119,7 @@ Note* Not setting any from and to date will retrieve all the recorded payments
 
 #### Sample Request:
 ~~~~
-POST [website base address]/api/passenger/register.php HTTP/1.1
+POST [website base address]/api/payment/filterpayment.php HTTP/1.1
 Content-Type: application/json
 
 {
@@ -198,7 +198,7 @@ Note* Not setting any from and to date will retrieve all the recorded payments
 
 #### Sample Request:
 ~~~~
-POST [website base address]/api/passenger/register.php HTTP/1.1
+POST [website base address]/api/payment/filterpayment.php HTTP/1.1
 Content-Type: application/json
 
 {
