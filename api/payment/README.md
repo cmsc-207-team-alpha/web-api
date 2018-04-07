@@ -170,9 +170,9 @@ Status: 201
 #### Request Body:
 |Member|Data Type|Comment|
 |--|--|--|
-|Passenger ID|numeric||
 |from|date|Format: "yyyy-mm-dd"|
 |to|date|Format: "yyyy-mm-dd"|
+|Passenger ID|numeric||
 
 
 Note* Not setting any from and to date will retrieve all the recorded payments
