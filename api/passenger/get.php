@@ -12,6 +12,7 @@ $conn=mysqli_connect("$host","$user","$pass","$db");
 if(!isset($_GET['id']))
 {
 	$get=mysqli_query($conn,"SELECT * FROM passenger");
+	 $response = array();			
 	while($sp=mysqli_fetch_array($get))
 	{
 		
@@ -22,9 +23,10 @@ if(!isset($_GET['id']))
 		$passenger->address = "$sp[address]";
 		$passenger->email = "$sp[email]";
 		$passenger->password = "$sp[password]";
+		array_push($response, $passenger);
 		
-		echo json_encode($passenger);
 	}
+	echo json_encode($response);
 	header('HTTP/1.1 201 Request Success');
 }
 else{
