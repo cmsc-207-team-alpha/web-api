@@ -278,7 +278,7 @@ Content-Type: application/json
 {
     "email": "karloemilflores@gmail.com",
      "mobile": "",
-      "password": "123456",
+      "password": "123456"
    
 }
 ~~~~
@@ -346,7 +346,7 @@ POST [website base address]/api/passenger/forgotpass.php HTTP/1.1
 Content-Type: application/json
 
 {
-    "email": "karloemilflores@gmail.com",
+    "email": "karloemilflores@gmail.com"
    
 }
 ~~~~
@@ -370,6 +370,73 @@ Status: 201
 
 </details>
 
+
+<details><summaryActivate Account</summary>
+
+## Activate Account:
+
+### EXPECTED CLIENT
+`Web Portal`
+`Mobile App`
+
+### ENDPOINT
+`[website base address]/api/passenger/activateaccount.php` 
+
+### REQUEST DETAILS
+
+#### Request Method:
+`POST`
+
+#### Request Body:
+|Member|Data Type|Comment|
+|--|--|--|
+|token|string|token should match the set token|
+### RESPONSE DETAILS
+
+#### Response Status Codes:
+|Status|Description|
+|--|--|
+|201|Created|
+|400|Bad Request|
+|405|Method Not Allowed|
+|500|Internal Server Error|
+
+#### Response Body:
+|Member|Data Type|Comment|
+|--|--|--|
+|message|string||
+|id|numeric|id of the activated account|
+
+### SAMPLES
+
+#### Sample Request:
+~~~~
+POST [website base address]/api/passenger/activateaccount.php HTTP/1.1
+Content-Type: application/json
+
+{
+    "token": "wafuwafuqh0e"
+   
+}
+~~~~
+
+#### Sample Response:
+~~~~
+Access-Control-Allow-Methods: POST
+Access-Control-Allow-Orgin: *
+Connection: close
+Content-Type: application/json; charset=UTF-8
+Date: Fri, 30 Mar 2018 09:00:57 +0000
+Location: /api/passenger/get.php?id=1
+Status: 201
+
+{
+    "message": "Activated the account",
+    "id": 1
+}
+~~~~
+
+</details>
 
 <details><summary>Get Profile</summary>
 
