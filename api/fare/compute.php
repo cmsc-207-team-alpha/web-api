@@ -69,7 +69,7 @@ if (is_null($input)) {
             $time = $input->distance_minute;
             $baseamount = $basefare + ($distance * $perkm) + ($time * $perminute);
             $rushsurgeamount = 0;
-            if ($activerequests >= $surgerushthreshold) {
+            if ($activerequests > $surgerushthreshold) {
                 $rushsurgeamount = ($baseamount * $surgerushmultiplier) - $baseamount;
             }
             $timesurgeamount = 0;
