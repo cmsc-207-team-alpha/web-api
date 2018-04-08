@@ -25,15 +25,8 @@ if(!isset($_GET['id']))
 		$passenger->email = "$sp[email]";
 		$passenger->password = "$sp[password]";
 		*/
-		array_push($response, array('id' => $sp['id']));
-		array_push($response, array('firstname' => $sp['firstname']));
-		array_push($response, array('lastname' => $sp['lastname']));
-		array_push($response, array('mobile' => $sp['mobile']));
-		array_push($response, array('email' => $sp['email']));
-		array_push($response, array('password' => $sp['password']));
-		array_push($response, array('address' => $sp['address']));
-		array_push($response, array('panicmobile' => $sp['panicmobile']));
-		
+		array_push($response, array('id' => $sp['id']), 'firstname' => $sp['firstname']), 'lastname' => $sp['lastname']), 'mobile' => $sp['mobile']), 'email' => $sp['email']), 'password' => $sp['password']), 'address' => $sp['address']), 'panicmobile' => $sp['panicmobile']));
+	
 	}
 	echo json_encode($response);
 	header('HTTP/1.1 201 Request Success');
