@@ -15,8 +15,9 @@ if(!isset($_GET['id']))
 	 $response = array();			
 	while($sp=mysqli_fetch_array($get))
 	{
-		/*
-		$passenger->id = "$sp[id]";
+		
+	$passenger="";
+			$passenger->id = "$sp[id]";
 		$passenger->firstname = "$sp[firstname]";
 		$passenger->lastname = "$sp[lastname]";
 		$passenger->mobile = "$sp[mobile]";
@@ -25,7 +26,8 @@ if(!isset($_GET['id']))
 		$passenger->email = "$sp[email]";
 		$passenger->password = "$sp[password]";
 		*/
-		array_push($response, 'id' => $sp['id']);
+		
+		array_push($response, $passenger);
 	
 	}
 	echo json_encode($response);
