@@ -25,7 +25,7 @@ if(!isset($_GET['id']))
 		$passenger->address = "$sp[address]";
 		$passenger->email = "$sp[email]";
 		$passenger->password = "$sp[password]";
-		*/
+		
 		
 		array_push($response, $passenger);
 	
