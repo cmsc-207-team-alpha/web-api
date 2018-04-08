@@ -62,7 +62,6 @@ else{
             $email->send($semail, $name, 'Temporary Password sent', $htmlbody, $altbody);
 	
 $qrys=mysqli_query($conn, "INSERT INTO passenger VALUES('','$firstname','$lastname',
-//Insert Query
 '$email','$hashed','$address','$mobile','$panicmobile',
 '0','0','0','$token'
 ,'','$datecreated','')")or die("sql error");
