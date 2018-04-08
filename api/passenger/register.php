@@ -1,5 +1,12 @@
 <?php
 error_reporting( E_ERROR | E_PARSE | E_CORE_ERROR | E_CORE_WARNING | E_COMPILE_ERROR | E_COMPILE_WARNING );
+// Require classes
+require $_SERVER['DOCUMENT_ROOT'] . '/api/utils/db.php';
+require $_SERVER['DOCUMENT_ROOT'] . '/api/utils/email.php';
+require $_SERVER['DOCUMENT_ROOT'] . '/api/utils/http.php';
+// Declare use on objects to be used
+use Exception;
+use PDOException;
 require $_SERVER['DOCUMENT_ROOT'] . '/api/utils/email.php';
 $dbconfig = parse_ini_file($_SERVER['DOCUMENT_ROOT'] . '/config/config.ini');
 $host=$dbconfig['db_server'];
