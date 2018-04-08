@@ -32,7 +32,7 @@ if (is_null($input)) {
                             * sin(radians(locationlat)) ) ) AS distance
                         FROM `vehicle`
                         WHERE active = 1 AND available = 1 AND type = :vehicletype
-                        HAVING distance < :radius
+                        HAVING distance <= :radius
                         ORDER BY distance
                         LIMIT 1;');
 
