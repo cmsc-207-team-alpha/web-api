@@ -11,11 +11,11 @@ $conn=mysqli_connect("$host","$user","$pass","$db");
 
 if(!isset($_GET['id']))
 {
-	$get=mysqli_query($conn,"SELECT * FROM passenger");
+	$get=mysqli_query($conn,"SELECT * FROM passenger ORDER BY id DESC");
 	 $response = array();			
 	while($sp=mysqli_fetch_array($get))
 	{
-		
+		/*
 		$passenger->id = "$sp[id]";
 		$passenger->firstname = "$sp[firstname]";
 		$passenger->lastname = "$sp[lastname]";
@@ -24,7 +24,15 @@ if(!isset($_GET['id']))
 		$passenger->address = "$sp[address]";
 		$passenger->email = "$sp[email]";
 		$passenger->password = "$sp[password]";
-		array_push($response, $passenger);
+		*/
+		array_push($response, array('id' => $sp['id']));
+		array_push($response, array('firstname' => $sp['firstname']));
+		array_push($response, array('lastname' => $sp['lastname']));
+		array_push($response, array('mobile' => $sp['mobile']));
+		array_push($response, array('email' => $sp['email']));
+		array_push($response, array('password' => $sp['password']));
+		array_push($response, array('address' => $sp['address']));
+		array_push($response, array('panicmobile' => $sp['panicmobile']));
 		
 	}
 	echo json_encode($response);
