@@ -41,7 +41,7 @@ if (is_null($input)) {
         $db->bindParam(':sourcelong', property_exists($input, 'sourcelong') ? $input->sourcelong : 0);
         $radius = property_exists($input, 'radius') ? $input->radius : 20;
         $db->bindParam(':radius', $radius);
-        $db->bindParam(':vehicletype', property_exists($input, 'vehicletype') ?? null);
+        $db->bindParam(':vehicletype', property_exists($input, 'vehicletype') ? $input->vehicletype : null);
 
         $messageSuffix = '';
         $vehicleid = null;
