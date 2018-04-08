@@ -37,7 +37,5 @@ $deletequery=mysqli_query($conn, "DELETE FROM passenger WHERE id = $id LIMIT 1")
     echo json_encode(array('message' => 'Successfully deleted the account', 'passengerId' => $passenger->id));
 	}
 }
-}
-}
 
 ?>
