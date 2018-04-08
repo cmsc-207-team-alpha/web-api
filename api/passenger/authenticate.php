@@ -26,7 +26,7 @@ $mobile=$vals->mobile;
 //check value
 $checkexisting=mysqli_query($conn, "SELECT email,mobile,password FROM passenger WHERE email LIKE '$email' 
 || mobile LIKE '$mobile'");
-	echo "$email vs $hashed";
+
 if(mysqli_num_rows($checkexisting)>0)
 {
 	$rv=mysqli_fetch_array($checkexisting);
