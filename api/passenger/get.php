@@ -25,7 +25,7 @@ if(!isset($_GET['id']))
 		$passenger->email = "$sp[email]";
 		$passenger->password = "$sp[password]";
 		*/
-		array_push($response, array('id' => $sp['id']), 'firstname' => $sp['firstname']), 'lastname' => $sp['lastname']), 'mobile' => $sp['mobile']), 'email' => $sp['email']), 'password' => $sp['password']), 'address' => $sp['address']), 'panicmobile' => $sp['panicmobile']));
+		array_push($response, array('id' => $sp['id'], 'firstname' => $sp['firstname'], 'lastname' => $sp['lastname'], 'mobile' => $sp['mobile'], 'email' => $sp['email'], 'password' => $sp['password'], 'address' => $sp['address'], 'panicmobile' => $sp['panicmobile']);
 	
 	}
 	echo json_encode($response);
