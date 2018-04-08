@@ -5,9 +5,6 @@ require $_SERVER['DOCUMENT_ROOT'] . '/api/utils/db.php';
 require $_SERVER['DOCUMENT_ROOT'] . '/api/utils/email.php';
 require $_SERVER['DOCUMENT_ROOT'] . '/api/utils/http.php';
 
-// Declare use on objects to be used
-use Exception;
-use PDOException;
 $dbconfig = parse_ini_file($_SERVER['DOCUMENT_ROOT'] . '/config/config.ini');
 $host=$dbconfig['db_server'];
 $db=$dbconfig['db_name'];
