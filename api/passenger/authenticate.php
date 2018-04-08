@@ -24,15 +24,21 @@ $password=$vals->password;
 $hashed=password_hash($password, PASSWORD_DEFAULT);
 $mobile=$vals->mobile;
 //check value
-$checkexisting=mysqli_query($conn, "SELECT email,mobile,password FROM passenger WHERE (email LIKE '$email' 
-|| mobile LIKE '$mobile') && password LIKE '$hashed'");
+$checkexisting=mysqli_query($conn, "SELECT email,mobile,password FROM passenger WHERE email LIKE '$email' 
+|| mobile LIKE '$mobile'");
 	echo "$email vs $hashed";
 if(mysqli_num_rows($checkexisting)>0)
 {
 	$rv=mysqli_fetch_array($checkexisting);
 	$id=$rv['id'];
-	 header('HTTP/1.1 200 OK');
-    echo json_encode(array('message' => 'Successfully Authenticated the account ','id' => '$id'));
+	$pass=$rv['password'];
+	 if(password_verify($password, $pass)) {
+                header('HTTP/1.1 200 OK');
+	    echo json_encode(array('message' => 'Successfully Authenticated the account ','id' => '$id'));
+                } else {
+                    Http::ReturnError(401, array('message' => 'Invalid email / mobile and password.'));
+                }
+	
 }
 else{
     header('HTTP/1.1 400 Bad Request');
