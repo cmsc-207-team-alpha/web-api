@@ -59,12 +59,10 @@ else{
             $htmlbody = 'Hi ' . $semail . ',<br/><br/>Here is your Account Activation Token<br/>' . $token . '<br/><br/>Please do Use this token to activate your account.<br/><br/><br/><small>This message was sent by Team Alpha\'s Passenger Forgot Pass.</small>';
             $altbody = 'Hi ' .  $semail . ', Here is your Account Activation Token ' . $token . ' Please do Use this token to activate your account. This message was sent by Team Alpha Passenger Forgot Pass.';
             $email = new Email();
-            $email->send($semail, $name, 'Temporary Password sent', $htmlbody, $altbody);
+            $email->send($semail, $name, 'Account Activation', $htmlbody, $altbody);
 	
-$qrys=mysqli_query($conn, "INSERT INTO passenger VALUES('','$firstname','$lastname',
-'$email','$hashed','$address','$mobile','$panicmobile',
-'0','0','0','$token'
-,'','$datecreated','')")or die("sql error");
+$qrys=mysqli_query($conn, "INSERT INTO passenger VALUES('','$firstname','$lastname','$semail','$hashed','$address','$mobile','$panicmobile',
+'0','0','0','$token','','$datecreated','')")or die("sql error");
 
 	if(!$qrys)
 	{
@@ -74,8 +72,9 @@ $qrys=mysqli_query($conn, "INSERT INTO passenger VALUES('','$firstname','$lastna
 	}
 	else
 	{
+	echo json_encode(array('message' => 'Passenger record created.'));
 	header('HTTP/1.1 201 Created');
-    echo json_encode(array('message' => 'Passenger record created.'));
+
 	}
 }
 }
