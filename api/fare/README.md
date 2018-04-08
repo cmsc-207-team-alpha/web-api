@@ -23,6 +23,9 @@ The Fare API contains operations for managing the fare matrix. Using this API, f
 |base_fare|decimal||
 |per_km|decimal||
 |per_minute|decimal||
+|surge_rush_threshold|numeric||
+|surge_rush_multiplier|decimal||
+|surge_time_multiplier|decimal||
 
 ### RESPONSE DETAILS
 
@@ -48,11 +51,14 @@ POST [website base address]/api/fare/add.php HTTP/1.1
 Content-Type: application/json
 
 {
-    "vehicle_type":"Sedan",
-	"base_fare":"150.00",
-	"per_km":"10.00",
-	"per_minute":"5.00"
-} 
+    "vehicle_type": "Sedan",
+	"base_fare": 150.00,
+	"per_km": 10.00,
+	"per_minute": 5.00,
+	"surge_rush_threshold": 3,
+	"surge_rush_multiplier": 1.3,
+	"surge_time_multiplier": 1.2
+}
 ~~~~
 
 #### Sample Response:
@@ -61,7 +67,7 @@ Access-Control-Allow-Methods: POST
 Access-Control-Allow-Orgin: *
 Connection: close
 Content-Type: application/json; charset=UTF-8
-Date: Sun, 25 Mar 2018 11:14:22 +0000
+Date: Sun, 08 Apr 2018 11:57:08 +0000
 Location: /api/fare/get.php?id=1
 Status: 201
 
@@ -113,6 +119,9 @@ Status: 201
 |base_fare|decimal||
 |per_km|decimal||
 |per_minute|decimal||
+|surge_rush_threshold|numeric||
+|surge_rush_multiplier|decimal||
+|surge_time_multiplier|decimal||
 
 ### SAMPLES
 
@@ -127,15 +136,18 @@ Access-Control-Allow-Methods: GET
 Access-Control-Allow-Orgin: *
 Connection: close
 Content-Type: application/json; charset=UTF-8
-Date: Sun, 25 Mar 2018 12:59:31 +0000
+Date: Sun, 08 Apr 2018 12:10:51 +0000
 Status: 200
 
 {
     "id": 1,
-    "vehicle_type":"Sedan",
-	"base_fare":"150.00",
-	"per_km":"10.00",
-	"per_minute":"5.00"
+    "vehicle_type": "Sedan",
+    "base_fare": 150,
+    "per_km": 10,
+    "per_minute": 5,
+    "surge_rush_threshold": 3,
+    "surge_rush_multiplier": 1.3,
+    "surge_time_multiplier": 1.2
 }
 ~~~~
 
@@ -175,6 +187,9 @@ Status: 200
 |base_fare|decimal||
 |per_km|decimal||
 |per_minute|decimal||
+|surge_rush_threshold|numeric||
+|surge_rush_multiplier|decimal||
+|surge_time_multiplier|decimal||
 
 ### SAMPLES
 
@@ -189,23 +204,59 @@ Access-Control-Allow-Methods: GET
 Access-Control-Allow-Orgin: *
 Connection: close
 Content-Type: application/json; charset=UTF-8
-Date: Sun, 25 Mar 2018 13:04:16 +0000
+Date: Sun, 08 Apr 2018 12:13:12 +0000
 Status: 200
 
 [
     {
         "id": 1,
-        "vehicle_type":"Sedan",
-        "base_fare":"150.00",
-        "per_km":"10.00",
-        "per_minute":"5.00"
+        "vehicle_type": "Sedan",
+        "base_fare": 150,
+        "per_km": 10,
+        "per_minute": 5,
+        "surge_rush_threshold": 3,
+        "surge_rush_multiplier": 1.3,
+        "surge_time_multiplier": 1.2
+    },
+    {
+        "id": 2,
+        "vehicle_type": "Compact",
+        "base_fare": 130,
+        "per_km": 9,
+        "per_minute": 5,
+        "surge_rush_threshold": 3,
+        "surge_rush_multiplier": 1.3,
+        "surge_time_multiplier": 1.2
+    },
+    {
+        "id": 3,
+        "vehicle_type": "Van",
+        "base_fare": 300,
+        "per_km": 15,
+        "per_minute": 7,
+        "surge_rush_threshold": 3,
+        "surge_rush_multiplier": 1.3,
+        "surge_time_multiplier": 1.2
+    },
+    {
+        "id": 4,
+        "vehicle_type": "SUV",
+        "base_fare": 280,
+        "per_km": 14,
+        "per_minute": 7,
+        "surge_rush_threshold": 3,
+        "surge_rush_multiplier": 1.3,
+        "surge_time_multiplier": 1.2
     },
     {
         "id": 5,
-        "vehicle_type":"Limousine",
-        "base_fare":"300.00",
-        "per_km":"15.00",
-        "per_minute":"6.00"
+        "vehicle_type": "Limousine",
+        "base_fare": 350,
+        "per_km": 20,
+        "per_minute": 10,
+        "surge_rush_threshold": 3,
+        "surge_rush_multiplier": 1.3,
+        "surge_time_multiplier": 1.2
     }
 ]
 ~~~~
@@ -236,6 +287,9 @@ Status: 200
 |base_fare|decimal||
 |per_km|decimal||
 |per_minute|decimal||
+|surge_rush_threshold|numeric||
+|surge_rush_multiplier|decimal||
+|surge_time_multiplier|decimal||
 
 ### RESPONSE DETAILS
 
@@ -263,10 +317,13 @@ Content-Type: application/json
 
 {
     "id": 1,
-    "vehicle_type":"Sedan",
-    "base_fare":"150.00",
-    "per_km":"10.00",
-    "per_minute":"5.00"
+    "vehicle_type": "Sedan",
+	"base_fare": 150.00,
+	"per_km": 10.00,
+	"per_minute": 5.00,
+	"surge_rush_threshold": 3,
+	"surge_rush_multiplier": 1.3,
+	"surge_time_multiplier": 1.2
 }
 ~~~~
 
@@ -390,6 +447,7 @@ Status: 200
 |vehicle_type|string||
 |distance_km|decimal|Travel distance in kilometer|
 |distance_minute|decimal|Travel time in minute|
+|source_lat|decimal|Travel time in minute|
 
 ### SAMPLES
 
@@ -399,9 +457,12 @@ POST [website base address]/api/fare/compute.php HTTP/1.1
 Content-Type: application/json
 
 {
-    "vehicle_type":"Sedan",
-    "distance_km": "12.56",
-    "distance_minute": "96.8"
+    "vehicle_type": "Sedan",
+    "distance_km": 12.56,
+    "distance_minute": 96.8,
+    "source_lat": 14.556764,
+    "source_long": 121.014685,
+    "radius": 5
 }
 ~~~~
 
@@ -411,16 +472,20 @@ Access-Control-Allow-Methods: POST
 Access-Control-Allow-Orgin: *
 Connection: close
 Content-Type: application/json; charset=UTF-8
-Date: Sun, 25 Mar 2018 23:47:16 +0000
+Date: Sun, 08 Apr 2018 20:38:10 +0800
 Status: 200
 
 {
     "Vehicle Type": "Sedan",
-    "Base Fare": "150.00",
-    "Per KM": "10.00",
-    "Per Minute": "5.00",
+    "Base Fare": 150,
+    "Per KM": 10,
+    "Per Minute": 5,
     "Distance": 12.56,
-    "Total Amount": 759.6
+    "Base Amount": 759.6,
+    "Rush Hour Surge Amount": 227.88,
+    "Time Surge Amount": 151.92,
+    "Total Surge Amount": 379.8,
+    "Total Amount": 1139.4
 }
 ~~~~
 

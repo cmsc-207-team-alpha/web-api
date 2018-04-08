@@ -2,8 +2,8 @@
 -- version 4.7.7
 -- https://www.phpmyadmin.net/
 --
--- Host: 172.17.0.1:32771
--- Generation Time: Apr 01, 2018 at 01:59 PM
+-- Host: 172.17.0.1:32769
+-- Generation Time: Apr 08, 2018 at 12:58 PM
 -- Server version: 5.7.21
 -- PHP Version: 7.1.9
 
@@ -73,7 +73,7 @@ CREATE TABLE IF NOT EXISTS `driver` (
   UNIQUE KEY `driver_mobile` (`mobile`),
   KEY `email` (`email`),
   KEY `mobile` (`mobile`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -105,9 +105,23 @@ CREATE TABLE IF NOT EXISTS `fare` (
   `base_fare` decimal(6,2) NOT NULL,
   `per_km` decimal(6,2) NOT NULL,
   `per_minute` decimal(6,2) NOT NULL,
+  `surge_rush_threshold` int(11) NOT NULL,
+  `surge_rush_multiplier` double NOT NULL,
+  `surge_time_multiplier` double NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `vehicle_type` (`vehicle_type`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `fare`
+--
+
+INSERT INTO `fare` (`id`, `vehicle_type`, `base_fare`, `per_km`, `per_minute`, `surge_rush_threshold`, `surge_rush_multiplier`, `surge_time_multiplier`) VALUES
+(1, 'Sedan', '150.00', '10.00', '5.00', 3, 1.3, 1.2),
+(2, 'Compact', '130.00', '9.00', '5.00', 3, 1.3, 1.2),
+(3, 'Van', '300.00', '15.00', '7.00', 3, 1.3, 1.2),
+(4, 'SUV', '280.00', '14.00', '7.00', 3, 1.3, 1.2),
+(5, 'Limousine', '350.00', '20.00', '10.00', 3, 1.3, 1.2);
 
 -- --------------------------------------------------------
 
@@ -136,7 +150,7 @@ CREATE TABLE IF NOT EXISTS `passenger` (
   UNIQUE KEY `passenger_mobile` (`mobile`),
   KEY `email` (`email`),
   KEY `mobile` (`mobile`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -182,7 +196,7 @@ CREATE TABLE IF NOT EXISTS `trip` (
   KEY `vehicleid` (`vehicleid`),
   KEY `passengerid` (`passengerid`),
   KEY `stage` (`stage`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -210,7 +224,7 @@ CREATE TABLE IF NOT EXISTS `vehicle` (
   KEY `driverid` (`driverid`),
   KEY `plateno` (`plateno`),
   KEY `type` (`type`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Constraints for dumped tables
