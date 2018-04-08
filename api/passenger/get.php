@@ -16,6 +16,7 @@ if(!isset($_GET['id']))
 	while($sp=mysqli_fetch_array($get))
 	{
 		
+		$passenger->id = "$sp[id]";
 		$passenger->firstname = "$sp[firstname]";
 		$passenger->lastname = "$sp[lastname]";
 		$passenger->mobile = "$sp[mobile]";
