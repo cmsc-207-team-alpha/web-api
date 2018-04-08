@@ -61,7 +61,7 @@ else{
             $email = new Email();
             $email->send($semail, $name, 'Account Activation', $htmlbody, $altbody);
 	
-$qrys=mysqli_query($conn, "INSERT INTO passenger VALUES('','$firstname','$lastname','$semail','$hashed','$address','$mobile','$panicmobile',
+$qrys=mysqli_query($conn, "INSERT INTO passenger VALUES('','$firstname','$lastname','$semail','$hashed','$address','$mobile','$pmobile',
 '0','0','0','$token','','$datecreated','')")or die("sql error");
 
 	if(!$qrys)
