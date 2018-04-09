@@ -145,6 +145,7 @@ CREATE TABLE IF NOT EXISTS `passenger` (
   `photo` blob NOT NULL,
   `datecreated` datetime NOT NULL,
   `datemodified` datetime NOT NULL,
+  `creditcardnumber` varchar(10) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `passenger_email` (`email`),
   UNIQUE KEY `passenger_mobile` (`mobile`),
