@@ -24,7 +24,7 @@ $password=$vals->password;
 $hashed=password_hash($password, PASSWORD_DEFAULT);
 $mobile=$vals->mobile;
 //check value
-$checkexisting=mysqli_query($conn, "SELECT email,mobile,password FROM passenger WHERE email LIKE '$email' 
+$checkexisting=mysqli_query($conn, "SELECT id,email,mobile,password FROM passenger WHERE email LIKE '$email' 
 || mobile LIKE '$mobile' LIMIT 1");
 
 if(mysqli_num_rows($checkexisting)>0)
