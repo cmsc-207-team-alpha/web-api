@@ -46,39 +46,7 @@ if ($id === 0 && $stage === '') {
 }
 
 try {
-    if ($id === 0) {
-        // Id was not given
-        // Return all trips for a stage and vehicle id
-
-        $datestart = array_key_exists('datestart', $_GET) ? $_GET['datestart'] . ' 00:00:00' : '1000-01-01 00:00:00';
-        $dateend = array_key_exists('dateend', $_GET) ? $_GET['dateend'] . ' 23:59:59' : '9999-12-31 23:59:59';
-
-        // Create Db object
-        $db = new Db('SELECT * FROM `trip` WHERE stage LIKE :stage AND datecreated BETWEEN :datestart AND :dateend' . ($vehicleid === 0 ? '' : ' AND vehicleid = :vehicleid'));
-
-        // Bind parameters
-        $db->bindParam(':stage', '%' . $stage . '%');
-        $db->bindParam(':datestart', $datestart);
-        $db->bindParam(':dateend', $dateend);
-        if ($vehicleid !== 0) {
-            $db->bindParam(':vehicleid', $vehicleid);
-        }
-
-        $response = array();
-
-        // Execute
-        if ($db->execute() > 0) {
-            // Drivers were found
-            $records = $db->fetchAll();
-            foreach ($records as &$record) {
-                $trip = new TripListItem($record);
-                array_push($response, $trip);
-            }
-        }
-
-        // Reply with successful response
-        Http::ReturnSuccess($response);
-    } else {
+    
         // Create Db object
         $db = new Db('SELECT * FROM `trip` WHERE id = :id LIMIT 1');
         // Bind parameters
