@@ -58,6 +58,7 @@ Content-Type: application/json
     "password": "123456",
     "address": "Don Pablo Bldg, 114 Amorsolo Street, Legazpi Village, Makati, Kalakhang Maynila, Philippines",
     "mobile": "0912345677",
+    "creditcardnumber":"123456",
     "panicmobile": "0912345677"
 }
 ~~~~
@@ -139,6 +140,7 @@ Content-Type: application/json
     "password": "123456",
     "address": "Don Pablo Bldg, 114 Amorsolo Street, Legazpi Village, Makati, Kalakhang Maynila, Philippines",
     "mobile": "0912345677",
+    "creditcardnumber":"123456",
     "panicmobile": "0912345677"
 }
 ~~~~
