@@ -80,9 +80,9 @@ try {
         Http::ReturnSuccess($response);
     } else {
         // Create Db object
-        $db = new Db('SELECT * FROM `trip` WHERE id = :id');
+        $db = new Db('SELECT * FROM `trip` WHERE passengerid = :passengerid');
         // Bind parameters
-        $db->bindParam(':id', $id);
+        $db->bindParam(':passengerid', $passengerid);
 
         // Execute
         if ($db->execute() === 0) {
