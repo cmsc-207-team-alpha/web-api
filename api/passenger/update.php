@@ -27,10 +27,11 @@ $password=$vals->password;
 $address=$vals->address;
 $mobile=$vals->mobile;
 $pmobile=$vals->panicmobile;
+$creditcardnumber=$vals->$creditcardnumber;
 $datemodified=date("Y-m-d H:i:s");
 
-$checkexisting=mysqli_query($conn, "SELECT email,mobile,panicmobile FROM passenger WHERE email LIKE '$email'
-|| email LIKE '$mobile' || panicmobile LIKE '$pmobile'");
+$checkexisting=mysqli_query($conn, "SELECT id,email,mobile,panicmobile FROM passenger WHERE id != $id && (email LIKE '$email'
+|| email LIKE '$mobile' || panicmobile LIKE '$pmobile')");
 if(mysqli_num_rows($checkexisting)>0)
 {
 	 header('HTTP/1.1 400 Bad Request');
@@ -46,7 +47,7 @@ else{
 //Insert Query
 $qrys=mysqli_query($conn, "UPDATE passenger SET firstname = '$firstname', lastname = '$lastname',
 email = '$email',password = '$password',address = '$address',mobile = '$mobile',
-panicmobile = '$pmobile',datemodified = '$datemodified' WHERE id = $id")or die(mysqli_error());
+panicmobile = '$pmobile',datemodified = '$datemodified',creditcardnumber='$creditcardnumber' WHERE id = $id")or die(mysqli_error());
 
 	if(!$qrys)
 	{
