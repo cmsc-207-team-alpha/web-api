@@ -81,7 +81,6 @@ try {
     } else {
         // Create Db object
         $db = new Db('SELECT * FROM `trip` WHERE id = :id LIMIT 1');
-		$db = new Db('SELECT * FROM `trip` WHERE passengerid = :passengerid LIMIT 1');
         // Bind parameters
         $db->bindParam(':id', $id);
 		$db->bindParam(':passengerid', $passengerid);
