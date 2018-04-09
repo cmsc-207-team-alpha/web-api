@@ -23,7 +23,6 @@ if ($_SERVER['REQUEST_METHOD'] !== 'GET') {
 $id = 0;
 $vehicleid = 0;
 $stage = '';
-$passengerid = 0;
 
 // Extract request query string
 if (array_key_exists('id', $_GET)) {
@@ -36,12 +35,8 @@ if (array_key_exists('stage', $_GET)) {
     $stage = $_GET['stage'];
 }
 
-if (array_key_exists('passengerid', $_GET)) {
-    $stage = $_GET['passengerid'];
-}
-
 if ($id === 0 && $stage === '') {
-    Http::ReturnError(400, array('message' => 'Trip id, Passenger id or trip stage was not provided.'));
+    Http::ReturnError(400, array('message' => 'Trip id or trip stage was not provided.'));
     return;
 }
 
@@ -80,9 +75,10 @@ try {
         Http::ReturnSuccess($response);
     } else {
         // Create Db object
-        $db = new Db('SELECT * FROM `trip` WHERE passengerid = :passengerid');
+        $db = new Db('SELECT * FROM `trip` WHERE id = :id LIMIT 1');
+
         // Bind parameters
-        $db->bindParam(':passengerid', $passengerid);
+        $db->bindParam(':id', $id);
 
         // Execute
         if ($db->execute() === 0) {
