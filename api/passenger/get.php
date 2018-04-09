@@ -25,6 +25,7 @@ if(!isset($_GET['id']))
 		$passenger->address = "$sp[address]";
 		$passenger->email = "$sp[email]";
 		$passenger->password = "$sp[password]";
+		$passenger->creditcardnumber = "$sp[creditcardnumber]";
 		
 		
 		array_push($response, $passenger);
@@ -50,6 +51,7 @@ if(mysqli_num_rows($get)>0)
 		$passenger->address = "$rv[address]";
 		$passenger->email = "$rv[email]";
 		$passenger->password = "$rv[password]";
+	$passenger->creditcardnumber = "$sp[creditcardnumber]";
 		
 		
 		header('HTTP/1.1 200 OK');
