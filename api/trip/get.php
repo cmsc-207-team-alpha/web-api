@@ -23,6 +23,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'GET') {
 $id = 0;
 $vehicleid = 0;
 $stage = '';
+$passengerid = 0;
 
 // Extract request query string
 if (array_key_exists('id', $_GET)) {
@@ -35,8 +36,12 @@ if (array_key_exists('stage', $_GET)) {
     $stage = $_GET['stage'];
 }
 
-if ($id === 0 && $stage === '') {
-    Http::ReturnError(400, array('message' => 'Trip id or trip stage was not provided.'));
+if (array_key_exists('passengerid', $_GET)) {
+    $stage = $_GET['passengerid'];
+}
+
+if ($id === 0 && $stage === '' && $passengerid === 0) {
+    Http::ReturnError(400, array('message' => 'Trip id, Passenger id or trip stage was not provided.'));
     return;
 }
 
