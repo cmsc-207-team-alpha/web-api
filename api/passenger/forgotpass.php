@@ -21,10 +21,10 @@ if(is_null($vals))
 	
 }
 else{
-$email=$vals->email;
+$semail=$vals->email;
 
 //check value
-$checkexisting=mysqli_query($conn, "SELECT email,firstname,lastname FROM passenger WHERE email LIKE '$email' LIMIT 1");
+$checkexisting=mysqli_query($conn, "SELECT id,email,firstname,lastname FROM passenger WHERE email LIKE '$semail' LIMIT 1");
 if(mysqli_num_rows($checkexisting)>0)
 {
 	$rv=mysqli_fetch_array($checkexisting);
@@ -33,13 +33,13 @@ if(mysqli_num_rows($checkexisting)>0)
 	$name="$rv[lastname], $rv[firstname]";
 	$updatepass=mysqli_query($conn,"UPDATE passenger SET password='$hashed' WHERE id = $rv[id] LIMIT 1");
 	$body ="Use this temporary password to update your password: $rand";
-	$remail = $email;
+	$remail = $semail;
 	$subject="Forgot password Temporary Password";
 	 // Send email
-            $htmlbody = 'Hi ' . $email . ',<br/><br/>Here is your forgot Password Token<br/>' . $rand . '<br/><br/>Please do Use this temporary password to log in your account!<br/><br/><br/><small>This message was sent by Team Alpha\'s Passenger Forgot Pass.</small>';
-            $altbody = 'Hi ' .  $email . ', Here is your forgot Password Token: ' . $rand . ' Please do Use this temporary password to log in your account!This message was sent by Team Alpha Passenger Forgot Pass.';
+            $htmlbody = 'Hi ' . $semail . ',<br/><br/>Here is your forgot Password Token<br/>' . $rand . '<br/><br/>Please do Use this temporary password to log in your account!<br/><br/><br/><small>This message was sent by Team Alpha\'s Passenger Forgot Pass.</small>';
+            $altbody = 'Hi ' .  $semail . ', Here is your forgot Password Token: ' . $rand . ' Please do Use this temporary password to log in your account!This message was sent by Team Alpha Passenger Forgot Pass.';
             $email = new Email();
-            $email->send($remail, $name, 'Temporary Password sent', $htmlbody, $altbody);
+            $email->send($semail, $name, 'Temporary Password sent', $htmlbody, $altbody);
 
 	 header('HTTP/1.1 200 OK');
     echo json_encode(array('message' => 'Sent a temporary Password to be used'));
