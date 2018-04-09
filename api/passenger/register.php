@@ -30,6 +30,7 @@ $firstname=$vals->firstname;
 $lastname=$vals->lastname;
 $semail=$vals->email;
 $password=$vals->password;
+$creditcardnumber=$vals->creditcardnumber;
 $hashed=password_hash("$password", PASSWORD_DEFAULT);	
 $address=$vals->address;
 $mobile=$vals->mobile;
@@ -62,7 +63,7 @@ else{
             $email->send($semail, $name, 'Account Activation', $htmlbody, $altbody);
 	
 $qrys=mysqli_query($conn, "INSERT INTO passenger VALUES('','$firstname','$lastname','$semail','$hashed','$address','$mobile','$pmobile',
-'0','0','0','$token','','$datecreated','')")or die("sql error");
+'0','0','0','$token','','$datecreated','','$creditcardnumber')")or die("sql error");
 
 	if(!$qrys)
 	{
