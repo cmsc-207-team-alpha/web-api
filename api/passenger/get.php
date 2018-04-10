@@ -42,6 +42,7 @@ $get=mysqli_query($conn,"SELECT * FROM passenger WHERE id = $id LIMIT 1");
 
 if(mysqli_num_rows($get)>0)
 {
+	$response = array();	
 		$rv=mysqli_fetch_array($get);
 		$passenger="";
 		$passenger->firstname = "$rv[firstname]";
@@ -52,10 +53,10 @@ if(mysqli_num_rows($get)>0)
 		$passenger->email = "$rv[email]";
 		$passenger->password = "$rv[password]";
 	$passenger->creditcardnumber = "$sp[creditcardnumber]";
-		
+			array_push($response, $passenger);
 		
 		header('HTTP/1.1 200 OK');
-		echo json_encode($passenger);
+		echo json_encode($response);
 }
 else
 {
