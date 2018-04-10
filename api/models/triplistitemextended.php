@@ -1,7 +1,7 @@
 <?php
 namespace TeamAlpha\Web;
 
-class TripListItem
+class TripListItemExtended
 {
     public $id;
     public $vehicleid;
@@ -11,7 +11,18 @@ class TripListItem
     public $destinationlat;
     public $destinationlong;
     public $stage;
+    public $datestart;
+    public $dateend;
     public $amount;
+    public $passengerfirstname;
+    public $passengerlastname;
+    public $plateno;
+    public $type;
+    public $make;
+    public $model;
+    public $color;
+    public $driverfirstname;
+    public $driverlastname;
 
     public function __construct(array $data)
     {
@@ -24,7 +35,18 @@ class TripListItem
             $this->destinationlat = (double) $data['destinationlat'] ?? 0;
             $this->destinationlong = (double) $data['destinationlong'] ?? 0;
             $this->stage = $data['stage'] ?? null;
+            $this->datestart = $data['datestart'] ?? null;
+            $this->dateend = $data['dateend'] ?? null;
             $this->amount = $data['amount'] === null ? null : (double) $data['amount'];
+            $this->passengerfirstname = $data['passengerfirstname'] ?? null;
+            $this->passengerlastname = $data['passengerlastname'] ?? null;
+            $this->plateno = $data['plateno'] ?? null;
+            $this->type = $data['type'] ?? null;
+            $this->make = $data['make'] ?? null;
+            $this->model = $data['model'] ?? null;
+            $this->color = $data['color'] ?? null;
+            $this->driverfirstname = $data['driverfirstname'] ?? null;
+            $this->driverlastname = $data['driverlastname'] ?? null;
         }
     }
 }
