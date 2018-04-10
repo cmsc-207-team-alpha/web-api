@@ -19,15 +19,13 @@ try {
     $dateend = array_key_exists('dateend', $_GET) ? $_GET['dateend'] . ' 23:59:59' : '9999-12-31 23:59:59';
     // Create Db object
     $db = new Db('SELECT t.*, p.firstname passengerfirstname, p.lastname passengerlastname, v.plateno, v.type, v.make, v.model, v.color, d.firstname driverfirstname, d.lastname driverlastname 
-	FROM trip t WHERE stage LIKE :stage AND datecreated BETWEEN :datestart AND :dateend
+	FROM trip t WHERE datecreated BETWEEN :datestart AND :dateend
     INNER JOIN passenger p ON t.passengerid = p.id
     LEFT JOIN vehicle v ON t.vehicleid = v.id
     LEFT JOIN driver d ON v.driverid = d.id');
 	
-	$db->bindParam(':stage', '%' . $stage . '%');
     $db->bindParam(':datestart', $datestart);
     $db->bindParam(':dateend', $dateend);
-    $db->bindParam(':vehicleid', $vehicleid);
 	
     $response = array();
     // Execute
