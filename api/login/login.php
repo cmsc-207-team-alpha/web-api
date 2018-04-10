@@ -15,7 +15,7 @@ $password = $input['password'];
 
 <?php
 // var con -> establish a connection to database assignment1db
-$con =  mysqli_connect('localhost', 'root' ,'', 'assignment1db');
+$con =  mysqli_connect('localhost', 'root' ,'', 'cmsc_team_alpha');
 	// test if you can connect to database | if not die
 	if (!$con) {
 			die("Connection failed: " . mysqli_connect_error());
