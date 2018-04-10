@@ -79,10 +79,9 @@ try {
         Http::ReturnSuccess($response);
     } else {
         // Create Db object
-        $db = new Db('SELECT * FROM `trip` WHERE id = :id OR passengerid = :passengerid LIMIT 1');
+        $db = new Db('SELECT * FROM `trip` WHERE passengerid = :passengerid LIMIT 1');
 
         // Bind parameters
-        $db->bindParam(':id', $id);
 		$db->bindParam(':passengerid', $passengerid);
 
         // Execute
