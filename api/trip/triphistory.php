@@ -59,10 +59,10 @@ try {
 	// Bind parameters
     $db->bindParam(':datestart', $datestart);
     $db->bindParam(':dateend', $dateend);
-    $db->bindParam('passengerfirstname', $passengerfirstname);
+    /*$db->bindParam('passengerfirstname', $passengerfirstname);
     $db->bindParam('passengerlastname', $passengerlastname);
     $db->bindParam('driverfirstname', $driverfirstname);
-    $db->bindParam('driverlastname', $driverlastname);
+    $db->bindParam('driverlastname', $driverlastname);*/
     if ($vehicleid !== 0) {
 		$db->bindParam(':vehicleid', $vehicleid);
     }
@@ -86,6 +86,7 @@ try {
         $db = new Db('SELECT * FROM `trip` WHERE passengerid = :passengerid LIMIT 1');
         // Bind parameters
         $db->bindParam(':passengerid', $passengerid);
+	$db->bindParam(':id', $id);
         // Execute
         if ($db->execute() === 0) {
             Http::ReturnError(404, array('message' => 'Trip not found.'));
