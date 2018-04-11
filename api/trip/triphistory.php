@@ -15,14 +15,16 @@ if ($_SERVER['REQUEST_METHOD'] !== 'GET') {
     return;
 }
 
-$id = 0;
+$driverid = 0;
+$passengerid = 0;
 $vehicleid = 0;
 $stage = '';
 
-
-// Extract request query string
-if (array_key_exists('id', $_GET)) {
-    $id = intval($_GET['id']);
+if (array_key_exists('driverid', $_GET)) {
+    $passengerid = intval($_GET['driverid']);
+}
+if (array_key_exists('passengerid', $_GET)) {
+    $passengerid = intval($_GET['passengerid']);
 }
 if (array_key_exists('vehicleid', $_GET)) {
     $vehicleid = intval($_GET['vehicleid']);
@@ -30,29 +32,43 @@ if (array_key_exists('vehicleid', $_GET)) {
 if (array_key_exists('stage', $_GET)) {
     $stage = $_GET['stage'];
 }
-
-
-if ($id === 0 && $vehicleid === 0 && $stage === '') {
-    Http::ReturnError(400, array('message' => 'Trip id or trip stage was not provided.'));
+if (array_key_exists('datestart', $_GET)) {
+    $datestart = $_GET['datestart'];
+}
+if (array_key_exists('datesend', $_GET)) {
+    $dateend = $_GET['dateend'];
+}
+if ($driverid === 0 && $passengerid === 0 && $stage === '') {
+    Http::ReturnError(400, array('message' => 'Driver id, passenger id or trip stage was not provided.'));
     return;
 }
 
 
 try {
-	if ($id === 0 && vehicleid ===0) {
 	
-        $datestart = array_key_exists('datestart', $_GET) ? $_GET['datestart'] . ' 00:00:00' : '1000-01-01 00:00:00';
-        $dateend = array_key_exists('dateend', $_GET) ? $_GET['dateend'] . ' 23:59:59' : '9999-12-31 23:59:59';
-        // Create Db object
-        $db = new Db('SELECT * FROM `trip` WHERE stage LIKE :stage AND datecreated BETWEEN :datestart AND :dateend' . ($vehicleid === 0 ? '' : ' AND vehicleid = :vehicleid'));
-        // Bind parameters
-        $db->bindParam(':stage', '%' . $stage . '%');
-        $db->bindParam(':datestart', $datestart);
-        $db->bindParam(':dateend', $dateend);
-        if ($vehicleid !== 0) {
-            $db->bindParam(':vehicleid', $vehicleid);
-        }
-		
+    if ($passengerid === 0 && $driverid ===0) {
+    // Id was not given
+    // Return all trips for a stage and vehicle id
+    $datestart = array_key_exists('datestart', $_GET) ? $_GET['datestart'] . ' 00:00:00' : '1000-01-01 00:00:00';
+    $dateend = array_key_exists('dateend', $_GET) ? $_GET['dateend'] . ' 23:59:59' : '9999-12-31 23:59:59';
+    // Create Db object
+    $db = new Db('SELECT t.*, p.firstname passengerfirstname, p.lastname passengerlastname, v.plateno, v.type, v.make, v.model, v.color, d.firstname driverfirstname, d.lastname driverlastname FROM trip t
+    INNER JOIN passenger p ON t.passengerid = p.id
+    LEFT JOIN vehicle v ON t.vehicleid = v.id
+    LEFT JOIN driver d ON v.driverid = d.id WHERE datecreated BETWEEN :datestart AND :dateend' . ($vehicleid === 0 ? '' : ' AND vehicleid = :vehicleid'));
+	// Bind parameters
+    $db->bindParam(':datestart', $datestart);
+    $db->bindParam(':dateend', $dateend);
+    /*$db->bindParam('passengerfirstname', $passengerfirstname);
+    $db->bindParam('passengerlastname', $passengerlastname);
+    $db->bindParam('driverfirstname', $driverfirstname);
+    $db->bindParam('driverlastname', $driverlastname);*/
+    if ($vehicleid !== 0) {
+		$db->bindParam(':vehicleid', $vehicleid);
+    }
+	
+	
+	
     $response = array();
     // Execute
     if ($db->execute() > 0) {
@@ -65,23 +81,29 @@ try {
     }
     // Reply with successful response
     Http::ReturnSuccess($response);
-	} else {
+   } else {
         // Create Db object
-        $db = new Db('SELECT * FROM `trip` WHERE id = :id LIMIT 1');
-        // Bind parameters
-        $db->bindParam(':id', $id);
+	$addedfilter = "";
+    	if (property_exists($passengerid, 'passengerid')) {
+        $db = new Db('SELECT * FROM `trip` WHERE passengerid = :passengerid LIMIT 1');
+	$db->bindParam(':passengerid', $passengerid);
+    	} else if (property_exists($vals, 'driverid')) {
+        $driverid = $vals->driverid;
+        $db = new Db('SELECT * FROM `trip` WHERE vehicleid IN (SELECT id FROM vehicle WHERE driverid = '$driverid') LIMIT 1');
+	$db->bindParam(':driverid', $driverid);	
+    	}   
+
         // Execute
         if ($db->execute() === 0) {
             Http::ReturnError(404, array('message' => 'Trip not found.'));
         } else {
             // Driver document was found
             $record = $db->fetchAll()[0];
-            $trip = new Trip($record);
+            $trip = new TripListItemExtended($record);
             // Reply with successful response
             Http::ReturnSuccess($trip);
         }
     }
-	
 } catch (PDOException $pe) {
     Db::ReturnDbError($pe);
 } catch (Exception $e) {
