@@ -2,10 +2,14 @@
 namespace TeamAlpha\Web;
 
 // Require classes
+require $_SERVER['DOCUMENT_ROOT'] . '/api/models/driver.php';
+require $_SERVER['DOCUMENT_ROOT'] . '/api/models/passenger.php';
+require $_SERVER['DOCUMENT_ROOT'] . '/api/models/trip.php';
+require $_SERVER['DOCUMENT_ROOT'] . '/api/models/vehicle.php';
 require $_SERVER['DOCUMENT_ROOT'] . '/api/utils/db.php';
 require $_SERVER['DOCUMENT_ROOT'] . '/api/utils/email.php';
 require $_SERVER['DOCUMENT_ROOT'] . '/api/utils/http.php';
-require $_SERVER['DOCUMENT_ROOT'] . '/api/models/trip.php';
+require $_SERVER['DOCUMENT_ROOT'] . '/api/utils/onesignal.php';
 
 // Declare use on objects to be used
 use Exception;
@@ -72,17 +76,49 @@ if (is_null($input)) {
             // Commit transaction
             $db->commit();
 
-            // Get passenger
-            $db = new Db('SELECT * FROM `passenger` WHERE id = :id LIMIT 1');
-            $db->bindParam(':id', $trip->passengerid);
-            $db->execute();
-            $passenger = $db->fetchAll()[0];
+            if ($trip->vehicleid != null) {
+                // Retrieve vehicle details
+                $db = new Db('SELECT * FROM `vehicle` WHERE id = :vehicleid');
+                $db->bindParam(':vehicleid', $trip->vehicleid);
+                $db->execute();
+                $record = $db->fetchAll()[0];
+                $vehicle = new Vehicle($record);
 
-            // Send email
-            $htmlbody = 'Hi ' . $passenger['firstname'] . ',<br/><br/>You have just arrived at ' . $trip->destination . '!<br/><br/>Thank you for choosing Team Alpha. For your reference, your trip booking number is <strong>TRIP-' . $trip->id . '</strong>.<br/><br/>Have a great day!<br/><br/><br/><small>This message was sent by Team Alpha\'s Trip Module.</small>';
-            $altbody = 'Hi ' . $passenger['firstname'] . ', You have just arrived at ' . $trip->destination . '! Thank you for choosing Team Alpha. For your reference, your trip booking number is TRIP-' . $trip->id . '. Have a great day! This message was sent by Team Alpha\'s Trip Module.';
-            $email = new Email();
-            $email->send($passenger['email'], $passenger['firstname'], 'Destination reached!', $htmlbody, $altbody);
+                // Retrieve driver details
+                $db = new Db('SELECT * FROM `driver` WHERE id = :driverid');
+                $db->bindParam(':driverid', $vehicle->driverid);
+                $db->execute();
+                $record = $db->fetchAll()[0];
+                $driver = new Driver($record);
+
+                // Retrieve passenger details
+                $db = new Db('SELECT * FROM `passenger` WHERE id = :passengerid');
+                $db->bindParam(':passengerid', $trip->passengerid);
+                $db->execute();
+                $record = $db->fetchAll()[0];
+                $passenger = new Passenger($record);
+
+                // Build data
+                $data = array(
+                    'tripid' => $trip->id,
+                    'passengerid' => $passenger->id,
+                    'driverid' => $driver->id,
+                    'vehicleid' => $vehicle->id,
+                );
+
+                // Send to OneSignal
+                $onesignal = new OneSignal();
+                $onesignal->send(
+                    $data,
+                    'Trip ended!',
+                    'You\'ve arrived at ' . $trip->destination . '. How\'s your experience, ' . $passenger->firstname . '? Don\'t forget to rate ' . $driver->firstname . ' ' . $driver->lastname . '!');
+
+                // Send email
+                $htmlbody = 'Hi ' . $passenger->firstname . ',<br/><br/>You have just arrived at ' . $trip->destination . '!<br/><br/>Thank you for choosing Team Alpha. For your reference, your trip booking number is <strong>TRIP-' . $trip->id . '</strong>.<br/><br/>Have a great day!<br/><br/><br/><small>This message was sent by Team Alpha\'s Trip Module.</small>';
+                $altbody = 'Hi ' . $passenger->firstname . ', You have just arrived at ' . $trip->destination . '! Thank you for choosing Team Alpha. For your reference, your trip booking number is TRIP-' . $trip->id . '. Have a great day! This message was sent by Team Alpha\'s Trip Module.';
+                $email = new Email();
+                $email->send($passenger->email, $passenger->firstname, 'Destination reached!', $htmlbody, $altbody);
+            }
 
             // Reply with successful response
             Http::ReturnSuccess(array('message' => 'Trip ended.', 'id' => $input->id));

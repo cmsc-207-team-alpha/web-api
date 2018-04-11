@@ -2,8 +2,13 @@
 namespace TeamAlpha\Web;
 
 // Require classes
+require $_SERVER['DOCUMENT_ROOT'] . '/api/models/driver.php';
+require $_SERVER['DOCUMENT_ROOT'] . '/api/models/passenger.php';
+require $_SERVER['DOCUMENT_ROOT'] . '/api/models/trip.php';
+require $_SERVER['DOCUMENT_ROOT'] . '/api/models/vehicle.php';
 require $_SERVER['DOCUMENT_ROOT'] . '/api/utils/db.php';
 require $_SERVER['DOCUMENT_ROOT'] . '/api/utils/http.php';
+require $_SERVER['DOCUMENT_ROOT'] . '/api/utils/onesignal.php';
 
 // Declare use on objects to be used
 use Exception;
@@ -35,6 +40,10 @@ if (is_null($input)) {
         if ($db->execute() === 0) {
             Http::ReturnError(404, array('message' => 'Trip not found.'));
         } else {
+            // Trip  was found
+            $record = $db->fetchAll()[0];
+            $trip = new Trip($record);
+
             // Create Db object
             $db = new Db('UPDATE `trip` SET rating = :rating, datemodified = :datemodified WHERE id = :id');
 
@@ -46,7 +55,7 @@ if (is_null($input)) {
                 } else if ($input->rating < 1) {
                     $rating = 1;
                 } else {
-                    $rating = $input->rating;
+                    $rating = (int) $input->rating;
                 }
             }
 
@@ -60,6 +69,65 @@ if (is_null($input)) {
 
             // Commit transaction
             $db->commit();
+
+            if ($trip->vehicleid != null) {
+                // Retrieve vehicle details
+                $db = new Db('SELECT * FROM `vehicle` WHERE id = :vehicleid');
+                $db->bindParam(':vehicleid', $trip->vehicleid);
+                $db->execute();
+                $record = $db->fetchAll()[0];
+                $vehicle = new Vehicle($record);
+
+                // Retrieve driver details
+                $db = new Db('SELECT * FROM `driver` WHERE id = :driverid');
+                $db->bindParam(':driverid', $vehicle->driverid);
+                $db->execute();
+                $record = $db->fetchAll()[0];
+                $driver = new Driver($record);
+
+                // Retrieve passenger details
+                $db = new Db('SELECT * FROM `passenger` WHERE id = :passengerid');
+                $db->bindParam(':passengerid', $trip->passengerid);
+                $db->execute();
+                $record = $db->fetchAll()[0];
+                $passenger = new Passenger($record);
+
+                // Build data
+                $data = array(
+                    'tripid' => $trip->id,
+                    'passengerid' => $passenger->id,
+                    'driverid' => $driver->id,
+                    'vehicleid' => $vehicle->id,
+                );
+
+                $ratePrefix = '';
+                if ($rating < 4) {
+                    $ratePrefix = 'only ';
+                }
+
+                $ratePostfix = '';
+                if ($rating === 5) {
+                    $ratePostfix = ' That\'s really awesome!';
+                } else if ($rating === 4) {
+                    $ratePostfix = ' That\'s great!';
+                } else if ($rating === 3) {
+                    $ratePostfix = ' You can improve next time.';
+                } else {
+                    $ratePostfix = ' What happened on the trip?';
+                }
+
+                $starword = 'stars';
+                if ($rating < 2) {
+                    $starword = 'star';
+                }
+
+                // Send to OneSignal
+                $onesignal = new OneSignal();
+                $onesignal->send(
+                    $data,
+                    'Trip rated!',
+                    'Hey ' . $driver->firstname . ', your passenger ' . $passenger->firstname . ' rated his trip with ' . $ratePrefix . $rating . ' ' . $starword . '! ' . $ratePostfix);
+            }
 
             // Reply with successful response
             Http::ReturnSuccess(array('message' => 'Trip rated.', 'id' => $input->id));

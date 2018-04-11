@@ -2,8 +2,11 @@
 namespace TeamAlpha\Web;
 
 // Require classes
+require $_SERVER['DOCUMENT_ROOT'] . '/api/models/driver.php';
+require $_SERVER['DOCUMENT_ROOT'] . '/api/models/passenger.php';
 require $_SERVER['DOCUMENT_ROOT'] . '/api/utils/db.php';
 require $_SERVER['DOCUMENT_ROOT'] . '/api/utils/http.php';
+require $_SERVER['DOCUMENT_ROOT'] . '/api/utils/onesignal.php';
 
 // Declare use on objects to be used
 use Exception;
@@ -26,7 +29,7 @@ if (is_null($input)) {
 } else {
     try {
         // Check nearest available vehicle using Haversine Formula: https://stackoverflow.com/questions/574691/mysql-great-circle-distance-haversine-formula
-        $db = new Db('SELECT id,
+        $db = new Db('SELECT id, driverid,
                             ( 6371 * acos( cos( radians(:sourcelat) ) * cos( radians(locationlat) )
                             * cos( radians(locationlong) - radians(:sourcelong) ) + sin( radians(:sourcelat) )
                             * sin(radians(locationlat)) ) ) AS distance
@@ -45,6 +48,7 @@ if (is_null($input)) {
 
         $messageSuffix = '';
         $vehicleid = null;
+        $driverid = null;
         // Execute
         if ($db->execute() === 0) {
             $messageSuffix = ', but no available vehicle was found within ' . $radius . ' km radius. Your trip will stay as requested until an administrator manually assigns a vehicle to it, or until you cancel it.';
@@ -52,7 +56,9 @@ if (is_null($input)) {
             $messageSuffix = ' and a vehicle was assigned to it.';
             $record = $db->fetchAll()[0];
             $vehicleid = (int) $record['id'];
+            $driverid = (int) $record['driverid'];
         }
+
         // Create Db object
         $db = new Db('INSERT INTO `trip` (vehicleid, passengerid, source, sourcelat, sourcelong, destination, destinationlat, destinationlong, stage, amount, datecreated, datemodified)
         VALUES (:vehicleid, :passengerid, :source, :sourcelat, :sourcelong, :destination, :destinationlat, :destinationlong, :stage, :amount, :datecreated, :datemodified)');
@@ -77,6 +83,38 @@ if (is_null($input)) {
 
         // Commit transaction
         $db->commit();
+
+        // Send to OneSignal
+        if ($vehicleid != null) {
+            // Retrieve driver details
+            $db = new Db('SELECT * FROM `driver` WHERE id = :driverid');
+            $db->bindParam(':driverid', $driverid);
+            $db->execute();
+            $record = $db->fetchAll()[0];
+            $driver = new Driver($record);
+
+            // Retrieve passenger details
+            $db = new Db('SELECT * FROM `passenger` WHERE id = :passengerid');
+            $db->bindParam(':passengerid', $input->passengerid);
+            $db->execute();
+            $record = $db->fetchAll()[0];
+            $passenger = new Passenger($record);
+
+            // Build data
+            $data = array(
+                'tripid' => $id,
+                'passengerid' => $passenger->id,
+                'driverid' => $driverid,
+                'vehicleid' => $vehicleid,
+            );
+
+            // Send to OneSignal
+            $onesignal = new OneSignal();
+            $onesignal->send(
+                $data,
+                'Trip assigned!',
+                'Hey ' . $driver->firstname . ', you\'ve been assigned to a trip booked by a passenger named ' . $passenger->firstname . ' ' . $passenger->lastname . '. You have an option to accept or reject it.');
+        }
 
         // Reply with successful response
         Http::ReturnCreated('/api/trip/get.php?id=' . $id, array('message' => 'Trip requested' . $messageSuffix, 'id' => (int) $id));

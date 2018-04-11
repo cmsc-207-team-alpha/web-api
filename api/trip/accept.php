@@ -2,9 +2,13 @@
 namespace TeamAlpha\Web;
 
 // Require classes
+require $_SERVER['DOCUMENT_ROOT'] . '/api/models/driver.php';
+require $_SERVER['DOCUMENT_ROOT'] . '/api/models/passenger.php';
+require $_SERVER['DOCUMENT_ROOT'] . '/api/models/trip.php';
+require $_SERVER['DOCUMENT_ROOT'] . '/api/models/vehicle.php';
 require $_SERVER['DOCUMENT_ROOT'] . '/api/utils/db.php';
 require $_SERVER['DOCUMENT_ROOT'] . '/api/utils/http.php';
-require $_SERVER['DOCUMENT_ROOT'] . '/api/models/trip.php';
+require $_SERVER['DOCUMENT_ROOT'] . '/api/utils/onesignal.php';
 
 // Declare use on objects to be used
 use Exception;
@@ -36,6 +40,7 @@ if (is_null($input)) {
         if ($db->execute() === 0) {
             Http::ReturnError(404, array('message' => 'Trip not found.'));
         } else {
+            // Trip  was found
             $record = $db->fetchAll()[0];
             $trip = new Trip($record);
 
@@ -68,6 +73,44 @@ if (is_null($input)) {
 
             // Commit transaction
             $db->commit();
+
+            if ($trip->vehicleid != null) {
+                // Retrieve vehicle details
+                $db = new Db('SELECT * FROM `vehicle` WHERE id = :vehicleid');
+                $db->bindParam(':vehicleid', $trip->vehicleid);
+                $db->execute();
+                $record = $db->fetchAll()[0];
+                $vehicle = new Vehicle($record);
+
+                // Retrieve driver details
+                $db = new Db('SELECT * FROM `driver` WHERE id = :driverid');
+                $db->bindParam(':driverid', $vehicle->driverid);
+                $db->execute();
+                $record = $db->fetchAll()[0];
+                $driver = new Driver($record);
+
+                // Retrieve passenger details
+                $db = new Db('SELECT * FROM `passenger` WHERE id = :passengerid');
+                $db->bindParam(':passengerid', $trip->passengerid);
+                $db->execute();
+                $record = $db->fetchAll()[0];
+                $passenger = new Passenger($record);
+
+                // Build data
+                $data = array(
+                    'tripid' => $trip->id,
+                    'passengerid' => $passenger->id,
+                    'driverid' => $driver->id,
+                    'vehicleid' => $vehicle->id,
+                );
+
+                // Send to OneSignal
+                $onesignal = new OneSignal();
+                $onesignal->send(
+                    $data,
+                    'Trip accepted!',
+                    'Hey ' . $passenger->firstname . ', your trip request was accepted by a driver named ' . $driver->firstname . ' ' . $driver->lastname . '. Look out for a ' . $vehicle->color . ' ' . $vehicle->make . ' ' . $vehicle->model . ' with pate number ' . $vehicle->plateno . '!');
+            }
 
             // Reply with successful response
             Http::ReturnSuccess(array('message' => 'Trip accepted.', 'id' => $input->id));

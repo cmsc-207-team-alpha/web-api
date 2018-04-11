@@ -2,8 +2,13 @@
 namespace TeamAlpha\Web;
 
 // Require classes
+require $_SERVER['DOCUMENT_ROOT'] . '/api/models/driver.php';
+require $_SERVER['DOCUMENT_ROOT'] . '/api/models/passenger.php';
+require $_SERVER['DOCUMENT_ROOT'] . '/api/models/trip.php';
+require $_SERVER['DOCUMENT_ROOT'] . '/api/models/vehicle.php';
 require $_SERVER['DOCUMENT_ROOT'] . '/api/utils/db.php';
 require $_SERVER['DOCUMENT_ROOT'] . '/api/utils/http.php';
+require $_SERVER['DOCUMENT_ROOT'] . '/api/utils/onesignal.php';
 
 // Declare use on objects to be used
 use Exception;
@@ -35,6 +40,10 @@ if (is_null($input)) {
         if ($db->execute() === 0) {
             Http::ReturnError(404, array('message' => 'Trip not found.'));
         } else {
+            // Trip  was found
+            $record = $db->fetchAll()[0];
+            $trip = new Trip($record);
+
             // Create Db object
             $db = new Db('UPDATE `trip` SET vehicleid = null, stage = :stage, datemodified = :datemodified WHERE id = :id');
 
@@ -48,6 +57,44 @@ if (is_null($input)) {
 
             // Commit transaction
             $db->commit();
+
+            if ($trip->vehicleid != null) {
+                // Retrieve vehicle details
+                $db = new Db('SELECT * FROM `vehicle` WHERE id = :vehicleid');
+                $db->bindParam(':vehicleid', $trip->vehicleid);
+                $db->execute();
+                $record = $db->fetchAll()[0];
+                $vehicle = new Vehicle($record);
+
+                // Retrieve driver details
+                $db = new Db('SELECT * FROM `driver` WHERE id = :driverid');
+                $db->bindParam(':driverid', $vehicle->driverid);
+                $db->execute();
+                $record = $db->fetchAll()[0];
+                $driver = new Driver($record);
+
+                // Retrieve passenger details
+                $db = new Db('SELECT * FROM `passenger` WHERE id = :passengerid');
+                $db->bindParam(':passengerid', $trip->passengerid);
+                $db->execute();
+                $record = $db->fetchAll()[0];
+                $passenger = new Passenger($record);
+
+                // Build data
+                $data = array(
+                    'tripid' => $trip->id,
+                    'passengerid' => $passenger->id,
+                    'driverid' => $driver->id,
+                    'vehicleid' => $vehicle->id,
+                );
+
+                // Send to OneSignal
+                $onesignal = new OneSignal();
+                $onesignal->send(
+                    $data,
+                    'Trip rejected!',
+                    'Sorry ' . $passenger->firstname . '. Your driver ' . $driver->firstname . ' ' . $driver->lastname . ' rejected your booking. Just standby cause one of our administrators will assign a more awesome driver to you soon!');
+            }
 
             // Reply with successful response
             Http::ReturnSuccess(array('message' => 'Trip rejected.', 'id' => $input->id));
