@@ -14,17 +14,38 @@ if ($_SERVER['REQUEST_METHOD'] !== 'GET') {
     Http::ReturnError(405, array('message' => 'Request method is not allowed.'));
     return;
 }
-try {
 
+$id = 0;
+$vehicleid = 0;
+$stage = '';
+// Extract request query string
+if (array_key_exists('id', $_GET)) {
+    $id = intval($_GET['id']);
+}
+if (array_key_exists('vehicleid', $_GET)) {
+    $vehicleid = intval($_GET['vehicleid']);
+}
+if (array_key_exists('stage', $_GET)) {
+    $stage = $_GET['stage'];
+}
+if (array_key_exists('passngerid', $_GET)) {
+    $stage = $_GET['passengerid'];
+}
+if (array_key_exists('driverid', $_GET)) {
+    $stage = $_GET['driverid'];
+}
+if ($id === 0 && $stage === '') {
+    Http::ReturnError(400, array('message' => 'Trip id or trip stage was not provided.'));
+    return;
+}
+
+
+try {
     // Create Db object
-    $db = new Db('SELECT t.*, p.firstname passengerfirstname, p.lastname passengerlastname, v.plateno, v.type, v.make, v.model, v.color, d.firstname driverfirstname, d.lastname driverlastname, t.datestart datestart, t.dateend dateend 
-	FROM trip t
+    $db = new Db('SELECT t.*, p.firstname passengerfirstname, p.lastname passengerlastname, v.plateno, v.type, v.make, v.model, v.color, d.firstname driverfirstname, d.lastname driverlastname FROM trip t
     INNER JOIN passenger p ON t.passengerid = p.id
     LEFT JOIN vehicle v ON t.vehicleid = v.id
     LEFT JOIN driver d ON v.driverid = d.id');
-	
-	
-	
     $response = array();
     // Execute
     if ($db->execute() > 0) {
