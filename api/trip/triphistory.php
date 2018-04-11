@@ -77,7 +77,7 @@ try {
         // Create Db object
         $db = new Db('SELECT * FROM `trip` WHERE id = :id LIMIT 1');
         // Bind parameters
-        $db->bindParam(':id', $id);
+        $db->bindParam(':passengerid', $passengerid);
         // Execute
         if ($db->execute() === 0) {
             Http::ReturnError(404, array('message' => 'Trip not found.'));
