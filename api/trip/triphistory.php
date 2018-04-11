@@ -45,9 +45,8 @@ try {
     $db = new Db('SELECT t.*, p.firstname passengerfirstname, p.lastname passengerlastname, v.plateno, v.type, v.make, v.model, v.color, d.firstname driverfirstname, d.lastname driverlastname FROM trip t
     INNER JOIN passenger p ON t.passengerid = p.id
     LEFT JOIN vehicle v ON t.vehicleid = v.id
-    LEFT JOIN driver d ON v.driverid = d.id WHERE stage LIKE :stage AND datecreated BETWEEN :datestart AND :dateend' . ($vehicleid === 0 ? '' : ' AND vehicleid = :vehicleid'));
+    LEFT JOIN driver d ON v.driverid = d.id WHERE datecreated BETWEEN :datestart AND :dateend' . ($vehicleid === 0 ? '' : ' AND vehicleid = :vehicleid'));
 	// Bind parameters
-    $db->bindParam(':stage', '%' . $stage . '%');
     $db->bindParam(':datestart', $datestart);
     $db->bindParam(':dateend', $dateend);
     if ($vehicleid !== 0) {
@@ -88,4 +87,3 @@ try {
     Db::ReturnDbError($pe);
 } catch (Exception $e) {
     Http::ReturnError(500, array('message' => 'Server error: ' . $e->getMessage() . '.'));
-}
