@@ -18,8 +18,6 @@ if ($_SERVER['REQUEST_METHOD'] !== 'GET') {
 $id = 0;
 $vehicleid = 0;
 $stage = '';
-$passengerid = 0;
-$driverid = 0;
 
 
 // Extract request query string
@@ -32,21 +30,17 @@ if (array_key_exists('vehicleid', $_GET)) {
 if (array_key_exists('stage', $_GET)) {
     $stage = $_GET['stage'];
 }
-if (array_key_exists('passngerid', $_GET)) {
-    $stage = $_GET['passengerid'];
-}
-if (array_key_exists('driverid', $_GET)) {
-    $stage = $_GET['driverid'];
+
 	
 }
-if ($id === 0 && $passengerid === 0 && $stage === '') {
+if ($id === 0 && $vehicleid === 0 && $stage === '') {
     Http::ReturnError(400, array('message' => 'Trip id or trip stage was not provided.'));
     return;
 }
 
 
 try {
-	if ($id === 0 && $passengerid === 0 && vehicleid ===0) {
+	if ($id === 0 && vehicleid ===0) {
 	
     // Create Db object
     $db = new Db('SELECT t.*, p.firstname passengerfirstname, p.lastname passengerlastname, v.plateno, v.type, v.make, v.model, v.color, d.firstname driverfirstname, d.lastname driverlastname 
