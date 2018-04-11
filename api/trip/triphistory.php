@@ -88,3 +88,4 @@ try {
     Db::ReturnDbError($pe);
 } catch (Exception $e) {
     Http::ReturnError(500, array('message' => 'Server error: ' . $e->getMessage() . '.'));
+}
