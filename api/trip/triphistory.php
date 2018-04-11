@@ -88,7 +88,6 @@ try {
         $db = new Db('SELECT * FROM `trip` WHERE passengerid = :passengerid LIMIT 1');
 	$db->bindParam(':passengerid', $passengerid);
     	} else if (property_exists($vals, 'driverid')) {
-        $driverid = $vals->driverid;
         $db = new Db('SELECT * FROM `trip` WHERE vehicleid IN (SELECT id FROM vehicle WHERE driverid = '$driverid') LIMIT 1');
 	$db->bindParam(':driverid', $driverid);	
     	}   
