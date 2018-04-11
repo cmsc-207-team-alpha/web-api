@@ -46,7 +46,7 @@ try {
 	FROM trip t
     (INNER JOIN passenger p ON t.passengerid = p.id
     LEFT JOIN vehicle v ON t.vehicleid = v.id
-    LEFT JOIN driver d ON v.driverid = d.id'));
+    LEFT JOIN driver d ON v.driverid = d.id');
 	
 		
     $response = array();
