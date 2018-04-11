@@ -86,7 +86,7 @@ try {
         $db = new Db('SELECT * FROM `trip` WHERE passengerid = :passengerid LIMIT 1');
         // Bind parameters
         $db->bindParam(':passengerid', $passengerid);
-	$db->bindParam(':id', $id);
+	/*$db->bindParam(':id', $id);*/
         // Execute
         if ($db->execute() === 0) {
             Http::ReturnError(404, array('message' => 'Trip not found.'));
