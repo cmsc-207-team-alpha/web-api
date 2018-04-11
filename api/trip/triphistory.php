@@ -15,13 +15,13 @@ if ($_SERVER['REQUEST_METHOD'] !== 'GET') {
     return;
 }
 
-$id = 0;
+$driverid = 0;
 $passengerid = 0;
 $vehicleid = 0;
 $stage = '';
 
-if (array_key_exists('id', $_GET)) {
-    $passengerid = intval($_GET['id']);
+if (array_key_exists('driverid', $_GET)) {
+    $passengerid = intval($_GET['driverid']);
 }
 if (array_key_exists('passengerid', $_GET)) {
     $passengerid = intval($_GET['passengerid']);
@@ -38,15 +38,15 @@ if (array_key_exists('datestart', $_GET)) {
 if (array_key_exists('datesend', $_GET)) {
     $dateend = $_GET['dateend'];
 }
-if ($id === 0 && $passengerid === 0 && $stage === '') {
-    Http::ReturnError(400, array('message' => 'Trip id, passenger id or trip stage was not provided.'));
+if ($driverid === 0 && $passengerid === 0 && $stage === '') {
+    Http::ReturnError(400, array('message' => 'Driver id, passenger id or trip stage was not provided.'));
     return;
 }
 
 
 try {
 	
-    if ($passengerid === 0 && $id ===0) {
+    if ($passengerid === 0 && $driverid ===0) {
     // Id was not given
     // Return all trips for a stage and vehicle id
     $datestart = array_key_exists('datestart', $_GET) ? $_GET['datestart'] . ' 00:00:00' : '1000-01-01 00:00:00';
@@ -83,10 +83,16 @@ try {
     Http::ReturnSuccess($response);
    } else {
         // Create Db object
+	$addedfilter = "";
+    	if (property_exists($passengerid, 'passengerid')) {
         $db = new Db('SELECT * FROM `trip` WHERE passengerid = :passengerid LIMIT 1');
-        // Bind parameters
-        $db->bindParam(':passengerid', $passengerid);
-	/*$db->bindParam(':id', $id);*/
+	$db->bindParam(':passengerid', $passengerid);
+    	} else if (property_exists($vals, 'driverid')) {
+        $driverid = $vals->driverid;
+        $db = new Db('SELECT * FROM `trip` WHERE vehicleid IN (SELECT id FROM vehicle WHERE driverid = '$driverid') LIMIT 1');
+	$db->bindParam(':driverid', $driverid);	
+    	}   
+
         // Execute
         if ($db->execute() === 0) {
             Http::ReturnError(404, array('message' => 'Trip not found.'));
