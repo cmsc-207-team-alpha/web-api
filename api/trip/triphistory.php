@@ -15,12 +15,12 @@ if ($_SERVER['REQUEST_METHOD'] !== 'GET') {
     return;
 }
 
-$id = 0;
+$passengerid = 0;
 $vehicleid = 0;
 $stage = '';
 
-if (array_key_exists('id', $_GET)) {
-    $id = intval($_GET['id']);
+if (array_key_exists('passengerid', $_GET)) {
+    $passengerid = intval($_GET['passengerid']);
 }
 if (array_key_exists('vehicleid', $_GET)) {
     $vehicleid = intval($_GET['vehicleid']);
@@ -34,15 +34,15 @@ if (array_key_exists('datestart', $_GET)) {
 if (array_key_exists('datesend', $_GET)) {
     $dateend = $_GET['dateend'];
 }
-if ($id === 0 && $stage === '') {
-    Http::ReturnError(400, array('message' => 'Trip id or trip stage was not provided.'));
+if ($passengerid === 0 && $stage === '') {
+    Http::ReturnError(400, array('message' => 'Passenger id or trip stage was not provided.'));
     return;
 }
 
 
 try {
 	
-	if ($id === 0) {
+	if ($passengerid === 0) {
     // Id was not given
     // Return all trips for a stage and vehicle id
     $datestart = array_key_exists('datestart', $_GET) ? $_GET['datestart'] . ' 00:00:00' : '1000-01-01 00:00:00';
