@@ -20,6 +20,8 @@ $vehicleid = 0;
 $stage = '';
 $passengerid = 0;
 $driverid = 0;
+
+
 // Extract request query string
 if (array_key_exists('id', $_GET)) {
     $id = intval($_GET['id']);
@@ -36,11 +38,6 @@ if (array_key_exists('passngerid', $_GET)) {
 if (array_key_exists('driverid', $_GET)) {
     $stage = $_GET['driverid'];
 	
-if (array_key_exists('datestart', $_GET)) {
-    $stage = $_GET['datestart'];
-	
-if (array_key_exists('dateend', $_GET)) {
-    $stage = $_GET['dateend'];
 }
 if ($id === 0 && $passengerid === 0 && $stage === '') {
     Http::ReturnError(400, array('message' => 'Trip id or trip stage was not provided.'));
@@ -49,6 +46,7 @@ if ($id === 0 && $passengerid === 0 && $stage === '') {
 
 
 try {
+	if ($id === 0 && $passengerid === 0 && vehicleid ===0) {
 	
     // Create Db object
     $db = new Db('SELECT t.*, p.firstname passengerfirstname, p.lastname passengerlastname, v.plateno, v.type, v.make, v.model, v.color, d.firstname driverfirstname, d.lastname driverlastname 
@@ -70,6 +68,8 @@ try {
     }
     // Reply with successful response
     Http::ReturnSuccess($response);
+	}
+	
 } catch (PDOException $pe) {
     Db::ReturnDbError($pe);
 } catch (Exception $e) {
