@@ -87,8 +87,8 @@ try {
     	if (property_exists($passengerid, 'passengerid')) {
         $db = new Db('SELECT * FROM `trip` WHERE passengerid = :passengerid LIMIT 1');
 	$db->bindParam(':passengerid', $passengerid);
-    	} else if (property_exists($driverid, 'driverid')) {
-        /*$db = new Db('SELECT * FROM `trip` WHERE vehicleid IN (SELECT id FROM vehicle WHERE driverid = '$driverid') = :vehicleid LIMIT 1');
+    	} /*else if (property_exists($driverid, 'driverid')) {
+        $db = new Db('SELECT * FROM `trip` WHERE vehicleid IN (SELECT id FROM vehicle WHERE driverid = '$driverid') = :vehicleid LIMIT 1');
 	$db->bindParam(':driverid', $driverid);
 	$db->bindParam(':vehicleid', $vechileid);	
     	}*/   
