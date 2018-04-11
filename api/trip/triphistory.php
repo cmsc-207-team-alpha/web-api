@@ -18,6 +18,8 @@ if ($_SERVER['REQUEST_METHOD'] !== 'GET') {
 $id = 0;
 $vehicleid = 0;
 $stage = '';
+$passengerid = 0;
+$driverid = 0;
 // Extract request query string
 if (array_key_exists('id', $_GET)) {
     $id = intval($_GET['id']);
