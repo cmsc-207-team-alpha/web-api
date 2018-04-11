@@ -15,10 +15,14 @@ if ($_SERVER['REQUEST_METHOD'] !== 'GET') {
     return;
 }
 
+$id = 0;
 $passengerid = 0;
 $vehicleid = 0;
 $stage = '';
 
+if (array_key_exists('id', $_GET)) {
+    $passengerid = intval($_GET['id']);
+}
 if (array_key_exists('passengerid', $_GET)) {
     $passengerid = intval($_GET['passengerid']);
 }
@@ -34,15 +38,15 @@ if (array_key_exists('datestart', $_GET)) {
 if (array_key_exists('datesend', $_GET)) {
     $dateend = $_GET['dateend'];
 }
-if ($passengerid === 0 && $stage === '') {
-    Http::ReturnError(400, array('message' => 'Passenger id or trip stage was not provided.'));
+if ($id === 0 && $passengerid === 0 && $stage === '') {
+    Http::ReturnError(400, array('message' => 'Trip id, passenger id or trip stage was not provided.'));
     return;
 }
 
 
 try {
 	
-	if ($passengerid === 0) {
+    if ($passengerid === 0 && $id ===0) {
     // Id was not given
     // Return all trips for a stage and vehicle id
     $datestart = array_key_exists('datestart', $_GET) ? $_GET['datestart'] . ' 00:00:00' : '1000-01-01 00:00:00';
@@ -79,9 +83,9 @@ try {
     Http::ReturnSuccess($response);
    } else {
         // Create Db object
-        $db = new Db('SELECT * FROM `trip` WHERE passengerid = :passengerid LIMIT 1');
+        $db = new Db('SELECT * FROM `trip` WHERE id = :id LIMIT 1');
         // Bind parameters
-        $db->bindParam(':passengerid', $passengerid);
+        $db->bindParam(':id', $id);
         // Execute
         if ($db->execute() === 0) {
             Http::ReturnError(404, array('message' => 'Trip not found.'));
