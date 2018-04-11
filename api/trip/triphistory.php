@@ -41,13 +41,17 @@ if ($id === 0 && $vehicleid === 0 && $stage === '') {
 try {
 	if ($id === 0 && vehicleid ===0) {
 	
-    // Create Db object
-    $db = new Db('SELECT t.*, p.firstname passengerfirstname, p.lastname passengerlastname, v.plateno, v.type, v.make, v.model, v.color, d.firstname driverfirstname, d.lastname driverlastname 
-	FROM trip t
-    (INNER JOIN passenger p ON t.passengerid = p.id
-    LEFT JOIN vehicle v ON t.vehicleid = v.id
-    LEFT JOIN driver d ON v.driverid = d.id');
-	
+        $datestart = array_key_exists('datestart', $_GET) ? $_GET['datestart'] . ' 00:00:00' : '1000-01-01 00:00:00';
+        $dateend = array_key_exists('dateend', $_GET) ? $_GET['dateend'] . ' 23:59:59' : '9999-12-31 23:59:59';
+        // Create Db object
+        $db = new Db('SELECT * FROM `trip` WHERE stage LIKE :stage AND datecreated BETWEEN :datestart AND :dateend' . ($vehicleid === 0 ? '' : ' AND vehicleid = :vehicleid'));
+        // Bind parameters
+        $db->bindParam(':stage', '%' . $stage . '%');
+        $db->bindParam(':datestart', $datestart);
+        $db->bindParam(':dateend', $dateend);
+        if ($vehicleid !== 0) {
+            $db->bindParam(':vehicleid', $vehicleid);
+        }
 		
     $response = array();
     // Execute
@@ -61,7 +65,22 @@ try {
     }
     // Reply with successful response
     Http::ReturnSuccess($response);
-	}
+	} else {
+        // Create Db object
+        $db = new Db('SELECT * FROM `trip` WHERE id = :id LIMIT 1');
+        // Bind parameters
+        $db->bindParam(':id', $id);
+        // Execute
+        if ($db->execute() === 0) {
+            Http::ReturnError(404, array('message' => 'Trip not found.'));
+        } else {
+            // Driver document was found
+            $record = $db->fetchAll()[0];
+            $trip = new Trip($record);
+            // Reply with successful response
+            Http::ReturnSuccess($trip);
+        }
+    }
 	
 } catch (PDOException $pe) {
     Db::ReturnDbError($pe);
