@@ -88,7 +88,7 @@ try {
         } else {
             // Driver document was found
             $record = $db->fetchAll()[0];
-            $trip = new Trip($record);
+            $trip = new TripListItemExtended($record);
             // Reply with successful response
             Http::ReturnSuccess($trip);
         }
