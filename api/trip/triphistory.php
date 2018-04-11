@@ -36,7 +36,7 @@ if (array_key_exists('passngerid', $_GET)) {
 if (array_key_exists('driverid', $_GET)) {
     $stage = $_GET['driverid'];
 }
-if ($id === 0 && $stage === '') {
+if ($id === 0 && $passengerid === 0 && $stage === '') {
     Http::ReturnError(400, array('message' => 'Trip id or trip stage was not provided.'));
     return;
 }
