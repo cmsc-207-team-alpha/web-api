@@ -28,6 +28,12 @@ if (array_key_exists('vehicleid', $_GET)) {
 if (array_key_exists('stage', $_GET)) {
     $stage = $_GET['stage'];
 }
+if (array_key_exists('datestart', $_GET)) {
+    $datestart = $_GET['datestart'];
+}
+if (array_key_exists('datesend', $_GET)) {
+    $dateend = $_GET['dateend'];
+}
 if ($id === 0 && $stage === '') {
     Http::ReturnError(400, array('message' => 'Trip id or trip stage was not provided.'));
     return;
