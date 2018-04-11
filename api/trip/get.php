@@ -33,7 +33,7 @@ if ($id === 0 && $stage === '') {
     return;
 }
 try {
-    if ($id === 0 && $vehicleid === 0) {
+    if ($id === 0) {
         // Id was not given
         // Return all trips for a stage and vehicle id
         $datestart = array_key_exists('datestart', $_GET) ? $_GET['datestart'] . ' 00:00:00' : '1000-01-01 00:00:00';
