@@ -83,7 +83,6 @@ try {
     Http::ReturnSuccess($response);
    } else {
         // Create Db object
-	$addedfilter = "";
     	if (property_exists($passengerid, 'passengerid')) {
         $db = new Db('SELECT * FROM `trip` WHERE passengerid = :passengerid LIMIT 1');
 	$db->bindParam(':passengerid', $passengerid);
