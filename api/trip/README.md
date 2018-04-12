@@ -261,6 +261,110 @@ Status: 200
 </details>
 
 
+<details><summary>Getting trips by driver id (and passenger id and \ or date range)</summary>
+
+## Getting trips by stage (and passenger id and \ or date range):
+
+### EXPECTED CLIENT
+`Web Portal`
+
+### ENDPOINT
+`[website base address]/api/trip/gethistory.php`
+
+### REQUEST DETAILS
+
+#### Request Method:
+`GET`
+
+#### Request Parameter:
+|Name|Description|
+|--|--|
+|driver id||
+|datestart|Optional. Date coverage start|
+|dateend|Optional. Date coverage end|
+
+### RESPONSE DETAILS
+
+#### Response Status Codes:
+|Status|Description|
+|--|--|
+|200|Success|
+|400|Bad Request|
+|405|Method Not Allowed|
+|500|Internal Server Error|
+
+#### Response Body:
+**Array of:**
+
+|Member|Data Type|Comment|
+|--|--|--|
+|id |numeric||
+|vehicleid|numeric||
+|passengerid|string||
+|sourcelat|decimal|Source location - latitude|
+|sourcelong|decimal|Source location - longitude|
+|destinationlat|decimal|Destination location - latitude|
+|destinationlong|decimal|Destination location - longitude|
+|stage|string|Trip's stage|
+|datestart|||
+|dateend|||
+|amount|||
+|passengerfirstname|||
+|passengerlastname|||
+|plateno|||
+|type|||
+|make|||
+|model|||
+|color|||
+|driverfirstname|||
+|driverlastname|||
+### SAMPLES
+
+#### Sample Request:
+~~~~
+GET [website base address]/api/trip/gethistory.php?passengerid=1&datestart=2018-04-01&dateend=2018-04-30 HTTP/1.1 
+~~~~
+
+#### Sample Response:
+~~~~
+Access-Control-Allow-Methods: GET
+Access-Control-Allow-Orgin: *
+Connection: close
+Content-Type: application/json; charset=UTF-8
+Date: Fri, 30 Mar 2018 09:14:11 +0000
+Status: 200
+
+[
+    {       
+    	"id":2,
+    	"vehicleid":1,
+    	"passengerid":1,
+    	"sourcelat":14.556764,
+    	"sourcelong":121.014685,
+    	"destinationlat":14.58899,
+    	"destinationlong":120.975238,
+    	"stage":"Completed",
+    	"datestart":null,
+    	"dateend":null,
+    	"amount":129.13,
+    	"passengerfirstname":"Pedro",
+    	"passengerlastname":"Penduko",
+    	"plateno":"ABC123",
+    	"type":"Sedan",
+    	"make":"Toyota",
+    	"model":"Vios",
+    	"color":"Space Grey",
+    	"driverfirstname":"John",
+    	"driverlastname":"Doe"
+    }
+]
+
+~~~~
+
+
+</details>
+
+
 <details><summary>Manually assigning a trip</summary>
 
 ## Manually assigning a trip:
