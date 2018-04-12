@@ -306,18 +306,18 @@ Status: 200
 |destinationlat|decimal|Destination location - latitude|
 |destinationlong|decimal|Destination location - longitude|
 |stage|string|Trip's stage|
-|datestart|||
-|dateend|||
-|amount|||
+|datestart|datetime||
+|dateend|datetime||
+|amount|decimal|Pre-computed trip amount|
 |passengerfirstname|||
 |passengerlastname|||
-|plateno|||
-|type|||
-|make|||
-|model|||
-|color|||
-|driverfirstname|||
-|driverlastname|||
+|plateno|string||
+|type|string||
+|make|string||
+|model|string||
+|color|string||
+|driverfirstname|string||
+|driverlastname|string||
 ### SAMPLES
 
 #### Sample Request:
