@@ -309,8 +309,8 @@ Status: 200
 |datestart|datetime||
 |dateend|datetime||
 |amount|decimal|Pre-computed trip amount|
-|passengerfirstname|||
-|passengerlastname|||
+|passengerfirstname|string||
+|passengerlastname|string||
 |plateno|string||
 |type|string||
 |make|string||
