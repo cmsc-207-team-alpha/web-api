@@ -296,7 +296,7 @@ Location: /api/passenger/get.php?id=1
 Status: 200
 
 {
-    "message": "Account Deleted",
+    "message": "Account is valid and existing",
     "id": 1
 }
 ~~~~
