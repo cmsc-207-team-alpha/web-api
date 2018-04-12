@@ -26,10 +26,6 @@ try {
             (SELECT COUNT(id) FROM `admin`) totaladmin,
             (SELECT COUNT(id) FROM `admin` WHERE active = 1) totalactive');
 
-    // Bind parameters
-    $db->bindParam(':datestart', $datestart);
-    $db->bindParam(':dateend', $dateend);
-
     // Execute query
     $db->execute();
 
