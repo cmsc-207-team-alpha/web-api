@@ -298,9 +298,9 @@ Status: 200
 
 |Member|Data Type|Comment|
 |--|--|--|
-|id |numeric||
-|vehicleid|numeric||
-|passengerid|string||
+|id |numeric|Id of the Trip|
+|vehicleid|numeric|Id of the vehicle|
+|passengerid|string|Id of the passenger|
 |sourcelat|decimal|Source location - latitude|
 |sourcelong|decimal|Source location - longitude|
 |destinationlat|decimal|Destination location - latitude|
@@ -309,15 +309,15 @@ Status: 200
 |datestart|datetime||
 |dateend|datetime||
 |amount|decimal|Pre-computed trip amount|
-|passengerfirstname|string||
-|passengerlastname|string||
-|plateno|string||
-|type|string||
-|make|string||
-|model|string||
-|color|string||
-|driverfirstname|string||
-|driverlastname|string||
+|passengerfirstname|string|Passenger's first name|
+|passengerlastname|string|Passwnger's last name|
+|plateno|string|Plate number of vehicle|
+|type|string|Type of vehicle|
+|make|string|Make of the vehicle|
+|model|string|Model of the Vehicle|
+|color|string|Color of the vehicle|
+|driverfirstname|string|Driver's first name|
+|driverlastname|string|Driver's last name|
 ### SAMPLES
 
 #### Sample Request:
