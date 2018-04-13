@@ -708,6 +708,36 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "Panic",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"id\": 1\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/trip/panic.php",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"trip",
+								"panic.php"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -1078,6 +1108,190 @@
 								"api",
 								"report",
 								"passengerstats.php"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Fare",
+			"description": "",
+			"item": [
+				{
+					"name": "Add New Fare Matrix",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"vehicle_type\": \"Sedan\",\r\n\t\"base_fare\": 150.00,\r\n\t\"per_km\": 10.00,\r\n\t\"per_minute\": 5.00,\r\n\t\"surge_rush_threshold\": 3,\r\n\t\"surge_rush_multiplier\": 1.3,\r\n\t\"surge_time_multiplier\": 1.2\r\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/fare/add.php",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"fare",
+								"add.php"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Fare Matrix",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/fare/get.php?id=1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"fare",
+								"get.php"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Fare Matrix",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "http://localhost:8000/api/fare/get.php",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"fare",
+								"get.php"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update a Fare Matrix",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 1,\r\n    \"vehicle_type\": \"Sedan\",\r\n\t\"base_fare\": 150.00,\r\n\t\"per_km\": 10.00,\r\n\t\"per_minute\": 5.00,\r\n\t\"surge_rush_threshold\": 3,\r\n\t\"surge_rush_multiplier\": 1.5,\r\n\t\"surge_time_multiplier\": 1.35\r\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/fare/update.php",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"fare",
+								"update.php"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete a Fare Matrix",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 7\r\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/fare/delete.php",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"fare",
+								"delete.php"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Compute a Fare",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"vehicle_type\": \"Sedan\",\r\n    \"distance_km\": 12.56,\r\n    \"distance_minute\": 96.8,\r\n    \"source_lat\": 14.556764,\r\n    \"source_long\": 121.014685,\r\n    \"radius\": 5\r\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/fare/compute.php",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"fare",
+								"compute.php"
 							]
 						}
 					},

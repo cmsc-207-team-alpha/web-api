@@ -5,7 +5,7 @@ class Sms
 {
     private $authToken;
     private $smsHost;
-    private $provisionedNo;    
+    private $provisionedNo;
 
     public function __construct()
     {
@@ -14,16 +14,15 @@ class Sms
         $this->smsHost = $config['telstra_sms_host'];
         $this->provisionedNo = $config['telstra_provisioned_no'];
         $tokenResponse = $this->getToken($config['telstra_auth_host'], $config['telstra_client_id'], $config['telstra_client_secret'], $config['telstra_grant_type']);
-        echo $tokenResponse;
         $this->authToken = $tokenResponse->token_type . ' ' . $tokenResponse->access_token;
     }
 
-    private function getToken($host, $clientId, $clientSecret, $grantType) 
+    private function getToken($host, $clientId, $clientSecret, $grantType)
     {
         $curl = curl_init();
         curl_setopt($curl, CURLOPT_URL, $host);
         curl_setopt($curl, CURLOPT_HTTPHEADER, array(
-            'Content-Type: application/json; charset=utf-8',
+            'Content-Type: application/x-www-form-urlencoded',
         ));
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($curl, CURLOPT_HEADER, false);
@@ -34,7 +33,7 @@ class Sms
         $response = curl_exec($curl);
         curl_close($curl);
 
-        return $response;
+        return json_decode($response);
     }
 
     public function send($recipient, $message)
@@ -44,8 +43,7 @@ class Sms
             'body' => $message,
             'from' => $this->provisionedNo,
             'validity' => 5,
-            'scheduledDelivery' => 1,
-            'replyRequest' => false
+            'replyRequest' => false,
         );
 
         $fields = json_encode($payload);
@@ -65,6 +63,6 @@ class Sms
         $response = curl_exec($curl);
         curl_close($curl);
 
-        return $response;
+        return json_decode($response);
     }
 }

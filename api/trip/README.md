@@ -837,3 +837,69 @@ Status: 200
 
 </details>
 
+
+<details><summary>Sending panic SMS alert</summary>
+
+## Sending panic SMS alert:
+
+### EXPECTED CLIENT
+`Mobile App`
+
+### ENDPOINT
+`[website base address]/api/trip/panic.php`
+
+### REQUEST DETAILS
+
+#### Request Method:
+`POST`
+
+#### Request Body:
+|Member|Data Type|Comment|
+|--|--|--|
+|id|numeric|Trip id|
+
+### RESPONSE DETAILS
+
+#### Response Status Codes:
+|Status|Description|
+|--|--|
+|200|Success|
+|400|Bad Request|
+|405|Method Not Allowed|
+|500|Internal Server Error|
+
+#### Response Body:
+|Member|Data Type|Comment|
+|--|--|--|
+|message|string||
+|id|numeric|The trip id. Present only if operation is successful|
+
+### SAMPLES
+
+#### Sample Request:
+~~~~
+POST [website base address]/api/trip/panic.php HTTP/1.1
+Content-Type: application/json
+
+{
+    "id": 1
+}
+~~~~
+
+#### Sample Response:
+~~~~
+Access-Control-Allow-Methods: POST
+Access-Control-Allow-Orgin: *
+Connection: close
+Content-Type: Fri, 13 Apr 2018 11:53:23 +0000
+Date: Fri, 30 Mar 2018 10:18:10 +0000
+Status: 200
+
+{
+    "message": "Panic alert SMS sent.",
+    "id": 1
+}
+~~~~
+
+
+</details>

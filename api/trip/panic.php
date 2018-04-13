@@ -1,5 +1,6 @@
 <?php
 namespace TeamAlpha\Web;
+
 // Require classes
 require $_SERVER['DOCUMENT_ROOT'] . '/api/models/driver.php';
 require $_SERVER['DOCUMENT_ROOT'] . '/api/models/passenger.php';
@@ -72,10 +73,10 @@ if (is_null($input)) {
                 $sms = new Sms();
                 $sms->send(
                     $passenger->panicmobile,
-                    'Team Alpha Panic Alert! ' . $passenger->firstname . ', who\'s currently riding a ' . $vehicle->color . ' ' . $vehicle->make . ' ' . $vehicle->model . ' having a plate no. ' . $vehicle->plateno . ' and driven by ' . $driver->firstname . ' ' . $driver->lastname . ', just clicked our app\'s panic button! Here\'s his\\her trip no for your reference: TRIP-' . $trip->id . '.');
-                
+                    'TEAM ALPHA ALERT! ' . $passenger->firstname . ' just clicked our app\'s panic button. He/she is riding in a ' . $vehicle->color . ' ' . $vehicle->make . ' ' . $vehicle->model . ' with plate number ' . $vehicle->plateno . ' driven by ' . $driver->firstname . ' ' . $driver->lastname . '. Here\'s his/her trip number for your reference: TRIP-' . $trip->id . '.');
+
                 // Reply with successful response
-                Http::ReturnSuccess(array('message' => 'Panic message sent.', 'id' => (int) $trip->id));
+                Http::ReturnSuccess(array('message' => 'Panic alert SMS sent.', 'id' => (int) $trip->id));
             } else {
                 Http::ReturnError(400, array('message' => 'Panic message not sent. No vehicle details associated to the trip.'));
             }
