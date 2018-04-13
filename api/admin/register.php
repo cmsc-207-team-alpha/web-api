@@ -4,6 +4,7 @@ namespace TeamAlpha\Web;
 // Require classes
 require $_SERVER['DOCUMENT_ROOT'] . '/api/utils/db.php';
 require $_SERVER['DOCUMENT_ROOT'] . '/api/utils/http.php';
+require $_SERVER['DOCUMENT_ROOT'] . '/api/utils/sms.php';
 
 // Declare use on objects to be used
 use Exception;
@@ -47,6 +48,14 @@ if (is_null($input)) {
 
         // Commit transaction
         $db->commit();
+
+        // Send SMS
+        if (property_exists($input, 'mobile')) {
+            $sms = new Sms();
+            $sms->send(
+                $input->mobile,
+                'Welcome to the Team Alpha family! Hey ' . $input->firstname . ', you\'ve been registered as an administrator to our awesome ride-hailing platform. See you at work soon!');
+        }
 
         // Reply with successful response
         Http::ReturnCreated('/api/admin/get.php?id=' . $id, array('message' => 'Administrator registered.', 'id' => (int) $id));

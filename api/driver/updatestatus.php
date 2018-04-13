@@ -5,6 +5,7 @@ namespace TeamAlpha\Web;
 require $_SERVER['DOCUMENT_ROOT'] . '/api/utils/db.php';
 require $_SERVER['DOCUMENT_ROOT'] . '/api/utils/email.php';
 require $_SERVER['DOCUMENT_ROOT'] . '/api/utils/http.php';
+require $_SERVER['DOCUMENT_ROOT'] . '/api/utils/sms.php';
 require $_SERVER['DOCUMENT_ROOT'] . '/api/models/driver.php';
 
 // Declare use on objects to be used
@@ -107,6 +108,12 @@ if (is_null($input)) {
             $altbody = 'Hi ' . $driver->firstname . ', There were changes made on your account\'s status. To summarize: ' . $changesalt . ' Please contact Team Alpha for inquiries regarding these actions. Have a nice day! This message was sent by Team Alpha\'s Driver Status Management Module.';
             $email = new Email();
             $email->send($driver->email, $driver->firstname, 'There were changes made to your account', $htmlbody, $altbody);
+
+            // Send SMS
+            $sms = new Sms();
+            $sms->send(
+                $driver->mobile,
+                'Hey ' . $driver->firstname . ', a Team Alpha administrator made some changes on your driver account\'s status. Please check your email for more details.');
 
             // Reply with successful response
             Http::ReturnSuccess(array('message' => 'Driver status updated.', 'id' => $input->id));

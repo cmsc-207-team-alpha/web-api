@@ -5,6 +5,7 @@ namespace TeamAlpha\Web;
 require $_SERVER['DOCUMENT_ROOT'] . '/api/utils/db.php';
 require $_SERVER['DOCUMENT_ROOT'] . '/api/utils/email.php';
 require $_SERVER['DOCUMENT_ROOT'] . '/api/utils/http.php';
+require $_SERVER['DOCUMENT_ROOT'] . '/api/utils/sms.php';
 
 // Declare use on objects to be used
 use Exception;
@@ -57,6 +58,14 @@ if (is_null($input)) {
         $altbody = 'Hi ' . $input->firstname . ', Welcome to Team Alpha Ride Booking Service Network! A Team Alpha administrator will look into your application soon and once you\'re approved, you can start transporting passengers from our network. Once again, welcome to our growing network and enjoy driving soon! This message was sent by Team Alpha\'s Driver Registration Module.';
         $email = new Email();
         $email->send($input->email, $input->firstname, 'Welcome to Team Alpha!', $htmlbody, $altbody);
+
+        // Send SMS
+        if (property_exists($input, 'mobile')) {
+            $sms = new Sms();
+            $sms->send(
+                $input->mobile,
+                'Hey ' . $input->firstname . ', Thank you for your interest on being one of the awesome drivers of Team Alpha. An administrator will review your application soon and we\'ll inform you of the outcome.');
+        }
 
         // Reply with successful response
         Http::ReturnCreated('/api/driver/get.php?id=' . $id, array('message' => 'Driver registered.', 'id' => (int) $id));

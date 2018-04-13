@@ -5,6 +5,7 @@ namespace TeamAlpha\Web;
 require $_SERVER['DOCUMENT_ROOT'] . '/api/utils/db.php';
 require $_SERVER['DOCUMENT_ROOT'] . '/api/utils/email.php';
 require $_SERVER['DOCUMENT_ROOT'] . '/api/utils/http.php';
+require $_SERVER['DOCUMENT_ROOT'] . '/api/utils/sms.php';
 require $_SERVER['DOCUMENT_ROOT'] . '/api/models/driver.php';
 
 // Declare use on objects to be used
@@ -64,6 +65,12 @@ if (is_null($input)) {
             $altbody = 'Hi ' . $driver->firstname . ', Please use this password for logging in to Team Alpha Ride Booking Service: ' . $temppassword . ' Please change your password immediately upon logging in. Have a nice day! This message was sent by Team Alpha\'s Driver Management Module.';
             $email = new Email();
             $email->send($driver->email, $driver->firstname, 'Your new password', $htmlbody, $altbody);
+
+            // Send SMS
+            $sms = new Sms();
+            $sms->send(
+                $driver->mobile,
+                'Hey ' . $driver->firstname . ', please check your email for your new Team Alpha driver account password. Cheers!');
 
             // Reply with successful response
             Http::ReturnSuccess(array('message' => 'Driver password updated. New password was sent via email.', 'id' => $driver->id));
