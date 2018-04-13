@@ -2,6 +2,7 @@
 namespace TeamAlpha\Web;
 
 // Require classes
+require $_SERVER['DOCUMENT_ROOT'] . '/api/models/driver.php';
 require $_SERVER['DOCUMENT_ROOT'] . '/api/utils/db.php';
 require $_SERVER['DOCUMENT_ROOT'] . '/api/utils/http.php';
 
@@ -35,6 +36,9 @@ if (is_null($input)) {
         if ($db->execute() === 0) {
             Http::ReturnError(404, array('message' => 'Driver not found.'));
         } else {
+            // Driver was found
+            $record = $db->fetchAll()[0];
+
             // Create Db object
             $db = new Db('UPDATE `driver` SET firstname = :firstname, lastname = :lastname, email = :email, password = :password, address = :address, mobile = :mobile, photo = :photo, datemodified = :datemodified WHERE id = :id');
 
@@ -43,7 +47,7 @@ if (is_null($input)) {
             $db->bindParam(':firstname', property_exists($input, 'firstname') ? $input->firstname : null);
             $db->bindParam(':lastname', property_exists($input, 'lastname') ? $input->lastname : null);
             $db->bindParam(':email', property_exists($input, 'email') ? $input->email : null);
-            $db->bindParam(':password', property_exists($input, 'password') ? password_hash($input->password, PASSWORD_DEFAULT) : null);
+            $db->bindParam(':password', property_exists($input, 'password') && $input->password !== '' ? password_hash($input->password, PASSWORD_DEFAULT) : $record['password']);
             $db->bindParam(':address', property_exists($input, 'address') ? $input->address : null);
             $db->bindParam(':mobile', property_exists($input, 'mobile') ? $input->mobile : null);
             $db->bindParam(':photo', property_exists($input, 'photo') ? $input->photo : null);
