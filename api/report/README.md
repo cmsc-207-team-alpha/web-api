@@ -81,12 +81,6 @@ Status: 200
 #### Request Method:
 `GET`
 
-#### Request Parameter:
-|Name|Description|
-|--|--|
-|datestart|Optional. Date coverage start|
-|dateend|Optional. Date coverage end|
-
 ### RESPONSE DETAILS
 
 #### Response Status Codes:

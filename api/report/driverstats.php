@@ -26,10 +26,6 @@ try {
             (SELECT COUNT(id) FROM `driver` WHERE active = 1) totalactive,
             (SELECT COUNT(id) FROM `driver` WHERE blocked = 1) totalblocked');
 
-    // Bind parameters
-    $db->bindParam(':datestart', $datestart);
-    $db->bindParam(':dateend', $dateend);
-
     // Execute query
     $db->execute();
 
