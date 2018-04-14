@@ -24,8 +24,8 @@ $input = json_decode(file_get_contents("php://input"));
 if (is_null($input)) {
     Http::ReturnError(400, array('message' => 'Administrator details are empty.'));
 } else {
-    if ((!property_exists($input, 'email') && !property_exists($input, 'mobile')) || !property_exists($input, 'password')) {        
-        Http::ReturnError(400, array('message' => 'Email / mobile or password was not provided.'));
+    if ((!property_exists($input, 'email') && !!property_exists($input, 'password')) {        
+        Http::ReturnError(400, array('message' => 'Email or password was not provided.'));
         return;
     }
 
@@ -36,8 +36,6 @@ if (is_null($input)) {
         // Bind parameters
         if (property_exists($input, 'email')) {
             $db->bindParam(':email', property_exists($input, 'email') ? $input->email :null);
-        } else {
-            $db->bindParam(':mobile', property_exists($input, 'mobile') ? $input->mobile : null);
         }
 
         // Execute
