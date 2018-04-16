@@ -40,6 +40,7 @@ if (is_null($vals)) {
         $response = array();
         while ($sp = mysqli_fetch_array($get)) {
 	    $payment="";
+            $payment->id = "$sp[id]";
             $payment->tripid = "$sp[tripid]";
             $payment->date = "$sp[date]";
             $payment->amount = "$sp[amount]";

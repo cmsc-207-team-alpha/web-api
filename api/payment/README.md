@@ -113,7 +113,11 @@ Note* Not setting any from and to date will retrieve all the recorded payments
 |Member|Data Type|Comment|
 |--|--|--|
 |message|string||
-|id|string|List of Payments|
+|id|numeric||
+|tripid|numeric||
+|amount|decimal||
+|date|datetime||
+|mode|string||
 
 ### SAMPLES
 
@@ -141,6 +145,7 @@ Status: 201
 
 [
     {
+        "id": 1,
         "tripid": 1,
         "amount": 1400,
         "date": "2018-02-06",
