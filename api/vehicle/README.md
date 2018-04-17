@@ -252,6 +252,148 @@ Status: 200
 </details>
 
 
+<details><summary>Getting vehicle with driver details list</summary>
+
+## Getting vehicle with driver details list:
+
+### EXPECTED CLIENT
+`Web Portal`
+
+### ENDPOINT
+`[website base address]/api/vehicle/getwithdriver.php`
+
+### REQUEST DETAILS
+
+#### Request Method:
+`GET`
+
+#### Request Parameter:
+|Name|Description|
+|--|--|
+
+
+### RESPONSE DETAILS
+
+#### Response Status Codes:
+|Status|Description|
+|--|--|
+|200|Success|
+|405|Method Not Allowed|
+|500|Internal Server Error|
+
+#### Response Body:
+**Array of:**
+
+|Member|Data Type|Comment|
+|--|--|--|
+|id |numeric||
+|driverid|numeric||
+|plateno|string||
+|type|string||
+|make|string||
+|model|string||
+|color|string||
+|active|numeric|1 or 0. Indicates if the vehicle is currently driven by a driver on duty|
+|available|numeric|1 or 0. Indicates if the vehicle is available for a trip request|
+|locationlat|decimal|Current location - latitude|
+|locationlong|decimal|Current location - longitude|
+|driverfirstname|string||
+|driverlastname|string||
+|driveremail|string||
+|drivermobile|string||
+
+### SAMPLES
+
+#### Sample Request:
+~~~~
+GET [website base address]/api/vehicle/getwithdriver.php HTTP/1.1 
+~~~~
+
+#### Sample Response:
+~~~~
+Access-Control-Allow-Methods: GET
+Access-Control-Allow-Orgin: *
+Connection: close
+Content-Type: application/json; charset=UTF-8
+Date: Wed, 28 Mar 2018 12:29:23 +0000
+Status: 200
+
+[
+    {
+        "id": 1,
+        "driverid": 1,
+        "plateno": "ABC123",
+        "type": "Sedan",
+        "make": "Toyota",
+        "model": "Vios",
+        "color": "Space Grey",
+        "active": 1,
+        "available": 1,
+        "locationlat": 14.58899,
+        "locationlong": 120.975238,
+        "driverfirstname": "John",
+        "driverlastname": "Doe",
+        "driveremail": "john@delacruz.com",
+        "drivermobile": "09211111111"
+    },
+    {
+        "id": 2,
+        "driverid": 9,
+        "plateno": "BLAH123",
+        "type": "Van",
+        "make": "Mercedes-Benz",
+        "model": "Sprinter",
+        "color": "Green",
+        "active": 1,
+        "available": 0,
+        "locationlat": 14.526913,
+        "locationlong": 121.033044,
+        "driverfirstname": "Jojo",
+        "driverlastname": "Sardez",
+        "driveremail": "jojosardez@yahoo.com-old",
+        "drivermobile": "0923212121"
+    },
+    {
+        "id": 3,
+        "driverid": 11,
+        "plateno": "THE123",
+        "type": "Sedan",
+        "make": "Mazda",
+        "model": "3",
+        "color": "White",
+        "active": 0,
+        "available": 0,
+        "locationlat": 14.545108,
+        "locationlong": 121.016993,
+        "driverfirstname": "Jojo",
+        "driverlastname": "Sardez",
+        "driveremail": "jojosardez@yahoo.com",
+        "drivermobile": "+61449034769"
+    },
+    {
+        "id": 4,
+        "driverid": 1,
+        "plateno": "ARF434",
+        "type": "Compact",
+        "make": "Nissan",
+        "model": "Sentra",
+        "color": "Blue",
+        "active": 1,
+        "available": 1,
+        "locationlat": 14.571765,
+        "locationlong": 121.059175,
+        "driverfirstname": "John",
+        "driverlastname": "Doe",
+        "driveremail": "john@delacruz.com",
+        "drivermobile": "09211111111"
+    }
+]
+~~~~
+
+
+</details>
+
+
 <details><summary>Getting a driver's vehicles</summary>
 
 ## Getting a driver's vehicles:
@@ -329,6 +471,99 @@ Status: 200
         "available": 1,
         "locationlat": 14.58899,
         "locationlong": 120.975238
+    }
+]
+~~~~
+
+
+</details>
+
+
+<details><summary>Getting a driver's vehicles with driver details</summary>
+
+## Getting a driver's vehicles with driver details:
+
+### EXPECTED CLIENT
+`Web Portal`
+`Mobile App`
+
+### ENDPOINT
+`[website base address]/api/vehicle/getwithdriver.php`
+
+### REQUEST DETAILS
+
+#### Request Method:
+`GET`
+
+#### Request Parameter:
+|Name|Description|
+|--|--|
+|driverid|Id of the driver|
+
+
+### RESPONSE DETAILS
+
+#### Response Status Codes:
+|Status|Description|
+|--|--|
+|200|Success|
+|405|Method Not Allowed|
+|500|Internal Server Error|
+
+#### Response Body:
+**Array of:**
+
+|Member|Data Type|Comment|
+|--|--|--|
+|id |numeric||
+|driverid|numeric||
+|plateno|string||
+|type|string||
+|make|string||
+|model|string||
+|color|string||
+|active|numeric|1 or 0. Indicates if the vehicle is currently driven by a driver on duty|
+|available|numeric|1 or 0. Indicates if the vehicle is available for a trip request|
+|locationlat|decimal|Current location - latitude|
+|locationlong|decimal|Current location - longitude|
+|driverfirstname|string||
+|driverlastname|string||
+|driveremail|string||
+|drivermobile|string||
+
+### SAMPLES
+
+#### Sample Request:
+~~~~
+GET [website base address]/api/vehicle/getwithdriver.php?driverid=1 HTTP/1.1 
+~~~~
+
+#### Sample Response:
+~~~~
+Access-Control-Allow-Methods: GET
+Access-Control-Allow-Orgin: *
+Connection: close
+Content-Type: application/json; charset=UTF-8
+Date: Wed, 28 Mar 2018 12:29:23 +0000
+Status: 200
+
+[
+    {
+        "id": 1,
+        "driverid": 1,
+        "plateno": "ABC123",
+        "type": "Sedan",
+        "make": "Toyota",
+        "model": "Vios",
+        "color": "Space Grey",
+        "active": 1,
+        "available": 1,
+        "locationlat": 14.58899,
+        "locationlong": 120.975238,
+        "driverfirstname": "John",
+        "driverlastname": "Doe",
+        "driveremail": "john@delacruz.com",
+        "drivermobile": "09211111111"
     }
 ]
 ~~~~
@@ -415,6 +650,117 @@ Status: 200
         "available": 1,
         "locationlat": 14.58899,
         "locationlong": 120.975238
+    }
+]
+~~~~
+
+
+</details>
+
+
+<details><summary>Getting vehicles with driver details within a point \ location and radius</summary>
+
+## Getting vehicles with driver details within a point \ location and radius:
+
+### EXPECTED CLIENT
+`Web Portal`
+
+### ENDPOINT
+`[website base address]/api/vehicle/getwithdriver.php`
+
+### REQUEST DETAILS
+
+#### Request Method:
+`GET`
+
+#### Request Parameter:
+|Name|Description|
+|--|--|
+|sourcelat|Location point latitude|
+|sourcelong|Location point longitude|
+|radius|Location range in km|
+
+
+### RESPONSE DETAILS
+
+#### Response Status Codes:
+|Status|Description|
+|--|--|
+|200|Success|
+|405|Method Not Allowed|
+|500|Internal Server Error|
+
+#### Response Body:
+**Array of:**
+
+|Member|Data Type|Comment|
+|--|--|--|
+|id |numeric||
+|driverid|numeric||
+|plateno|string||
+|type|string||
+|make|string||
+|model|string||
+|color|string||
+|active|numeric|1 or 0. Indicates if the vehicle is currently driven by a driver on duty|
+|available|numeric|1 or 0. Indicates if the vehicle is available for a trip request|
+|locationlat|decimal|Current location - latitude|
+|locationlong|decimal|Current location - longitude|
+|driverfirstname|string||
+|driverlastname|string||
+|driveremail|string||
+|drivermobile|string||
+
+### SAMPLES
+
+#### Sample Request:
+~~~~
+GET [website base address]/api/vehicle/getwithdriver.php?sourcelat=14.598155&sourcelong=120.978736&radius=10 HTTP/1.1 
+~~~~
+
+#### Sample Response:
+~~~~
+Access-Control-Allow-Methods: GET
+Access-Control-Allow-Orgin: *
+Connection: close
+Content-Type: application/json; charset=UTF-8
+Date: Wed, 04 Apr 2018 14:21:13 +0000
+Status: 200
+
+[
+    {
+        "id": 1,
+        "driverid": 1,
+        "plateno": "ABC123",
+        "type": "Sedan",
+        "make": "Toyota",
+        "model": "Vios",
+        "color": "Space Grey",
+        "active": 1,
+        "available": 1,
+        "locationlat": 14.58899,
+        "locationlong": 120.975238,
+        "driverfirstname": "John",
+        "driverlastname": "Doe",
+        "driveremail": "john@delacruz.com",
+        "drivermobile": "09211111111"
+    },
+    {
+        "id": 2,
+        "driverid": 9,
+        "plateno": "BLAH123",
+        "type": "Van",
+        "make": "Mercedes-Benz",
+        "model": "Sprinter",
+        "color": "Green",
+        "active": 1,
+        "available": 0,
+        "locationlat": 14.526913,
+        "locationlong": 121.033044,
+        "driverfirstname": "Jojo",
+        "driverlastname": "Sardez",
+        "driveremail": "jojosardez@yahoo.com-old",
+        "drivermobile": "0923212121"
     }
 ]
 ~~~~
