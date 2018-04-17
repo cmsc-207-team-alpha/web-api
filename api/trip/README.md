@@ -261,6 +261,117 @@ Status: 200
 </details>
 
 
+<details><summary>Getting trips with passenger and driver details by stage (and vehicle id and \ or date range)</summary>
+
+## Getting trips with passenger and driver details by stage (and vehicle id and \ or date range):
+
+### EXPECTED CLIENT
+`Web Portal`
+
+### ENDPOINT
+`[website base address]/api/trip/getwithpassengerdriver.php`
+
+### REQUEST DETAILS
+
+#### Request Method:
+`GET`
+
+#### Request Parameter:
+|Name|Description|
+|--|--|
+|stage|Stage of the trip (Could be "Requested", "Assigned", "Accepted", "Rejected", "Ongoing", "Completed", "Cancelled", or "%")|
+|vehicleid|Optional|
+|datestart|Optional. Date coverage start|
+|dateend|Optional. Date coverage end|
+
+### RESPONSE DETAILS
+
+#### Response Status Codes:
+|Status|Description|
+|--|--|
+|200|Success|
+|400|Bad Request|
+|405|Method Not Allowed|
+|500|Internal Server Error|
+
+#### Response Body:
+**Array of:**
+
+|Member|Data Type|Comment|
+|--|--|--|
+|id |numeric||
+|vehicleid|numeric||
+|passengerid|string||
+|source|string||
+|sourcelat|decimal|Source location - latitude|
+|sourcelong|decimal|Source location - longitude|
+|destination|string||
+|destinationlat|decimal|Destination location - latitude|
+|destinationlong|decimal|Destination location - longitude|
+|stage|string|Trip's stage|
+|datestart|datetime||
+|dateend|datetime||
+|amount|decimal||
+|datecreated|datetime||
+|passengerfirstname|string||
+|passengerlastname|string||
+|plateno|string||
+|type|string||
+|make|string||
+|model|string||
+|color|string||
+|driverfirstname|string||
+|driverlastname|string||
+
+### SAMPLES
+
+#### Sample Request:
+~~~~
+GET [website base address]/api/trip/get.php?stage=Completed&vehicleid=1 HTTP/1.1 
+~~~~
+
+#### Sample Response:
+~~~~
+Access-Control-Allow-Methods: GET
+Access-Control-Allow-Orgin: *
+Connection: close
+Content-Type: application/json; charset=UTF-8
+Date: Tue, 17 Apr 2018 13:05:10 +0000
+Status: 200
+
+[
+    {
+        "id": 1,
+        "vehicleid": 1,
+        "passengerid": 1,
+        "source": "Don Pablo Bldg, 114 Amorsolo Street, Legazpi Village, Makati, Kalakhang Maynila, Philippines",
+        "sourcelat": 14.556764,
+        "sourcelong": 121.014685,
+        "destination": "San Agustin Church, General Luna St, Manila, Metro Manila, Philippines",
+        "destinationlat": 14.58899,
+        "destinationlong": 120.975238,
+        "stage": "Completed",
+        "datestart": "2018-04-11 15:11:19",
+        "dateend": "2018-04-11 15:11:39",
+        "amount": null,
+        "datecreated": "2018-03-30 07:38:22",
+        "passengerfirstname": "Pedro",
+        "passengerlastname": "Penduko",
+        "plateno": "ABC123",
+        "type": "Sedan",
+        "make": "Toyota",
+        "model": "Vios",
+        "color": "Space Grey",
+        "driverfirstname": "John",
+        "driverlastname": "Doe"
+    }
+]
+~~~~
+
+
+</details>
+
+
 <details><summary>Getting trips by driver id (and passenger id and \ or date range)</summary>
 
 ## Getting trips by stage (and passenger id and \ or date range):
