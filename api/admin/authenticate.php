@@ -33,7 +33,7 @@ if (is_null($input)) {
 
     try {
         // Create Db object
-        $db = new Db(property_exists($input, 'email') ? 'SELECT * FROM `admin` WHERE email = :email AND active = :active LIMIT 1' : 'SELECT * FROM `admin` WHERE mobile = :mobile AND active = :active LIMIT 1');
+        $db = new Db(property_exists($input, 'email') ? 'SELECT * FROM `admin` WHERE email = :email LIMIT 1' : 'SELECT * FROM `admin` WHERE mobile = :mobile LIMIT 1');
 
         // Bind parameters
         if (property_exists($input, 'email')) {
@@ -41,7 +41,6 @@ if (is_null($input)) {
         } else {
             $db->bindParam(':mobile', property_exists($input, 'mobile') ? $input->mobile : null);
         }
-        $db->bindParam(':active', $active);
 
         // Execute
         if ($db->execute() === 0) {
@@ -52,11 +51,7 @@ if (is_null($input)) {
                 if(password_verify($input->password, $record['password'])) {
                     $_SESSION["admin_id"] = $record['id'];
                     $_SESSION["admin_name"] = $record['firstname'] . ' '. $record['lastname'];
-                    if ($active == 1) {
                     Http::ReturnSuccess(array('message' => 'Authentication success.', 'id' => $record['id']));
-                    } else {
-                        Http::ReturnError(401, array('message' => 'Administrator account is currently deactivated.'));
-                    }
                 } else {
                     Http::ReturnError(401, array('message' => 'Invalid email / mobile and password.'));
                 }
