@@ -51,7 +51,11 @@ if (is_null($input)) {
                 if(password_verify($input->password, $record['password'])) {
                     $_SESSION["admin_id"] = $record['id'];
                     $_SESSION["admin_name"] = $record['firstname'] . ' '. $record['lastname'];
+                    if ($record['active'] == 1) {
                     Http::ReturnSuccess(array('message' => 'Authentication success.', 'id' => $record['id']));
+                    } else (
+                        Http::ReturnError(401, array('message' => 'Administrator account is currently deactivated.'));
+                    }
                 } else {
                     Http::ReturnError(401, array('message' => 'Invalid email / mobile and password.'));
                 }
