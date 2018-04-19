@@ -37,7 +37,7 @@ if (is_null($input)) {
 
         // Bind parameters
         if (property_exists($input, 'email')) {
-            $db->bindParam(':email', property_exists($input, 'email') ? $input->email :null);
+           $db->bindParam(':email', property_exists($input, 'email') ? $input->email :null);
         } else {
             $db->bindParam(':mobile', property_exists($input, 'mobile') ? $input->mobile : null);
         }
@@ -51,17 +51,13 @@ if (is_null($input)) {
                 if(password_verify($input->password, $record['password'])) {
                     $_SESSION["admin_id"] = $record['id'];
                     $_SESSION["admin_name"] = $record['firstname'] . ' '. $record['lastname'];
-                    /*if ($record['active'] == 1) {
                     Http::ReturnSuccess(array('message' => 'Authentication success.', 'id' => $record['id']));
-                    } else (*/
-                        Http::ReturnError(401, array('message' => 'Administrator account is currently deactivated.'));
-                    /*}*/
                 } else {
                     Http::ReturnError(401, array('message' => 'Invalid email / mobile and password.'));
                 }
         }
     } catch (PDOException $pe) {
-        Db::ReturnDbError($pe);
+         Db::ReturnDbError($pe);
     } catch (Exception $e) {
         Http::ReturnError(500, array('message' => 'Server error: ' . $e->getMessage() . '.'));
     }
