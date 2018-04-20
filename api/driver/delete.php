@@ -36,19 +36,35 @@ if (is_null($input)) {
             Http::ReturnError(404, array('message' => 'Driver not found.'));
         } else {
             // Create Db object
-            $db = new Db('DELETE FROM `driver` WHERE id = :id');
+            $db = new Db('SELECT COUNT(*) count FROM `trip` WHERE vehicleid IN (SELECT id from `vehicle` WHERE driverid = :id) LIMIT 1');
 
             // Bind parameters
             $db->bindParam(':id', property_exists($input, 'id') ? $input->id : 0);
 
             // Execute
             $db->execute();
+            
+            // Get record
+            $record = $db->fetchAll()[0];
+            if ((int) $record['count'] > 0) {
+                Http::ReturnError(400, array('message' => 'Cannot delete driver - associated trip records detected.'));
+            }
+            else {
+                // Create Db object
+                $db = new Db('DELETE FROM `driver` WHERE id = :id');
 
-            // Commit transaction
-            $db->commit();
+                // Bind parameters
+                $db->bindParam(':id', property_exists($input, 'id') ? $input->id : 0);
 
-            // Reply with successful response
-            Http::ReturnSuccess(array('message' => 'Driver deleted.', 'id' => $input->id));
+                // Execute
+                $db->execute();
+
+                // Commit transaction
+                $db->commit();
+
+                // Reply with successful response
+                Http::ReturnSuccess(array('message' => 'Driver deleted.', 'id' => $input->id));
+            }
         }
     } catch (PDOException $pe) {
         Db::ReturnDbError($pe);
