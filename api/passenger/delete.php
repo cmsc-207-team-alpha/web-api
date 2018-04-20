@@ -19,22 +19,32 @@ if(is_null($vals))
 	echo json_encode(array('message' => 'No contents to process'));
 	
 }
-else{
-	
-$id=$vals->id;
-//delete query
-$deletequery=mysqli_query($conn, "DELETE FROM passenger WHERE id = $id LIMIT 1");
+else
+{	
+	$id=$vals->id;
+	$get = mysqli_query($conn, "SELECT COUNT(*) count FROM trip WHERE passengerid = $id LIMIT 1");
+	$rv = mysqli_fetch_array($get);
 
-	if(!$deletequery)
+	if ((int) $rv['count'] > 0) 
 	{
 		header('HTTP/1.1 400 Bad Request');
-    echo json_encode(array('message' => 'Query Error'));
-		
+		echo json_encode(array('message' => 'Cannot delete passenger - associated trip records detected.'));
 	}
-	else
+	else 
 	{
-	header('HTTP/1.1 200 OK');
-    echo json_encode(array('message' => 'Successfully deleted the account', 'passengerId' => $id));
+		//delete query
+		$deletequery=mysqli_query($conn, "DELETE FROM passenger WHERE id = $id LIMIT 1")or die(mysqli_error());
+
+		if(!$deletequery)
+		{
+			header('HTTP/1.1 400 Bad Request');
+			echo json_encode(array('message' => 'Query Error'));			
+		}
+		else
+		{
+			header('HTTP/1.1 200 OK');
+			echo json_encode(array('message' => 'Successfully deleted the account', 'passengerId' => $id));
+		}
 	}
 }
 
