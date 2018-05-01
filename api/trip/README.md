@@ -39,6 +39,7 @@ Trip API contains operations for allocating trips and updating trips' status.
 |--|--|
 |201|Created|
 |400|Bad Request|
+|401|Unauthorized|
 |405|Method Not Allowed|
 |500|Internal Server Error|
 
@@ -116,6 +117,7 @@ Status: 201
 |--|--|
 |200|Success|
 |400|Bad Request|
+|401|Unauthorized|
 |404|Not Found|
 |405|Method Not Allowed|
 |500|Internal Server Error|
@@ -210,6 +212,7 @@ Status: 200
 |--|--|
 |200|Success|
 |400|Bad Request|
+|401|Unauthorized|
 |405|Method Not Allowed|
 |500|Internal Server Error|
 
@@ -291,6 +294,7 @@ Status: 200
 |--|--|
 |200|Success|
 |400|Bad Request|
+|401|Unauthorized|
 |405|Method Not Allowed|
 |500|Internal Server Error|
 
@@ -401,6 +405,7 @@ Status: 200
 |--|--|
 |200|Success|
 |400|Bad Request|
+|401|Unauthorized|
 |405|Method Not Allowed|
 |500|Internal Server Error|
 
@@ -504,6 +509,7 @@ Status: 200
 |--|--|
 |200|Success|
 |400|Bad Request|
+|401|Unauthorized|
 |405|Method Not Allowed|
 |500|Internal Server Error|
 
@@ -572,6 +578,7 @@ Status: 200
 |--|--|
 |200|Success|
 |400|Bad Request|
+|401|Unauthorized|
 |405|Method Not Allowed|
 |500|Internal Server Error|
 
@@ -639,6 +646,7 @@ Status: 200
 |--|--|
 |200|Success|
 |400|Bad Request|
+|401|Unauthorized|
 |405|Method Not Allowed|
 |500|Internal Server Error|
 
@@ -706,6 +714,7 @@ Status: 200
 |--|--|
 |200|Success|
 |400|Bad Request|
+|401|Unauthorized|
 |405|Method Not Allowed|
 |500|Internal Server Error|
 
@@ -773,6 +782,7 @@ Status: 200
 |--|--|
 |200|Success|
 |400|Bad Request|
+|401|Unauthorized|
 |405|Method Not Allowed|
 |500|Internal Server Error|
 
@@ -840,6 +850,7 @@ Status: 200
 |--|--|
 |200|Success|
 |400|Bad Request|
+|401|Unauthorized|
 |405|Method Not Allowed|
 |500|Internal Server Error|
 
@@ -908,6 +919,7 @@ Status: 200
 |--|--|
 |200|Success|
 |400|Bad Request|
+|401|Unauthorized|
 |405|Method Not Allowed|
 |500|Internal Server Error|
 
@@ -976,6 +988,7 @@ Status: 200
 |--|--|
 |200|Success|
 |400|Bad Request|
+|401|Unauthorized|
 |405|Method Not Allowed|
 |500|Internal Server Error|
 

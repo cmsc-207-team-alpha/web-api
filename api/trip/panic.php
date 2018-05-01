@@ -6,14 +6,24 @@ require $_SERVER['DOCUMENT_ROOT'] . '/api/models/driver.php';
 require $_SERVER['DOCUMENT_ROOT'] . '/api/models/passenger.php';
 require $_SERVER['DOCUMENT_ROOT'] . '/api/models/trip.php';
 require $_SERVER['DOCUMENT_ROOT'] . '/api/models/vehicle.php';
+require $_SERVER['DOCUMENT_ROOT'] . '/api/utils/auth.php';
 require $_SERVER['DOCUMENT_ROOT'] . '/api/utils/db.php';
 require $_SERVER['DOCUMENT_ROOT'] . '/api/utils/http.php';
 require $_SERVER['DOCUMENT_ROOT'] . '/api/utils/sms.php';
+
 // Declare use on objects to be used
 use Exception;
 use PDOException;
+
 // HTTP headers for response
 Http::SetDefaultHeaders('POST');
+
+// Check API Key
+if (!Auth::Authenticate()) {
+    Http::ReturnError(401, array('message' => 'Invalid API Key provided.'));    
+    return;
+}
+
 // Check if request method is correct
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     Http::ReturnError(405, array('message' => 'Request method is not allowed.'));

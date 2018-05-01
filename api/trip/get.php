@@ -1,15 +1,26 @@
 <?php
 namespace TeamAlpha\Web;
+
 // Require classes
+require $_SERVER['DOCUMENT_ROOT'] . '/api/utils/auth.php';
 require $_SERVER['DOCUMENT_ROOT'] . '/api/utils/db.php';
 require $_SERVER['DOCUMENT_ROOT'] . '/api/utils/http.php';
 require $_SERVER['DOCUMENT_ROOT'] . '/api/models/trip.php';
 require $_SERVER['DOCUMENT_ROOT'] . '/api/models/triplistitem.php';
+
 // Declare use on objects to be used
 use Exception;
 use PDOException;
+
 // HTTP headers for response
 Http::SetDefaultHeaders('GET');
+
+// Check API Key
+if (!Auth::Authenticate()) {
+    Http::ReturnError(401, array('message' => 'Invalid API Key provided.'));    
+    return;
+}
+
 // Check if request method is correct
 if ($_SERVER['REQUEST_METHOD'] !== 'GET') {
     Http::ReturnError(405, array('message' => 'Request method is not allowed.'));
@@ -18,6 +29,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'GET') {
 $id = 0;
 $vehicleid = 0;
 $stage = '';
+
 // Extract request query string
 if (array_key_exists('id', $_GET)) {
     $id = intval($_GET['id']);

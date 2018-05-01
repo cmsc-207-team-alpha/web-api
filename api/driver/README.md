@@ -35,6 +35,7 @@ Driver API contains operations for manipulating driver information including reg
 |--|--|
 |201|Created|
 |400|Bad Request|
+|401|Unauthorized|
 |405|Method Not Allowed|
 |500|Internal Server Error|
 
@@ -109,6 +110,7 @@ Status: 201
 |Status|Description|
 |--|--|
 |200|Success|
+|401|Unauthorized|
 |404|Not Found|
 |405|Method Not Allowed|
 |500|Internal Server Error|
@@ -188,6 +190,7 @@ Status: 200
 |Status|Description|
 |--|--|
 |200|Success|
+|401|Unauthorized|
 |405|Method Not Allowed|
 |500|Internal Server Error|
 
@@ -287,6 +290,7 @@ Status: 200
 |--|--|
 |200|Success|
 |400|Bad Request|
+|401|Unauthorized|
 |404|Not Found|
 |405|Method Not Allowed|
 |500|Internal Server Error|
@@ -367,6 +371,7 @@ Note: One or all three of those status could be present in the requests.
 |--|--|
 |200|Success|
 |400|Bad Request|
+|401|Unauthorized|
 |404|Not Found|
 |405|Method Not Allowed|
 |500|Internal Server Error|
@@ -436,6 +441,7 @@ Status: 200
 |--|--|
 |200|Success|
 |400|Bad Request|
+|401|Unauthorized|
 |404|Not Found|
 |405|Method Not Allowed|
 |500|Internal Server Error|
@@ -508,6 +514,7 @@ Status: 200
 |--|--|
 |201|Created|
 |400|Bad Request|
+|401|Unauthorized|
 |405|Method Not Allowed|
 |500|Internal Server Error|
 
@@ -579,6 +586,7 @@ Status: 201
 |--|--|
 |200|Success|
 |400|Bad Request|
+|401|Unauthorized|
 |404|Not Found|
 |405|Method Not Allowed|
 |500|Internal Server Error|
@@ -653,6 +661,7 @@ Status: 200
 |--|--|
 |200|Success|
 |400|Bad Request|
+|401|Unauthorized|
 |405|Method Not Allowed|
 |500|Internal Server Error|
 
@@ -733,6 +742,7 @@ Status: 200
 |--|--|
 |200|Success|
 |400|Bad Request|
+|401|Unauthorized|
 |404|Not Found|
 |405|Method Not Allowed|
 |500|Internal Server Error|
@@ -805,6 +815,7 @@ Status: 200
 |--|--|
 |200|Success|
 |400|Bad Request|
+|401|Unauthorized|
 |404|Not Found|
 |405|Method Not Allowed|
 |500|Internal Server Error|
@@ -950,6 +961,7 @@ Note: Either email or mobile should be present in the request.
 |--|--|
 |200|Success|
 |400|Bad Request|
+|401|Unauthorized|
 |404|Not Found|
 |405|Method Not Allowed|
 |500|Internal Server Error|
