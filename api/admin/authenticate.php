@@ -4,6 +4,7 @@ namespace TeamAlpha\Web;
 session_start();
 
 // Require classes
+require $_SERVER['DOCUMENT_ROOT'] . '/api/utils/auth.php';
 require $_SERVER['DOCUMENT_ROOT'] . '/api/utils/db.php';
 require $_SERVER['DOCUMENT_ROOT'] . '/api/utils/http.php';
 
@@ -13,6 +14,13 @@ use PDOException;
 
 // Set default response headers
 Http::SetDefaultHeaders('POST');
+
+// Check API Key
+if (!Auth::Authenticate()) {
+    Http::ReturnError(401, array('message' => 'Invalid API Key provided.'));    
+    return;
+}
+
 
 // Check if request method is correct
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
