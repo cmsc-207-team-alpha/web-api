@@ -35,6 +35,7 @@ Passenger API contains operations for passenger registration and data retrievals
 |--|--|
 |201|Created|
 |400|Bad Request|
+|401|Unauthorized|
 |405|Method Not Allowed|
 |500|Internal Server Error|
 
@@ -117,6 +118,7 @@ Status: 201
 |--|--|
 |201|Created|
 |400|Bad Request|
+|401|Unauthorized|
 |405|Method Not Allowed|
 |500|Internal Server Error|
 
@@ -192,6 +194,7 @@ Status: 201
 |--|--|
 |201|Created|
 |400|Bad Request|
+|401|Unauthorized|
 |405|Method Not Allowed|
 |500|Internal Server Error|
 
@@ -261,6 +264,7 @@ Status: 201
 |--|--|
 |201|Created|
 |400|Bad Request|
+|401|Unauthorized|
 |405|Method Not Allowed|
 |500|Internal Server Error|
 
@@ -331,6 +335,7 @@ Status: 200
 |--|--|
 |201|Created|
 |400|Bad Request|
+|401|Unauthorized|
 |405|Method Not Allowed|
 |500|Internal Server Error|
 
@@ -400,6 +405,7 @@ Status: 201
 |--|--|
 |201|Created|
 |400|Bad Request|
+|401|Unauthorized|
 |405|Method Not Allowed|
 |500|Internal Server Error|
 
@@ -465,6 +471,7 @@ Status: 201
 |--|--|
 |201|Created|
 |400|Bad Request|
+|401|Unauthorized|
 |405|Method Not Allowed|
 |500|Internal Server Error|
 
