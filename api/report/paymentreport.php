@@ -1,5 +1,9 @@
 <?php
 
+
+require $_SERVER['DOCUMENT_ROOT'] . '/api/utils/auth.php';
+require $_SERVER['DOCUMENT_ROOT'] . '/api/utils/http.php';
+
 error_reporting( E_ERROR | E_PARSE | E_CORE_ERROR | E_CORE_WARNING | E_COMPILE_ERROR | E_COMPILE_WARNING );
 $dbconfig = parse_ini_file($_SERVER['DOCUMENT_ROOT'] . '/config/config.ini');
 $host=$dbconfig['db_server'];
@@ -27,7 +31,8 @@ $query="SELECT * FROM payment WHERE
 	date BETWEEN '$from' and '$to'";
 }
 
-	
+	if (Auth::Authenticate()) {
+
 	$get=mysqli_query($conn,"$query");
 	if(mysqli_num_rows($get)>0)
 	{
@@ -47,6 +52,10 @@ $query="SELECT * FROM payment WHERE
 	else{
 		header('HTTP/1.1 400 Bad Request');
     echo json_encode(array('message' => 'No payment in the query'));
+	}
+	else{
+	Http::ReturnError(401, array('message' => 'Invalid API Key provided.'));
+	return;
 	}
 
 	
