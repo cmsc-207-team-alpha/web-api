@@ -32,6 +32,7 @@ Payment API contains operations for accepting payments for trips made.
 |--|--|
 |201|Created|
 |400|Bad Request|
+|401|Unauthorized|
 |405|Method Not Allowed|
 |500|Internal Server Error|
 
@@ -106,6 +107,7 @@ Note* Not setting any from and to date will retrieve all the recorded payments
 |--|--|
 |201|Created|
 |400|Bad Request|
+|401|Unauthorized|
 |405|Method Not Allowed|
 |500|Internal Server Error|
 
@@ -191,6 +193,7 @@ Note* Not setting any from and to date will retrieve all the recorded payments
 |--|--|
 |201|Created|
 |400|Bad Request|
+|401|Unauthorized|
 |405|Method Not Allowed|
 |500|Internal Server Error|
 
@@ -272,6 +275,7 @@ Note* Not setting any from and to date will retrieve all the recorded payments
 |--|--|
 |201|Created|
 |400|Bad Request|
+|401|Unauthorized|
 |405|Method Not Allowed|
 |500|Internal Server Error|
 
