@@ -1,12 +1,17 @@
 <?php
+namespace TeamAlpha\Web;
 error_reporting(E_ERROR | E_PARSE | E_CORE_ERROR | E_CORE_WARNING | E_COMPILE_ERROR | E_COMPILE_WARNING);
 $dbconfig = parse_ini_file($_SERVER['DOCUMENT_ROOT'] . '/config/config.ini');
+require $_SERVER['DOCUMENT_ROOT'] . '/api/utils/auth.php';
 $host = $dbconfig['db_server'];
 $db = $dbconfig['db_name'];
 $user = $dbconfig['db_user'];
 $pass = $dbconfig['db_password'];
 $conn = mysqli_connect("$host", "$user", "$pass", "$db");
-
+if (!Auth::Authenticate()) {
+    Http::ReturnError(401, array('message' => 'Invalid API Key provided.'));    
+    return;
+}
 header('Content-Type: application/json; charset=UTF-8');
 
 if (!isset($_GET['id'])) {
