@@ -3,7 +3,6 @@ namespace TeamAlpha\Web;
 
 // Require classes
 require $_SERVER['DOCUMENT_ROOT'] . '/api/utils/auth.php';
-require $_SERVER['DOCUMENT_ROOT'] . '/api/models/fare.php';
 require $_SERVER['DOCUMENT_ROOT'] . '/api/utils/db.php';
 require $_SERVER['DOCUMENT_ROOT'] . '/api/utils/http.php';
 
