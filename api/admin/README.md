@@ -34,6 +34,7 @@ Admin API contains operations for manipulating administrator information includi
 |--|--|
 |201|Created|
 |400|Bad Request|
+|401|Unauthorized|
 |405|Method Not Allowed|
 |500|Internal Server Error|
 
@@ -105,6 +106,7 @@ Status: 201
 |Status|Description|
 |--|--|
 |200|Success|
+|401|Unauthorized|
 |404|Not Found|
 |405|Method Not Allowed|
 |500|Internal Server Error|
@@ -175,6 +177,7 @@ Status: 200
 |Status|Description|
 |--|--|
 |200|Success|
+|401|Unauthorized|
 |405|Method Not Allowed|
 |500|Internal Server Error|
 
@@ -263,6 +266,7 @@ Status: 200
 |--|--|
 |200|Success|
 |400|Bad Request|
+|401|Unauthorized|
 |404|Not Found|
 |405|Method Not Allowed|
 |500|Internal Server Error|
