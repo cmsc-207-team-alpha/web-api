@@ -3,6 +3,7 @@ namespace TeamAlpha\Web;
 
 // Require classes
 require $_SERVER['DOCUMENT_ROOT'] . '/api/utils/db.php';
+require $_SERVER['DOCUMENT_ROOT'] . '/api/utils/auth.php';
 require $_SERVER['DOCUMENT_ROOT'] . '/api/utils/email.php';
 require $_SERVER['DOCUMENT_ROOT'] . '/api/utils/http.php';
 require $_SERVER['DOCUMENT_ROOT'] . '/api/utils/sms.php';
@@ -20,6 +21,12 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     Http::ReturnError(405, array('message' => 'Request method is not allowed.'));
     return;
 }
+
+// Check API Key
+	if (!Auth::Authenticate()) {
+		Http::ReturnError(401, array('message' => 'Invalid API Key provided.'));    
+		return;
+	}
 
 // Extract request body
 $input = json_decode(file_get_contents("php://input"));
