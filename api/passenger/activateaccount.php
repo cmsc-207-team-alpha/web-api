@@ -3,7 +3,9 @@ namespace TeamAlpha\Web;
 error_reporting( E_ERROR | E_PARSE | E_CORE_ERROR | E_CORE_WARNING | E_COMPILE_ERROR | E_COMPILE_WARNING );
 $dbconfig = parse_ini_file($_SERVER['DOCUMENT_ROOT'] . '/config/config.ini');
 require $_SERVER['DOCUMENT_ROOT'] . '/api/utils/auth.php';
-
+// Declare use on objects to be used
+use Exception;
+use PDOException;
 $host=$dbconfig['db_server'];
 $db=$dbconfig['db_name'];
 $user=$dbconfig['db_user'];
