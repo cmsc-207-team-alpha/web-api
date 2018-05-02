@@ -14,6 +14,9 @@ $db = $dbconfig['db_name'];
 $user = $dbconfig['db_user'];
 $pass = $dbconfig['db_password'];
 $conn = mysqli_connect("$host", "$user", "$pass", "$db");
+// Declare use on objects to be used
+use Exception;
+use PDOException;
 //Check API KEY
 
 if (!Auth::Authenticate()) {
