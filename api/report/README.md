@@ -29,6 +29,7 @@ Report API contains operations for returning statistics which could be used in r
 |Status|Description|
 |--|--|
 |200|Success|
+|401|Unauthorized|
 |405|Method Not Allowed|
 |500|Internal Server Error|
 
@@ -87,6 +88,7 @@ Status: 200
 |Status|Description|
 |--|--|
 |200|Success|
+|401|Unauthorized|
 |405|Method Not Allowed|
 |500|Internal Server Error|
 
@@ -153,6 +155,7 @@ Status: 200
 |Status|Description|
 |--|--|
 |200|Success|
+|401|Unauthorized|
 |405|Method Not Allowed|
 |500|Internal Server Error|
 
@@ -220,6 +223,7 @@ Status: 200
 |Status|Description|
 |--|--|
 |200|Success|
+|401|Unauthorized|
 |405|Method Not Allowed|
 |500|Internal Server Error|
 
@@ -281,6 +285,7 @@ Status: 200
 |Status|Description|
 |--|--|
 |200|Success|
+|401|Unauthorized|
 |405|Method Not Allowed|
 |500|Internal Server Error|
 
@@ -354,6 +359,7 @@ Status: 200
 |Status|Description|
 |--|--|
 |200|Success|
+|401|Unauthorized|
 |405|Method Not Allowed|
 |500|Internal Server Error|
 
