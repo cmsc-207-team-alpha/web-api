@@ -1,12 +1,18 @@
 <?php
+namespace TeamAlpha\Web;
 error_reporting( E_ERROR | E_PARSE | E_CORE_ERROR | E_CORE_WARNING | E_COMPILE_ERROR | E_COMPILE_WARNING );
+require $_SERVER['DOCUMENT_ROOT'] . '/api/utils/auth.php';
 $dbconfig = parse_ini_file($_SERVER['DOCUMENT_ROOT'] . '/config/config.ini');
 $host=$dbconfig['db_server'];
 $db=$dbconfig['db_name'];
 $user=$dbconfig['db_user'];
 $pass=$dbconfig['db_password'];
 $conn=mysqli_connect("$host","$user","$pass","$db");
-
+// Check API Key
+if (!Auth::Authenticate()) {
+    Http::ReturnError(401, array('message' => 'Invalid API Key provided.'));    
+    return;
+}
 
 $url = 'php://input'; // path to your JSON file
 $data = file_get_contents($url); // put the contents of the file into a variable
