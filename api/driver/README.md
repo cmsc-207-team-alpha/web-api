@@ -1001,3 +1001,74 @@ Status: 200
 
 
 </details>
+
+
+<details><summary>Set driver's player id</summary>
+
+### EXPECTED CLIENT
+`Mobile App`
+
+## Set driver's player id:
+
+### ENDPOINT
+`[website base address]/api/driver/setplayerid.php`
+
+### REQUEST DETAILS
+
+#### Request Method:
+`POST`
+
+#### Request Body:
+|Member|Data Type|Comment|
+|--|--|--|
+|id|numeric||
+|playerid|string||
+
+### RESPONSE DETAILS
+
+#### Response Status Codes:
+|Status|Description|
+|--|--|
+|200|Success|
+|400|Bad Request|
+|401|Unauthorized|
+|404|Not Found|
+|405|Method Not Allowed|
+|500|Internal Server Error|
+
+#### Response Body:
+|Member|Data Type|Comment|
+|--|--|--|
+|message|string||
+|id|numeric|Present only if operation is successful|
+
+### SAMPLES
+
+#### Sample Request:
+~~~~
+POST [website base address]/api/driver/setplayerid.php HTTP/1.1
+Content-Type: application/json
+
+{
+	"id": 1,
+	"playerid": "c0bb7827-6f61-46e9-ad53-28068fda6415"
+}
+~~~~
+
+#### Sample Response:
+~~~~
+Access-Control-Allow-Methods: POST
+Access-Control-Allow-Orgin: *
+Connection: close
+Content-Type: application/json; charset=UTF-8
+Date: Sat, 05 May 2018 08:16:48 +0000
+Status: 200
+
+{
+    "message": "Driver Player ID set.",
+    "id": 1
+}
+~~~~
+
+
+</details>

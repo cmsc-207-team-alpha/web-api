@@ -118,7 +118,9 @@ if (is_null($input)) {
                 $onesignal->send(
                     $data,
                     'Trip ended!',
-                    'You\'ve arrived at ' . $trip->destination . '. How\'s your experience, ' . $passenger->firstname . '? Don\'t forget to rate ' . $driver->firstname . ' ' . $driver->lastname . '!');
+                    'You\'ve arrived at ' . $trip->destination . '. How\'s your experience, ' . $passenger->firstname . '? Don\'t forget to rate ' . $driver->firstname . ' ' . $driver->lastname . '!',
+                    $passenger->playerid,
+                    'passenger');
 
                 // Send email
                 $htmlbody = 'Hi ' . $passenger->firstname . ',<br/><br/>You have just arrived at ' . $trip->destination . '!<br/><br/>Thank you for choosing Team Alpha. For your reference, your trip booking number is <strong>TRIP-' . $trip->id . '</strong>.<br/><br/>Have a great day!<br/><br/><br/><small>This message was sent by Team Alpha\'s Trip Module.</small>';

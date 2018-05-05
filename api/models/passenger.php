@@ -33,6 +33,7 @@ class Passenger
             $this->photo = $data['photo'] ?? null;
             $this->datecreated = $data['datecreated'] ?? null;
             $this->datemodified = $data['datemodified'] ?? null;
+            $this->playerid = $data['playerid'] ?? null;
         }
     }
 

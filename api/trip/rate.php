@@ -133,7 +133,9 @@ if (is_null($input)) {
                 $onesignal->send(
                     $data,
                     'Trip rated!',
-                    'Hey ' . $driver->firstname . ', your passenger ' . $passenger->firstname . ' rated his trip with ' . $ratePrefix . $rating . ' ' . $starword . '! ' . $ratePostfix);
+                    'Hey ' . $driver->firstname . ', your passenger ' . $passenger->firstname . ' rated his trip with ' . $ratePrefix . $rating . ' ' . $starword . '! ' . $ratePostfix,
+                    $driver->playerid,
+                    'driver');
             }
 
             // Reply with successful response

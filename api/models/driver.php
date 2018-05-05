@@ -33,6 +33,7 @@ class Driver
             $this->rating = array_key_exists('rating', $data) ? ($data['rating'] === null ? null : (double) $data['rating']) : null;
             $this->datecreated = $data['datecreated'] ?? null;
             $this->datemodified = $data['datemodified'] ?? null;
+            $this->playerid = $data['playerid'] ?? null;
         }
     }
 

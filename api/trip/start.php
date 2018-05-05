@@ -101,7 +101,9 @@ if (is_null($input)) {
                 $onesignal->send(
                     $data,
                     'Trip started!',
-                    'Hey ' . $passenger->firstname . ', ' . $driver->firstname . ' just started the trip. For your safety, please remember to buckle up and be vigilant. Enjoy your awesome trip!');
+                    'Hey ' . $passenger->firstname . ', ' . $driver->firstname . ' just started the trip. For your safety, please remember to buckle up and be vigilant. Enjoy your awesome trip!',
+                    $passenger->playerid,
+                    'passenger');
             }
 
             // Reply with successful response

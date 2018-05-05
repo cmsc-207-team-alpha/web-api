@@ -116,7 +116,9 @@ if (is_null($input)) {
                 $onesignal->send(
                     $data,
                     'Trip accepted!',
-                    'Hey ' . $passenger->firstname . ', your trip request was accepted by a driver named ' . $driver->firstname . ' ' . $driver->lastname . '. Look out for a ' . $vehicle->color . ' ' . $vehicle->make . ' ' . $vehicle->model . ' with pate number ' . $vehicle->plateno . '!');
+                    'Hey ' . $passenger->firstname . ', your trip request was accepted by a driver named ' . $driver->firstname . ' ' . $driver->lastname . '. Look out for a ' . $vehicle->color . ' ' . $vehicle->make . ' ' . $vehicle->model . ' with pate number ' . $vehicle->plateno . '!',
+                    $passenger->playerid,
+                    'passenger');
             }
 
             // Reply with successful response

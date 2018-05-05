@@ -120,7 +120,9 @@ if (is_null($input)) {
             $onesignal->send(
                 $data,
                 'Trip assigned!',
-                'Hey ' . $driver->firstname . ', you\'ve been assigned to a trip booked by a passenger named ' . $passenger->firstname . ' ' . $passenger->lastname . '. You have an option to accept or reject it.');
+                'Hey ' . $driver->firstname . ', you\'ve been assigned to a trip booked by a passenger named ' . $passenger->firstname . ' ' . $passenger->lastname . '. You have an option to accept or reject it.',
+                $driver->playerid,
+                'driver');
         }
 
         // Reply with successful response
