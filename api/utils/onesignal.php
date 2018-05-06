@@ -28,9 +28,9 @@ class OneSignal
                 "en" => $content,
             ),
             'include_player_ids' => array($playerid),
-            'tags' => array(
-                "role" => $role
-            )
+            //'tags' => array(
+            //    "role" => $role
+            //)
         );
 
         $fields = json_encode($payload);
