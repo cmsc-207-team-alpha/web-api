@@ -101,8 +101,7 @@ if (is_null($input)) {
                     $data,
                     'Trip cancelled!',
                     'Sorry ' . $driver->firstname . '. Your passenger ' . $passenger->firstname . ' ' . $passenger->lastname . ' cancelled the trip. Just standby cause there will be more passengers needing a lift soon!',
-                    $driver->playerid,
-                    'driver');
+                    $driver->playerid);
             }
 
             // Reply with successful response

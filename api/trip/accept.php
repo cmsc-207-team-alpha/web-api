@@ -117,8 +117,7 @@ if (is_null($input)) {
                     $data,
                     'Trip accepted!',
                     'Hey ' . $passenger->firstname . ', your trip request was accepted by a driver named ' . $driver->firstname . ' ' . $driver->lastname . '. Look out for a ' . $vehicle->color . ' ' . $vehicle->make . ' ' . $vehicle->model . ' with pate number ' . $vehicle->plateno . '!',
-                    $passenger->playerid,
-                    'passenger');
+                    $passenger->playerid);
             }
 
             // Reply with successful response

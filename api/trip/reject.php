@@ -101,8 +101,7 @@ if (is_null($input)) {
                     $data,
                     'Trip rejected!',
                     'Sorry ' . $passenger->firstname . '. Your driver ' . $driver->firstname . ' ' . $driver->lastname . ' rejected your booking. Just standby cause one of our administrators will assign a more awesome driver to you soon!',
-                    $passenger->playerid,
-                    'passenger');
+                    $passenger->playerid);
             }
 
             // Reply with successful response

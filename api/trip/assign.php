@@ -101,8 +101,7 @@ if (is_null($input)) {
                 $data,
                 'Trip assigned!',
                 'Hey ' . $driver->firstname . ', you\'ve been assigned to a trip booked by a passenger named ' . $passenger->firstname . ' ' . $passenger->lastname . '. You have an option to accept or reject it.',
-                $driver->playerid,
-                'driver');
+                $driver->playerid);
 
             // Reply with successful response
             Http::ReturnSuccess(array('message' => 'Trip assigned.', 'id' => $input->id));

@@ -134,8 +134,7 @@ if (is_null($input)) {
                     $data,
                     'Trip rated!',
                     'Hey ' . $driver->firstname . ', your passenger ' . $passenger->firstname . ' rated his trip with ' . $ratePrefix . $rating . ' ' . $starword . '! ' . $ratePostfix,
-                    $driver->playerid,
-                    'driver');
+                    $driver->playerid);
             }
 
             // Reply with successful response

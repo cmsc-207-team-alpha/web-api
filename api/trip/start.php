@@ -102,8 +102,7 @@ if (is_null($input)) {
                     $data,
                     'Trip started!',
                     'Hey ' . $passenger->firstname . ', ' . $driver->firstname . ' just started the trip. For your safety, please remember to buckle up and be vigilant. Enjoy your awesome trip!',
-                    $passenger->playerid,
-                    'passenger');
+                    $passenger->playerid);
             }
 
             // Reply with successful response

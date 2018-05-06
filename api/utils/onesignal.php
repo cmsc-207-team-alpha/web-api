@@ -16,7 +16,7 @@ class OneSignal
         $this->appId = $config['onesignal_appid'];
     }
 
-    public function send($data, $heading, $content, $playerid, $role)
+    public function send($data, $heading, $content, $playerid)
     {
         $payload = array(
             'app_id' => $this->appId,
@@ -27,10 +27,7 @@ class OneSignal
             'contents' => array(
                 "en" => $content,
             ),
-            'include_player_ids' => array($playerid),
-            //'tags' => array(
-            //    "role" => $role
-            //)
+            'include_player_ids' => array($playerid)
         );
 
         $fields = json_encode($payload);
