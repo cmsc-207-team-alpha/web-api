@@ -41,6 +41,7 @@ if (is_null($vals)) {
     $address = $vals->address;
     $mobile = $vals->mobile;
     $pmobile = $vals->panicmobile;
+	$playerid = $vals->playerid;
     $datecreated = date("Y-m-d H:i:s");
     $ac = $email . " " . $lastname;
     $token = md5($ac);
@@ -57,7 +58,7 @@ if (is_null($vals)) {
             echo json_encode(array('message' => 'Passenger details are empty.'));
         } else {
             $qrys = mysqli_query($conn, "INSERT INTO passenger VALUES('','$firstname','$lastname','$semail','$hashed','$address','$mobile','$pmobile',
-'0','0','0','$token','','$datecreated','','$creditcardnumber','')") or die("sql error");
+'0','0','0','$token','','$datecreated','','$creditcardnumber','$playerid')") or die("sql error");
 echo mysqli_error($conn);
             if (!$qrys) {
                 header('HTTP/1.1 400 Bad Request');
