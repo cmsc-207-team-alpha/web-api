@@ -55,12 +55,13 @@ Content-Type: application/json
 {
     "firstname": "Karlo EMil",
     "lastname": "Flores",
-    "email": "karloemilflores@gmail.com",
-    "password": "123456",
+    "email":"keflores@up.edu.ph",
+    "password": "123",
     "address": "Don Pablo Bldg, 114 Amorsolo Street, Legazpi Village, Makati, Kalakhang Maynila, Philippines",
-    "mobile": "0912345677",
-    "creditcardnumber":"123456",
-    "panicmobile": "0912345677"
+    "mobile": "09232341156",
+    "panicmobile": "093434554212",
+    "creditcardnumber": "124566",
+    "playerid":"123"
 }
 ~~~~
 
