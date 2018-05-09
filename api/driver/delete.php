@@ -15,7 +15,7 @@ Http::SetDefaultHeaders('POST');
 
 // Check API Key
 if (!Auth::Authenticate()) {
-    Http::ReturnError(401, array('message' => 'Invalid API Key provided.'));    
+    Http::ReturnError(401, array('message' => 'Invalid API Key provided.'));
     return;
 }
 
@@ -50,22 +50,36 @@ if (is_null($input)) {
 
             // Execute
             $db->execute();
-            
+
             // Get record
             $record = $db->fetchAll()[0];
             if ((int) $record['count'] > 0) {
                 Http::ReturnError(400, array('message' => 'Cannot delete driver - associated trip records detected.'));
-            }
-            else {
+            } else {
                 // Create Db object
-                $db = new Db('DELETE FROM `driver` WHERE id = :id');
-
+                $db = new Db('DELETE FROM `vehicle` WHERE driverid = :id;');
                 // Bind parameters
                 $db->bindParam(':id', property_exists($input, 'id') ? $input->id : 0);
-
                 // Execute
                 $db->execute();
+                // Commit transaction
+                $db->commit();
 
+                // Create Db object
+                $db = new Db('DELETE FROM `driverdocument` WHERE driverid = :id;');
+                // Bind parameters
+                $db->bindParam(':id', property_exists($input, 'id') ? $input->id : 0);
+                // Execute
+                $db->execute();
+                // Commit transaction
+                $db->commit();
+
+                // Create Db object
+                $db = new Db('DELETE FROM `driver` WHERE id = :id;');
+                // Bind parameters
+                $db->bindParam(':id', property_exists($input, 'id') ? $input->id : 0);
+                // Execute
+                $db->execute();
                 // Commit transaction
                 $db->commit();
 
