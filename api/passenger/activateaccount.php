@@ -26,18 +26,19 @@ if(is_null($vals))
 }
 else{
 $token=$vals->token;
+$id=$vals->id;
 //check value
-$checkexisting=mysqli_query($conn, "SELECT * FROM passenger WHERE token LIKE '$token' LIMIT 1");
+$checkexisting=mysqli_query($conn, "SELECT * FROM passenger WHERE token LIKE '$token' && id = $id LIMIT 1");
 if(mysqli_num_rows($checkexisting)>0)
 {
 	$rv=mysqli_fetch_array($checkexisting);
-  $id=$rv['id'];
+  $ids=$rv['id'];
 	
-	$updatepass=mysqli_query($conn,"UPDATE passenger SET active = 1 WHERE id = $id LIMIT 1");
+	$updatepass=mysqli_query($conn,"UPDATE passenger SET verified = 1 WHERE id = $ids LIMIT 1");
   if($updatepass){
 	
 	 header('HTTP/1.1 200 OK');
-    echo json_encode(array('message' => 'Successfully Activated the account: id -> $id'));
+    echo json_encode(array('message' => 'Successfully Activated the account:','id' => $sid));
     }
     else
     {header('HTTP/1.1 400 Bad Request');
