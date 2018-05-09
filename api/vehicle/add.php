@@ -34,16 +34,16 @@ if (is_null($input)) {
 } else {
     try {
         // Create Db object
-        $db = new Db('INSERT INTO `vehicle` (driverid, plateno, vtype, make, model, vcolor, photo, active, available, locationlat, locationlong, datecreated, datemodified)
-                                VALUES (:driverid, :plateno, :vtype, :make, :model, :vcolor, :photo, :active, :available, :locationlat, :locationlong, :datecreated, :datemodified)');
+        $db = new Db('INSERT INTO `vehicle` (driverid, plateno, type, make, model, color, photo, active, available, locationlat, locationlong, datecreated, datemodified)
+                                VALUES (:driverid, :plateno, :type, :make, :model, :color, :photo, :active, :available, :locationlat, :locationlong, :datecreated, :datemodified)');
 
         // Bind parameters
         $db->bindParam(':driverid', property_exists($input, 'driverid') ? $input->driverid : null);
         $db->bindParam(':plateno', property_exists($input, 'plateno') ? $input->plateno : null);
-        $db->bindParam(':vtype', property_exists($input, 'vtype') ? $input->type : null);
+        $db->bindParam(':type', property_exists($input, 'type') ? $input->type : null);
         $db->bindParam(':make', property_exists($input, 'make') ? $input->make : null);
         $db->bindParam(':model', property_exists($input, 'model') ? $input->model : null);
-        $db->bindParam(':vcolor', property_exists($input, 'vcolor') ? $input->color : null);
+        $db->bindParam(':color', property_exists($input, 'color') ? $input->color : null);
         $db->bindParam(':photo', property_exists($input, 'photo') ? $input->photo : null);
         $db->bindParam(':active', 0);
         $db->bindParam(':available', 0);
