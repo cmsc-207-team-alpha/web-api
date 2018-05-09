@@ -37,15 +37,26 @@ $checkexisting=mysqli_query($conn, "SELECT id,email,mobile,password FROM passeng
 
 if(mysqli_num_rows($checkexisting)>0)
 {
+	
+	
 	$rv=mysqli_fetch_array($checkexisting);
+	
 	$id=$rv['id'];
 	$pass=$rv['password'];
+	
+	if($rv['verified']==0)
+	{
+	    header('HTTP/1.1 401 Not Acitvated');
+	    echo json_encode(array('message' => 'Please Activate the account first','id' => $id));
+	}
+	else{
 	 if(password_verify($password, $pass)) {
                 header('HTTP/1.1 200 OK');
 	    echo json_encode(array('message' => 'Successfully Authenticated the account ','id' => $id));
                 } else {
                     Http::ReturnError(401, array('message' => 'Invalid email / mobile and password.'));
                 }
+	}
 	
 }
 else{
