@@ -26,15 +26,15 @@ if(is_null($vals))
 }
 else{
 $token=$vals->token;
-$id=$vals->id;
+$sid=$vals->id;
 //check value
-$checkexisting=mysqli_query($conn, "SELECT * FROM passenger WHERE token LIKE '$token' && id = $id LIMIT 1");
+$checkexisting=mysqli_query($conn, "SELECT * FROM passenger WHERE token LIKE '$token' AND id = $sid LIMIT 1");
 if(mysqli_num_rows($checkexisting)>0)
 {
 	$rv=mysqli_fetch_array($checkexisting);
   $ids=$rv['id'];
 	
-	$updatepass=mysqli_query($conn,"UPDATE passenger SET verified = 1 WHERE id = $ids LIMIT 1");
+	$updatepass=mysqli_query($conn,"UPDATE `passenger` SET `verified` = '1' WHERE `passenger`.`id` = 7");
   if($updatepass){
 	
 	 header('HTTP/1.1 200 OK');
