@@ -67,7 +67,10 @@ echo mysqli_error($conn);
             } else {
 				$name = "$lastname, $firstname";
 				$subject = "Account Activation";
-		    		$link="https://cmsc-207-team-alpha.000webhostapp.com/app/activationlink.php?token=$token";
+		   		$op=mysqli_query($conn,"SELECT id FROM passenger WHERE email LIKE '$semail' LIMIT 1");
+		    		$rs=mysqli_fetch_array($rs);
+		    		$sid=$rs['id'];
+		    		$link="https://cmsc-207-team-alpha.000webhostapp.com/app/activationlink.php?id=$sid&token=$token";
 				// Send email
 				$htmlbody = 'Hi ' . $semail . ',<br/><br/>Here is your Account Activation Link<br/>' . $link . '<br/><br/>Please do Use this Link to activate your account.<br/><br/><br/><small>This message was sent by Team Alpha\'s Passenger Registration Module.</small>';
 				$altbody = 'Hi ' . $semail . ', >Here is your Account Activation Link' . $link . ' Please do Use this link to activate your account. This message was sent by Team Alpha Passenger Registration Module.';
