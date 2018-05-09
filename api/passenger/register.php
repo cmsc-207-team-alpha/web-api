@@ -67,9 +67,10 @@ echo mysqli_error($conn);
             } else {
 				$name = "$lastname, $firstname";
 				$subject = "Account Activation";
+		    		$link="https://cmsc-207-team-alpha.000webhostapp.com/app/activationlink.php?token=$token";
 				// Send email
-				$htmlbody = 'Hi ' . $semail . ',<br/><br/>Here is your Account Activation Token<br/>' . $token . '<br/><br/>Please do Use this token to activate your account.<br/><br/><br/><small>This message was sent by Team Alpha\'s Passenger Registration Module.</small>';
-				$altbody = 'Hi ' . $semail . ', Here is your Account Activation Token ' . $token . ' Please do Use this token to activate your account. This message was sent by Team Alpha Passenger Registration Module.';
+				$htmlbody = 'Hi ' . $semail . ',<br/><br/>Here is your Account Activation Link<br/>' . $link . '<br/><br/>Please do Use this Link to activate your account.<br/><br/><br/><small>This message was sent by Team Alpha\'s Passenger Registration Module.</small>';
+				$altbody = 'Hi ' . $semail . ', >Here is your Account Activation Link' . $link . ' Please do Use this link to activate your account. This message was sent by Team Alpha Passenger Registration Module.';
 				$email = new Email();
 				$email->send($semail, $name, 'Account Activation', $htmlbody, $altbody);
 
