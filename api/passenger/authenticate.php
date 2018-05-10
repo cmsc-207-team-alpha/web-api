@@ -1,69 +1,75 @@
 <?php
 namespace TeamAlpha\Web;
-error_reporting( E_ERROR | E_PARSE | E_CORE_ERROR | E_CORE_WARNING | E_COMPILE_ERROR | E_COMPILE_WARNING );
-require $_SERVER['DOCUMENT_ROOT'] . '/api/utils/auth.php';
 
-$dbconfig = parse_ini_file($_SERVER['DOCUMENT_ROOT'] . '/config/config.ini');
-$host=$dbconfig['db_server'];
-$db=$dbconfig['db_name'];
-$user=$dbconfig['db_user'];
-$pass=$dbconfig['db_password'];
-$conn=mysqli_connect("$host","$user","$pass","$db");
+// Require classes
+require $_SERVER['DOCUMENT_ROOT'] . '/api/utils/auth.php';
+require $_SERVER['DOCUMENT_ROOT'] . '/api/utils/db.php';
+require $_SERVER['DOCUMENT_ROOT'] . '/api/utils/http.php';
+
 // Declare use on objects to be used
 use Exception;
 use PDOException;
+
+// Set default response headers
+Http::SetDefaultHeaders('POST');
+
+// Check API Key
 if (!Auth::Authenticate()) {
     Http::ReturnError(401, array('message' => 'Invalid API Key provided.'));    
     return;
 }
-$url = 'php://input'; // path to your JSON file
-$data = file_get_contents($url); // put the contents of the file into a variable
-$vals = json_decode($data); // decode the JSON feed
 
-if(is_null($vals))
-{
-	 header('HTTP/1.1 400 Bad Request');
-    echo json_encode(array('message' => 'No contents to process'));
-	
+// Check if request method is correct
+if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+    Http::ReturnError(405, array('message' => 'Request method is not allowed.'));
+    return;
 }
-else{
-$email=$vals->email;
-$password=$vals->password;
-$hashed=password_hash($password, PASSWORD_DEFAULT);
-$mobile=$vals->mobile;
-//check value
-$checkexisting=mysqli_query($conn, "SELECT id,email,mobile,password FROM passenger WHERE email LIKE '$email' 
-|| mobile LIKE '$mobile' LIMIT 1");
 
-if(mysqli_num_rows($checkexisting)>0)
-{
-	
-	
-	$rv=mysqli_fetch_array($checkexisting);
-	
-	$id=$rv['id'];
-	$pass=$rv['password'];
-	
-	if($rv['verified']==0)
-	{
-	    header('HTTP/1.1 401 Not Acitvated');
-	    echo json_encode(array('message' => 'Please Activate the account first','id' => $id));
-	}
-	else{
-	 if(password_verify($password, $pass)) {
-                header('HTTP/1.1 200 OK');
-	    echo json_encode(array('message' => 'Successfully Authenticated the account ','id' => $id));
+// Extract request body
+$input = json_decode(file_get_contents("php://input"));
+
+if (is_null($input)) {
+    Http::ReturnError(400, array('message' => 'Passenger details are empty.'));
+} else {
+    if ((!property_exists($input, 'email') && !property_exists($input, 'mobile')) || !property_exists($input, 'password')) {        
+        Http::ReturnError(400, array('message' => 'Email / mobile or password was not provided.'));
+        return;
+    }
+
+    try {
+        // Create Db object
+        $db = new Db(property_exists($input, 'email') ? 'SELECT * FROM `passenger` WHERE email = :email LIMIT 1' : 'SELECT * FROM `passenger` WHERE mobile = :mobile LIMIT 1');
+
+        // Bind parameters
+        if (property_exists($input, 'email')) {
+            $db->bindParam(':email', property_exists($input, 'email') ? $input->email :null);
+        } else {
+            $db->bindParam(':mobile', property_exists($input, 'mobile') ? $input->mobile : null);
+        }
+
+        // Execute
+        if ($db->execute() === 0) {
+            Http::ReturnError(404, array('message' => 'Passenger not found.'));
+        } else {            
+            // Passenger was found
+            $record = $db->fetchAll()[0];
+            if ((int) $record['active'] === 0) {
+                Http::ReturnError(401, array('message' => 'Account is inactive.'));
+            } else if ((int) $record['verified'] === 0) {
+                Http::ReturnError(401, array('message' => 'Account is not verified.'));
+            } else if ((int) $record['blocked'] === 1) {
+                Http::ReturnError(401, array('message' => 'Account is blocked.'));
+            } else {
+                if(password_verify($input->password, $record['password'])) {
+                    Http::ReturnSuccess(array('message' => 'Authentication success.', 'id' => $record['id']));
                 } else {
                     Http::ReturnError(401, array('message' => 'Invalid email / mobile and password.'));
                 }
-	}
-	
+            }
+        }
+    } catch (PDOException $pe) {
+        Db::ReturnDbError($pe);
+    } catch (Exception $e) {
+        Http::ReturnError(500, array('message' => 'Server error: ' . $e->getMessage() . '.'));
+    }
 }
-else{
-    header('HTTP/1.1 400 Bad Request');
-    echo json_encode(array('message' => 'Invalid Login Credentials'));
-}
-
-}
-
-?>
