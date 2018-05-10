@@ -68,7 +68,7 @@ echo mysqli_error($conn);
 				$name = "$lastname, $firstname";
 				$subject = "Account Activation";
 		   		$op=mysqli_query($conn,"SELECT id FROM passenger WHERE email LIKE '$semail' LIMIT 1");
-		    		$rs=mysqli_fetch_array($rs);
+		    		$rs=mysqli_fetch_array($op);
 		    		$sid=$rs['id'];
 		    		$link="https://cmsc-207-team-alpha.000webhostapp.com/app/activationlink.php?id=$sid&token=$token";
 				// Send email
