@@ -34,7 +34,7 @@ if(mysqli_num_rows($checkexisting)>0)
 	$rv=mysqli_fetch_array($checkexisting);
   
 	
-	$updatepass=mysqli_query($conn,"UPDATE `passenger` SET `verified` = '1' WHERE `passenger`.`id` = $sid");
+	$updatepass=mysqli_query($conn,"UPDATE `passenger` SET `verified` = '1', `active` = '1' WHERE `passenger`.`id` = $sid");
   if($updatepass){
 	
 	 header('HTTP/1.1 200 OK');
