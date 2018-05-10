@@ -38,7 +38,7 @@ if(mysqli_num_rows($checkexisting)>0)
   if($updatepass){
 	
 	 header('HTTP/1.1 200 OK');
-    echo json_encode(array('message' => 'Successfully Activated the account:','id' => $sid));
+    echo json_encode(array('message' => 'Successfully Activated the account','id' => $sid));
     }
     else
     {header('HTTP/1.1 400 Bad Request');
